@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   es01:
-    image: comworkio/elasticsearch:7.16.1-1.13-arm
+    image: comworkio/elasticsearch:latest-arm
 #    container_name: es01
 #    build:
 #      context: elasticsearch
