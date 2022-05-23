@@ -1,100 +1,104 @@
-version: "3.3"
-
-services:
-#  es01:
-#    image: comworkio/elasticsearch:7.16.1-1.13-arm
-#    container_name: es01
-#    build:
-#      context: elasticsearch
-#      dockerfile: Dockerfile
+#version: "3.3"
+#
+#services:
+##  es01:
+##    image: comworkio/elasticsearch:7.16.1-1.13-arm
+##    container_name: es01
+##    build:
+##      context: elasticsearch
+##      dockerfile: Dockerfile
+##    ports:
+##      - 9200:9200
+##      - 9300:9300
+##    networks:
+##      - elasticstacknet
+##    volumes:
+##      - data01:/usr/share/elasticsearch/data
+##  kib01:
+##    image: comworkio/kibana:7.16.1-1.7-arm
+##    container_name: kib01
+##    build:
+##      context: kibana
+##      dockerfile: Dockerfile
+##    ports:
+##      - 5601:5601
+##    environment:
+##      - ES_PROTO=http
+##      - ES_HOST=es01
+##      - ES_PORT=9200
+##    networks:
+##      - elasticstacknet
+##    depends_on:
+##      - es01
+#
+#  # Displays the results in a Grafana dashborad
+#  grafana:
+#    image: grafana/grafana-oss
+#    restart: unless-stopped
+##    depends_on:
+##      - influxdb
 #    ports:
-#      - 9200:9200
-#      - 9300:9300
-#    networks:
-#      - elasticstacknet
+#      - "3001:3000"
 #    volumes:
-#      - data01:/usr/share/elasticsearch/data
-#  kib01:
-#    image: comworkio/kibana:7.16.1-1.7-arm
-#    container_name: kib01
-#    build:
-#      context: kibana
-#      dockerfile: Dockerfile
-#    ports:
-#      - 5601:5601
-#    environment:
-#      - ES_PROTO=http
-#      - ES_HOST=es01
-#      - ES_PORT=9200
-#    networks:
-#      - elasticstacknet
-#    depends_on:
-#      - es01
+#      - grafana:/var/lib/grafana
+#
+#volumes:
+#  grafana:
+##  data01:
+##    driver: local
+#
+##networks:
+##  elasticstacknet:
+##    driver: bridge
+
+
+
+
+version: '3'
+services:
+  # Tests the current internet connection speed
+  # once per hour and writes the results into an
+  # InfluxDB instance
+  speedtest:
+    image: robinmanuelthiel/speedtest:0.1.1
+    restart: always
+    depends_on:
+      - influxdb
+    environment:
+      - LOOP=true
+      - LOOP_DELAY=3600 # Once per hour
+      - DB_SAVE=true
+      - DB_HOST=http://influxdb:8086
+      - DB_NAME=speedtest
+      - DB_USERNAME=admin
+      - DB_PASSWORD=<MY_PASSWORD>
+
+  # Creates an InfluxDB instance to store the
+  # speed test results
+  influxdb:
+    image: influxdb
+    restart: always
+    volumes:
+      - influxdb:/var/lib/influxdb
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+    environment:
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=<MY_PASSWORD>
+      - INFLUXDB_DB=speedtest
 
   # Displays the results in a Grafana dashborad
   grafana:
-    image: grafana/grafana-oss
-    restart: unless-stopped
-#    depends_on:
-#      - influxdb
+    image: grafana/grafana:latest
+    restart: always
+    depends_on:
+      - influxdb
     ports:
-      - "3001:3000"
+      - 3000:3000
     volumes:
       - grafana:/var/lib/grafana
 
 volumes:
   grafana:
-#  data01:
-#    driver: local
-
-#networks:
-#  elasticstacknet:
-#    driver: bridge
-
-
-
-
-
-#version: "2.3"
-#
-#services:
-#  emby:
-#    image: emby/embyserver:latest
-#    container_name: emby
-#    restart: "unless-stopped"
-#    volumes:
-#      - ./programdata:/config
-#      - ./share:/mnt/share
-#    devices:
-#      - /dev/dri:/dev/dri
-#    environment:
-#      - UID=1000 # user id of the owner of the volumes on the host machine
-#      - GID=1000 # group id of the owner of the volumes on the host machine
-#    networks:
-#      lan:
-#        # Define a static ip for the container. The containter can be accessible by others devices on the LAN network with this IP.
-#        ipv4_address: 192.168.1.155
-#  jellyfin:
-#    image: jellyfin/jellyfin
-#    container_name: jellyfin
-#    user: 1000:1000
-#    restart: "unless-stopped"
-#    volumes:
-#      - ./config:/config
-#      - ./cache:/cache
-#      - ./share:/media
-#    networks:
-#      lan:
-#        # Define a static ip for the container. The containter can be accessible by others devices on the LAN network with this IP.
-#        ipv4_address: 192.168.1.156
-#
-#networks:
-#  lan:
-#    name: lan
-#    driver: macvlan
-#    driver_opts:
-#      parent: eth0 #your ethernet interface
-#    ipam:
-#      config:
-#        - subnet: 192.168.178.0/16 # I use the same subnet as my LAN router.
-
+  influxdb:
