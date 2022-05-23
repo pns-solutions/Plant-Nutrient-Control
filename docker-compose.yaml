@@ -42,8 +42,8 @@ services:
     volumes:
       - grafana:/var/lib/grafana
 
-#volumes:
-#  grafana:
+volumes:
+  grafana:
 #  data01:
 #    driver: local
 
