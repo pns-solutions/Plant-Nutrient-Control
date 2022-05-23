@@ -1,100 +1,100 @@
-#version: "3.3"
-#
-#services:
-##  es01:
-##    image: comworkio/elasticsearch:7.16.1-1.13-arm
-##    container_name: es01
-##    build:
-##      context: elasticsearch
-##      dockerfile: Dockerfile
-##    ports:
-##      - 9200:9200
-##      - 9300:9300
-##    networks:
-##      - elasticstacknet
-##    volumes:
-##      - data01:/usr/share/elasticsearch/data
-##  kib01:
-##    image: comworkio/kibana:7.16.1-1.7-arm
-##    container_name: kib01
-##    build:
-##      context: kibana
-##      dockerfile: Dockerfile
-##    ports:
-##      - 5601:5601
-##    environment:
-##      - ES_PROTO=http
-##      - ES_HOST=es01
-##      - ES_PORT=9200
-##    networks:
-##      - elasticstacknet
-##    depends_on:
-##      - es01
-#
-#  # Displays the results in a Grafana dashborad
-#  grafana:
-#    image: grafana/grafana-oss
-#    restart: unless-stopped
-##    depends_on:
-##      - influxdb
-#    ports:
-#      - "3001:3001"
-#    volumes:
-#      - grafana:/var/lib/grafana
-#
-#volumes:
-#  grafana:
-##  data01:
-##    driver: local
-#
-##networks:
-##  elasticstacknet:
-##    driver: bridge
-#
-#
-#
-#
-
-version: "2.3"
+version: "3.3"
 
 services:
-  emby:
-    image: emby/embyserver:latest
-    container_name: emby
-    restart: "unless-stopped"
-    volumes:
-      - ./programdata:/config
-      - ./share:/mnt/share
-    devices:
-      - /dev/dri:/dev/dri
-    environment:
-      - UID=1000 # user id of the owner of the volumes on the host machine
-      - GID=1000 # group id of the owner of the volumes on the host machine
-    networks:
-      lan:
-        # Define a static ip for the container. The containter can be accessible by others devices on the LAN network with this IP.
-        ipv4_address: 192.168.1.155
-  jellyfin:
-    image: jellyfin/jellyfin
-    container_name: jellyfin
-    user: 1000:1000
-    restart: "unless-stopped"
-    volumes:
-      - ./config:/config
-      - ./cache:/cache
-      - ./share:/media
-    networks:
-      lan:
-        # Define a static ip for the container. The containter can be accessible by others devices on the LAN network with this IP.
-        ipv4_address: 192.168.1.156
+#  es01:
+#    image: comworkio/elasticsearch:7.16.1-1.13-arm
+#    container_name: es01
+#    build:
+#      context: elasticsearch
+#      dockerfile: Dockerfile
+#    ports:
+#      - 9200:9200
+#      - 9300:9300
+#    networks:
+#      - elasticstacknet
+#    volumes:
+#      - data01:/usr/share/elasticsearch/data
+#  kib01:
+#    image: comworkio/kibana:7.16.1-1.7-arm
+#    container_name: kib01
+#    build:
+#      context: kibana
+#      dockerfile: Dockerfile
+#    ports:
+#      - 5601:5601
+#    environment:
+#      - ES_PROTO=http
+#      - ES_HOST=es01
+#      - ES_PORT=9200
+#    networks:
+#      - elasticstacknet
+#    depends_on:
+#      - es01
 
-networks:
-  lan:
-    name: lan
-    driver: macvlan
-    driver_opts:
-      parent: eth0 #your ethernet interface
-    ipam:
-      config:
-        - subnet: 192.168.178.0/16 # I use the same subnet as my LAN router.
+  # Displays the results in a Grafana dashborad
+  grafana:
+    image: grafana/grafana-oss
+    restart: unless-stopped
+#    depends_on:
+#      - influxdb
+    ports:
+      - "3001:3001"
+    volumes:
+      - grafana:/var/lib/grafana
+
+volumes:
+  grafana:
+#  data01:
+#    driver: local
+
+#networks:
+#  elasticstacknet:
+#    driver: bridge
+
+
+
+
+
+#version: "2.3"
+#
+#services:
+#  emby:
+#    image: emby/embyserver:latest
+#    container_name: emby
+#    restart: "unless-stopped"
+#    volumes:
+#      - ./programdata:/config
+#      - ./share:/mnt/share
+#    devices:
+#      - /dev/dri:/dev/dri
+#    environment:
+#      - UID=1000 # user id of the owner of the volumes on the host machine
+#      - GID=1000 # group id of the owner of the volumes on the host machine
+#    networks:
+#      lan:
+#        # Define a static ip for the container. The containter can be accessible by others devices on the LAN network with this IP.
+#        ipv4_address: 192.168.1.155
+#  jellyfin:
+#    image: jellyfin/jellyfin
+#    container_name: jellyfin
+#    user: 1000:1000
+#    restart: "unless-stopped"
+#    volumes:
+#      - ./config:/config
+#      - ./cache:/cache
+#      - ./share:/media
+#    networks:
+#      lan:
+#        # Define a static ip for the container. The containter can be accessible by others devices on the LAN network with this IP.
+#        ipv4_address: 192.168.1.156
+#
+#networks:
+#  lan:
+#    name: lan
+#    driver: macvlan
+#    driver_opts:
+#      parent: eth0 #your ethernet interface
+#    ipam:
+#      config:
+#        - subnet: 192.168.178.0/16 # I use the same subnet as my LAN router.
 
