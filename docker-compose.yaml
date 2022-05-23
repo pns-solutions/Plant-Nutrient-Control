@@ -55,21 +55,28 @@
 #
 #
 
-version: "3.3"
+version: '3.4'
 
 services:
   grafana:
     image: grafana/grafana:latest
-    container_name: grafana
-    restart: always
-    # user: "1000" # needs to be `id -u` // alternatively chown the grafana/data dir to 472:472
-    ports:
-      - "3000:3000" # expose for localhost
+    container_name: monitoring_grafana
+    restart: unless-stopped
     volumes:
-      - $HOME/docker/grafana/data:/var/lib/grafana # data path
-      - $HOME/docker/grafana/grafana.ini:/etc/grafana/grafana.ini
-      - $HOME/docker/grafana/provisioning:/etc/grafana/provisioning
+      - ./data/grafana:/var/lib/grafana
     environment:
-      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=initialpassword
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_DOMAIN=yourdomain.com
+      - GF_SERVER_ROOT_URL=https://yourdomain.com/grafana/
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.grafana.rule=PathPrefix(`/grafana{regex:$$|/.*}`)'
+      - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
+      - 'traefik.frontend.headers.customRequestHeaders=Authorization:-'
+    networks:
+      - pi
+
+networks:
+  pi:
+    external: true
