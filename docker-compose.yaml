@@ -54,51 +54,71 @@
 
 
 
-version: '3'
+version: "3"
 services:
-  # Tests the current internet connection speed
-  # once per hour and writes the results into an
-  # InfluxDB instance
-  speedtest:
-    image: robinmanuelthiel/speedtest:0.1.1
-    restart: always
-    depends_on:
-      - influxdb
-    environment:
-      - LOOP=true
-      - LOOP_DELAY=3600 # Once per hour
-      - DB_SAVE=true
-      - DB_HOST=http://influxdb:8086
-      - DB_NAME=speedtest
-      - DB_USERNAME=admin
-      - DB_PASSWORD=<MY_PASSWORD>
-
-  # Creates an InfluxDB instance to store the
-  # speed test results
-  influxdb:
-    image: influxdb
-    restart: always
-    volumes:
-      - influxdb:/var/lib/influxdb
+  nodered:
+    build: ./nodered
+    image: localbuild/nodered:april2021
+    container_name: nodered
+    restart: unless-stopped
     ports:
-      - "8083:8083"
+      - "1880:1880"
+    volumes:
+      - noderedData:/data
+    networks:
+      - edge
+  grafana:
+    build: ./grafana
+    image: localbuild/grafana:april2021
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafanaData:/var/lib/grafana
+    networks:
+      - edge
+  influxdb:
+    build: ./influx
+    image: localbuild/influxdb:april2021
+    container_name: influxdb
+    restart: unless-stopped
+    environment:
+      INFLUXDB_DB: DBONE
+      INFLUXDB_HTTP_AUTH_ENABLED: "true"
+      INFLUXDB_ADMIN_USER: change
+      INFLUXDB_ADMIN_PASSWORD: this
+      INFLUXDB_USER: and_change
+      INFLUXDB_USER_PASSWORD: this_too
+    ports:
+      - "8082:8082"
       - "8086:8086"
-    environment:
-      - INFLUXDB_ADMIN_USER=admin
-      - INFLUXDB_ADMIN_PASSWORD=<MY_PASSWORD>
-      - INFLUXDB_DB=speedtest
-
-  # Displays the results in a Grafana dashborad
-  grafana:
-    image: grafana/grafana:latest
-    restart: always
-    depends_on:
-      - influxdb
-    ports:
-      - 3000:3000
+      - "8089:8089"
     volumes:
-      - grafana:/var/lib/grafana
+      - influxData:/var/lib/influxdb
+    networks:
+      - edge
+  mosquitto:
+    build: ./mosquitto
+    image: localbuild/mosquitto:april2021
+    container_name: mosquitto
+    restart: unless-stopped
+    ports:
+      - "8883:1883"
+      - "9001:9001"
+    volumes:
+      - mosquittoLog:/mosquitto/log
+      - mosquittoData:/mosquitto/data
+    networks:
+      - edge
+#Create internal link network for Containers
+networks:
+  edge:
 
+#Create Volumes for persistent Storage
 volumes:
-  grafana:
-  influxdb:
+  grafanaData:
+  noderedData:
+  influxData:
+  mosquittoLog:
+  mosquittoData:
