@@ -93,7 +93,8 @@ networks:
     name: lan
     driver: macvlan
     driver_opts:
-      parent: enp3s0 #your ethernet interface
+      parent: eth0 #your ethernet interface
     ipam:
       config:
-        - subnet: 192.168.1.0/16 # I use the same subnet as my LAN router.
+        - subnet: 192.168.178.0/16 # I use the same subnet as my LAN router.
+
