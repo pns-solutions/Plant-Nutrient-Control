@@ -1,124 +1,56 @@
-#version: "3.3"
-#
-#services:
-##  es01:
-##    image: comworkio/elasticsearch:7.16.1-1.13-arm
-##    container_name: es01
-##    build:
-##      context: elasticsearch
-##      dockerfile: Dockerfile
-##    ports:
-##      - 9200:9200
-##      - 9300:9300
-##    networks:
-##      - elasticstacknet
-##    volumes:
-##      - data01:/usr/share/elasticsearch/data
-##  kib01:
-##    image: comworkio/kibana:7.16.1-1.7-arm
-##    container_name: kib01
-##    build:
-##      context: kibana
-##      dockerfile: Dockerfile
-##    ports:
-##      - 5601:5601
-##    environment:
-##      - ES_PROTO=http
-##      - ES_HOST=es01
-##      - ES_PORT=9200
-##    networks:
-##      - elasticstacknet
-##    depends_on:
-##      - es01
-#
-#  # Displays the results in a Grafana dashborad
-#  grafana:
-#    image: grafana/grafana-oss
-#    restart: unless-stopped
-##    depends_on:
-##      - influxdb
+version: "3.3"
+
+services:
+#  es01:
+#    image: comworkio/elasticsearch:7.16.1-1.13-arm
+#    container_name: es01
+#    build:
+#      context: elasticsearch
+#      dockerfile: Dockerfile
 #    ports:
-#      - "3001:3000"
+#      - 9200:9200
+#      - 9300:9300
+#    networks:
+#      - elasticstacknet
 #    volumes:
-#      - grafana:/var/lib/grafana
-#
+#      - data01:/usr/share/elasticsearch/data
+#  kib01:
+#    image: comworkio/kibana:7.16.1-1.7-arm
+#    container_name: kib01
+#    build:
+#      context: kibana
+#      dockerfile: Dockerfile
+#    ports:
+#      - 5601:5601
+#    environment:
+#      - ES_PROTO=http
+#      - ES_HOST=es01
+#      - ES_PORT=9200
+#    networks:
+#      - elasticstacknet
+#    depends_on:
+#      - es01
+
+  # Displays the results in a Grafana dashborad
+  grafana:
+    image: grafana/grafana:7.5.16
+    restart: unless-stopped
+#    depends_on:
+#      - influxdb
+    ports:
+      - "3030:3000"
+    volumes:
+      - grafana:/var/lib/grafana
+
 #volumes:
 #  grafana:
-##  data01:
-##    driver: local
-#
-##networks:
-##  elasticstacknet:
-##    driver: bridge
+#  data01:
+#    driver: local
+
+#networks:
+#  elasticstacknet:
+#    driver: bridge
 
 
 
 
-version: "3"
-services:
-  nodered:
-    build: ./nodered
-    image: localbuild/nodered:april2021
-    container_name: nodered
-    restart: unless-stopped
-    ports:
-      - "1880:1880"
-    volumes:
-      - noderedData:/data
-    networks:
-      - edge
-  grafana:
-    build: ./grafana
-    image: localbuild/grafana:april2021
-    container_name: grafana
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
-    volumes:
-      - grafanaData:/var/lib/grafana
-    networks:
-      - edge
-  influxdb:
-    build: ./influx
-    image: localbuild/influxdb:april2021
-    container_name: influxdb
-    restart: unless-stopped
-    environment:
-      INFLUXDB_DB: DBONE
-      INFLUXDB_HTTP_AUTH_ENABLED: "true"
-      INFLUXDB_ADMIN_USER: change
-      INFLUXDB_ADMIN_PASSWORD: this
-      INFLUXDB_USER: and_change
-      INFLUXDB_USER_PASSWORD: this_too
-    ports:
-      - "8082:8082"
-      - "8086:8086"
-      - "8089:8089"
-    volumes:
-      - influxData:/var/lib/influxdb
-    networks:
-      - edge
-  mosquitto:
-    build: ./mosquitto
-    image: localbuild/mosquitto:april2021
-    container_name: mosquitto
-    restart: unless-stopped
-    ports:
-      - "8883:1883"
-      - "9001:9001"
-    volumes:
-      - mosquittoLog:/mosquitto/log
-      - mosquittoData:/mosquitto/data
-    networks:
-      - edge
-#Create internal link network for Containers
-networks:
-  edge:
-
-#Create Volumes for persistent Storage
-volumes:
-  grafanaData:
-  noderedData:
-  influxData:
-  mosquittoLog:
-  mosquittoData:
