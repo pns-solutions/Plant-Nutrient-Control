@@ -1,19 +1,19 @@
 version: "3.3"
 
 services:
-#  es01:
-#    image: comworkio/elasticsearch:7.16.1-1.13-arm
+  es01:
+    image: comworkio/elasticsearch:7.16.1-1.13-arm
 #    container_name: es01
 #    build:
 #      context: elasticsearch
 #      dockerfile: Dockerfile
-#    ports:
-#      - 9200:9200
-#      - 9300:9300
+    ports:
+      - 9200:9200
+      - 9300:9300
 #    networks:
 #      - elasticstacknet
-#    volumes:
-#      - data01:/usr/share/elasticsearch/data
+    volumes:
+      - data01:/var/lib/elasticsearch
 #  kib01:
 #    image: comworkio/kibana:7.16.1-1.7-arm
 #    container_name: kib01
@@ -44,7 +44,7 @@ services:
 
 volumes:
   grafana:
-#  data01:
+  data01:
 #    driver: local
 
 #networks:
