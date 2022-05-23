@@ -1,56 +1,75 @@
+#version: "3.3"
+#
+#services:
+##  es01:
+##    image: comworkio/elasticsearch:7.16.1-1.13-arm
+##    container_name: es01
+##    build:
+##      context: elasticsearch
+##      dockerfile: Dockerfile
+##    ports:
+##      - 9200:9200
+##      - 9300:9300
+##    networks:
+##      - elasticstacknet
+##    volumes:
+##      - data01:/usr/share/elasticsearch/data
+##  kib01:
+##    image: comworkio/kibana:7.16.1-1.7-arm
+##    container_name: kib01
+##    build:
+##      context: kibana
+##      dockerfile: Dockerfile
+##    ports:
+##      - 5601:5601
+##    environment:
+##      - ES_PROTO=http
+##      - ES_HOST=es01
+##      - ES_PORT=9200
+##    networks:
+##      - elasticstacknet
+##    depends_on:
+##      - es01
+#
+#  # Displays the results in a Grafana dashborad
+#  grafana:
+#    image: grafana/grafana-oss
+#    restart: unless-stopped
+##    depends_on:
+##      - influxdb
+#    ports:
+#      - "3001:3001"
+#    volumes:
+#      - grafana:/var/lib/grafana
+#
+#volumes:
+#  grafana:
+##  data01:
+##    driver: local
+#
+##networks:
+##  elasticstacknet:
+##    driver: bridge
+#
+#
+#
+#
+
 version: "3.3"
 
 services:
-#  es01:
-#    image: comworkio/elasticsearch:7.16.1-1.13-arm
-#    container_name: es01
-#    build:
-#      context: elasticsearch
-#      dockerfile: Dockerfile
-#    ports:
-#      - 9200:9200
-#      - 9300:9300
-#    networks:
-#      - elasticstacknet
-#    volumes:
-#      - data01:/usr/share/elasticsearch/data
-#  kib01:
-#    image: comworkio/kibana:7.16.1-1.7-arm
-#    container_name: kib01
-#    build:
-#      context: kibana
-#      dockerfile: Dockerfile
-#    ports:
-#      - 5601:5601
-#    environment:
-#      - ES_PROTO=http
-#      - ES_HOST=es01
-#      - ES_PORT=9200
-#    networks:
-#      - elasticstacknet
-#    depends_on:
-#      - es01
-
-  # Displays the results in a Grafana dashborad
   grafana:
-    image: grafana/grafana-oss
-    restart: unless-stopped
-#    depends_on:
-#      - influxdb
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: always
+    # user: "1000" # needs to be `id -u` // alternatively chown the grafana/data dir to 472:472
     ports:
-      - "3001:3001"
+      - "3000:3000" # expose for localhost
     volumes:
-      - grafana:/var/lib/grafana
-
-volumes:
-  grafana:
-#  data01:
-#    driver: local
-
-#networks:
-#  elasticstacknet:
-#    driver: bridge
-
-  
-  
-
+      - $HOME/docker/grafana/data:/var/lib/grafana # data path
+      - $HOME/docker/grafana/grafana.ini:/etc/grafana/grafana.ini
+      - $HOME/docker/grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=initialpassword
