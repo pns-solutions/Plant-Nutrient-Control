@@ -38,7 +38,7 @@ services:
 #    depends_on:
 #      - influxdb
     ports:
-      - "3000:3001"
+      - "3001:3001"
     volumes:
       - grafana:/var/lib/grafana
 
