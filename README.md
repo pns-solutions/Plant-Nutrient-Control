@@ -9,3 +9,6 @@ cat ~/.ssh/id_rsa.pub
 https://hub.docker.com/r/comworkio/elasticsearch
 
 https://gitlab.comwork.io/oss/elasticstack/elasticstack-arm
+
+## installation unserer anwendung
+https://getcomposer.org/
