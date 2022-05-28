@@ -59,6 +59,17 @@ services:
       - ./webapplication/assets/composer:/var/www/html/assets/composer
     working_dir: /var/www/html/assets/composer
 
+  #=================================#
+  #      Mosquitto MQTT Broker      #
+  #=================================#
+  mosquitto:
+    image: eclipse-mosquitto
+    volumes:
+      - ./:/mosquitto/:rw
+    ports:
+      - 1883:1883
+      - 9001:9001
+
 
 #====================#
 #      Volumnes      #
