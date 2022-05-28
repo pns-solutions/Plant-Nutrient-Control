@@ -1,6 +1,24 @@
 version: "3.3"
 
+#====================#
+#      Services      #
+#====================#
 services:
+  #=====================#
+  #       WebApp        #
+  #=====================#
+  www:
+    build:
+      context: .
+    ports:
+      - 8080:80
+    volumes:
+      - ./webapplication:/var/www/html/
+
+
+    #=====================#
+    #    elasticsearch    #
+    #=====================#
   es01:
     image: comworkio/elasticsearch:7.16.1-1.13-arm
     container_name: es01
@@ -14,43 +32,97 @@ services:
       - elasticstacknet
     volumes:
       - data01:/usr/share/elasticsearch/data
-  kib01:
-    image: comworkio/kibana:7.16.1-1.7-arm
-    container_name: kib01
-    build:
-      context: kibana
-      dockerfile: Dockerfile
-    ports:
-      - 5601:5601
-    environment:
-      - ES_PROTO=http
-      - ES_HOST=es01
-      - ES_PORT=9200
-    networks:
-      - elasticstacknet
-    depends_on:
-      - es01
 
-    # Displays the results in a Grafana dashborad
+
+
+  #=====================#
+  #       Grafana       #
+  #=====================#
   grafana:
     image: grafana/grafana:7.5.16
     restart: unless-stopped
-    #    depends_on:
-    #      - influxdb
+    depends_on:
+      - es01
     ports:
       - "3030:3000"
     volumes:
       - grafana:/var/lib/grafana
 
+  #=================================#
+  # Composer PHP Dependency Manager #
+  #=================================#
+  composer:
+    image: composer:latest
+    command: [ "composer", "install" ]
+    volumes:
+      - ./webapplication/assets/composer:/var/www/html/assets/composer
+    working_dir: /var/www/html/assets/composer
+
+
+#====================#
+#      Volumnes      #
+#====================#
 volumes:
   grafana:
   data01:
     driver: local
 
+#====================#
+#      Networks      #
+#====================#
 networks:
   elasticstacknet:
     driver: bridge
 
+
+
+
+
+    #=========================================================#
+    #=========================================================#
+    #             alte sachen / nicht benötigt                #
+    #=========================================================#
+    #=========================================================#
+
+
+    #=====================================#
+    # kibana monitoring von elasticsearch #
+    #=====================================#
+    #  kib01:
+    #    image: comworkio/kibana:7.16.1-1.7-arm
+    #    container_name: kib01
+    #    build:
+    #      context: kibana
+    #      dockerfile: Dockerfile
+    #    ports:
+    #      - 5601:5601
+    #    environment:
+    #      - ES_PROTO=http
+    #      - ES_HOST=es01
+    #      - ES_PORT=9200
+    #    networks:
+    #      - elasticstacknet
+    #    depends_on:
+    #      - es01
+
+
+
+
+    #=====================#
+    # nginx proxy service #
+    #=====================#
+#  mysql:
+#    image: mysql:8.0.22
+#    ports:
+#      - 3306:3306
+#    environment:
+#      MYSQL_ROOT_PASSWORD: 'test'
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin:5.0.0
+#    links:
+#      - mysql:db
+#    ports:
+#      - 8081:80
 
 
 
