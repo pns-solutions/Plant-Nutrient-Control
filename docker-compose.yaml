@@ -68,7 +68,7 @@ services:
   mosquitto:
     container_name: mqtt
     image: eclipse-mosquitto
-    network_mode: host
+#    network_mode: host
     restart: always
     volumes:
       - ./mosquitto/data:/mosquitto/data
