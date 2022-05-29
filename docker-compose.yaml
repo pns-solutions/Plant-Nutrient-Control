@@ -69,8 +69,8 @@ services:
   #=================================#
   mosquitto:
     build: ./mosquitto
-      #    image: eclipse-mosquitto
-    image: localbuild/mosquitto:april2021
+    image: eclipse-mosquitto
+#    image: localbuild/mosquitto:april2021
     container_name: mosquitto
     restart: unless-stopped
     ports:
