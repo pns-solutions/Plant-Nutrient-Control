@@ -33,9 +33,7 @@ services:
     #    elasticsearch    #
     #=====================#
   elasticsearch:
-    build: #./elasticsearch
-      context: elasticsearch
-      dockerfile: Dockerfile
+    build: ./elasticsearch
     image: comworkio/elasticsearch:7.16.1-1.13-arm
     container_name: elasticsearch
     restart: unless-stopped
@@ -46,8 +44,6 @@ services:
       - elasticsearchData:/var/lib/elasticsearch
     networks:
       - edge
-
-
 
   #=====================#
   #       Grafana       #
