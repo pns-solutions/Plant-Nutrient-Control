@@ -44,3 +44,7 @@ combined
 `docker-compose up -d`
 
 `docker-compose restart`
+
+git pull
+docker stop $(docker ps -a -q)
+docker-compose up -d

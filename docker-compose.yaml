@@ -26,7 +26,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - applicationData:/var/www/html/
+      - ./application:/var/www/html/
     networks:
       - edge
 
