@@ -18,7 +18,9 @@ services:
 #    networks:
 #      - edge
   application:
-    build: ./application
+    build:
+      context: .
+      dockerfile: application/Dockerfile
     container_name: application
     restart: unless-stopped
     ports:
