@@ -17,15 +17,15 @@ services:
 #      - applicationData:/var/www/html/
 #    networks:
 #      - edge
-  www:
-    container_name: www
+  application:
+    container_name: application
     build:
       context: .
-      dockerfile: ./webapplication/Dockerfile
+      dockerfile: application/Dockerfile
     ports:
       - 8080:80
     volumes:
-      - ./webapplication:/var/www/html/
+      - ./application:/var/lib/application
 
 
     #=====================#
