@@ -49,7 +49,7 @@ combined
 copy all in your console:
 
 ```shell
-git pull
+sudo git pull
 docker stop $(docker ps -a -q)
 docker-compose up -d
 ```
