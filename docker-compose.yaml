@@ -15,8 +15,8 @@ services:
       - "8080:80"
     volumes:
       - applicationData:/var/www/html/
-    networks:
-      - edge
+#    networks:
+#      - edge
 #  www:
 #    container_name: www
 #    build:
