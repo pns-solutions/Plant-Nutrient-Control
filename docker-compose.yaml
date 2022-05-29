@@ -7,33 +7,35 @@ services:
   #=====================#
   #       WebApp        #
   #=====================#
-  www:
-    container_name: www
-    build:
-      context: .
-      dockerfile: Dockerfile
+  application:
+    build: ./application
+    container_name: application
+    restart: unless-stopped
     ports:
-      - 8080:80
+      - "8080:80"
     volumes:
-      - ./webapplication:/var/www/html/
+      - applicationData:/var/lib/application
+    networks:
+      - edge
 
 
     #=====================#
     #    elasticsearch    #
     #=====================#
-  es01:
-    container_name: es01
-    image: comworkio/elasticsearch:7.16.1-1.13-arm
+  elasticsearch:
     build:
       context: elasticsearch
       dockerfile: Dockerfile
+    image: comworkio/elasticsearch:7.16.1-1.13-arm
+    container_name: elasticsearch
+    restart: unless-stopped
     ports:
-      - 9200:9200
-      - 9300:9300
-    networks:
-      - elasticstacknet
+      - "9200:9200"
+      - "9300:9300"
     volumes:
-      - data01:/usr/share/elasticsearch/data
+      - elasticsearchData:/var/lib/elasticsearch
+    networks:
+      - edge
 
 
 
@@ -41,15 +43,17 @@ services:
   #       Grafana       #
   #=====================#
   grafana:
-    container_name: grafana
+    build: ./grafana
     image: grafana/grafana:7.5.16
+#    image: localbuild/grafana:april2021
+    container_name: grafana
     restart: unless-stopped
-    depends_on:
-      - es01
     ports:
       - "3030:3000"
     volumes:
-      - grafana:/var/lib/grafana
+      - grafanaData:/var/lib/grafana
+    networks:
+      - edge
 
   #=================================#
   # Composer PHP Dependency Manager #
@@ -59,104 +63,59 @@ services:
     image: composer:latest
     command: [ "composer", "install" ]
     volumes:
-      - ./webapplication/assets/composer:/var/www/html/assets/composer
+      - ./application/assets/composer:/var/www/html/assets/composer
     working_dir: /var/www/html/assets/composer
+    networks:
+      - edge
 
   #=================================#
   #      Mosquitto MQTT Broker      #
   #=================================#
   mosquitto:
-    container_name: mqtt
+    build: ./mosquitto
     image: eclipse-mosquitto
-    network_mode: host
-    restart: always
+#    image: localbuild/mosquitto:april2021
+    container_name: mosquitto
+    restart: unless-stopped
+    ports:
+      - "8883:1883"
+      - "9001:9001"
     volumes:
-      - ./mosquitto/config:/mosquitto/config
-      - ./mosquitto/data:/mosquitto/data
-      - ./mosquitto/log:/mosquitto/log
-#    ports:
-#      - 1883:1883
-#      - 9001:9001
+      - mosquittoLog:/mosquitto/log
+      - mosquittoData:/mosquitto/data
+    networks:
+      - edge
 
   #=================================#
   #            Node Red             #
   #=================================#
-  node-red:
+  nodered:
+    build: ./nodered
     image: nodered/node-red:latest
-    environment:
-      - TZ=Europe/Amsterdam
+#    image: localbuild/nodered:april2021
+    container_name: nodered
+    restart: unless-stopped
     ports:
       - "1880:1880"
-    networks:
-      - node-red-net
     volumes:
-      - node-red-data:/data
+      - noderedData:/data
+    networks:
+      - edge
 
 
 #====================#
 #      Volumnes      #
 #====================#
 volumes:
-  node-red-data:
-  grafana:
-  data01:
-    driver: local
+  grafanaData:
+  noderedData:
+  elasticsearchData:
+  mosquittoLog:
+  mosquittoData:
+  applicationData:
 
 #====================#
 #      Networks      #
 #====================#
 networks:
-  node-red-net:
-  elasticstacknet:
-    driver: bridge
-
-
-
-
-    #=========================================================#
-    #=========================================================#
-    #             alte sachen / nicht benötigt                #
-    #=========================================================#
-    #=========================================================#
-
-
-    #=====================================#
-    # kibana monitoring von elasticsearch #
-    #=====================================#
-    #  kib01:
-    #    image: comworkio/kibana:7.16.1-1.7-arm
-    #    container_name: kib01
-    #    build:
-    #      context: kibana
-    #      dockerfile: Dockerfile
-    #    ports:
-    #      - 5601:5601
-    #    environment:
-    #      - ES_PROTO=http
-    #      - ES_HOST=es01
-    #      - ES_PORT=9200
-    #    networks:
-    #      - elasticstacknet
-    #    depends_on:
-    #      - es01
-
-
-
-
-    #=====================#
-    # nginx proxy service #
-    #=====================#
-#  mysql:
-#    image: mysql:8.0.22
-#    ports:
-#      - 3306:3306
-#    environment:
-#      MYSQL_ROOT_PASSWORD: 'test'
-#  phpmyadmin:
-#    image: phpmyadmin/phpmyadmin:5.0.0
-#    links:
-#      - mysql:db
-#    ports:
-#      - 8081:80
-
-
+  edge:
