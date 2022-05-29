@@ -14,9 +14,18 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - applicationData:/var/lib/application
+      - applicationData:/var/www/html/
     networks:
       - edge
+#  www:
+#    container_name: www
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - 8080:80
+#    volumes:
+#      - ./webapplication:/var/www/html/
 
 
     #=====================#

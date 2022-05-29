@@ -1,7 +1,14 @@
 # DockerSetup
 
-get ssh key to clipboard:
-cat ~/.ssh/id_rsa.pub
+## locations
+- Application: `192.168.xxx.xx:8080` // forbidden
+- Elasticsearch: `192.168.xxx.xx:9200`
+- Grafana: `192.168.xxx.xx:3030` | admin:admin (initial)
+- MQTT: `192.168.xxx.xx:8883`
+- NodeRed: `192.168.xxx.xx:1880`
+
+## ssh
+copy ssh key to clipboard: `cat ~/.ssh/id_rsa.pub`
 
 
 ## elasticsearch setup
