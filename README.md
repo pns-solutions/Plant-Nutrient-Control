@@ -1,7 +1,14 @@
 # DockerSetup
 
-get ssh key to clipboard:
-cat ~/.ssh/id_rsa.pub
+## locations
+- Application: `192.168.xxx.xx:8080` // forbidden
+- Elasticsearch: `192.168.xxx.xx:9200` | Will take a few minutes to start after docker compose completes successfully.
+- Grafana: `192.168.xxx.xx:3030` | admin:admin (initial)
+- NodeRed: `192.168.xxx.xx:1880`
+- MQTT: `192.168.xxx.xx:8883` | Does not display HTTPS results. Try a NodeRed flow.
+
+## ssh
+copy ssh key to clipboard: `cat ~/.ssh/id_rsa.pub`
 
 
 ## elasticsearch setup
@@ -26,6 +33,9 @@ Stop all the containers
 Remove all the containers
 `docker rm $(docker ps -a -q)`
 
+combined
+`docker stop $(docker ps -a -q) && rm $(docker ps -a -q)`
+
 
 ## docker compose
 
@@ -34,3 +44,13 @@ Remove all the containers
 `docker-compose up -d`
 
 `docker-compose restart`
+
+## complete restart after change
+copy all in your console:
+
+```shell
+git pull
+docker stop $(docker ps -a -q)
+docker-compose up -d
+```
+
