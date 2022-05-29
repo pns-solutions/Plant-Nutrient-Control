@@ -8,6 +8,7 @@ services:
   #       WebApp        #
   #=====================#
   www:
+    container_name: www
     build:
       context: .
       dockerfile: Dockerfile
@@ -21,8 +22,8 @@ services:
     #    elasticsearch    #
     #=====================#
   es01:
-    image: comworkio/elasticsearch:7.16.1-1.13-arm
     container_name: es01
+    image: comworkio/elasticsearch:7.16.1-1.13-arm
     build:
       context: elasticsearch
       dockerfile: Dockerfile
@@ -40,6 +41,7 @@ services:
   #       Grafana       #
   #=====================#
   grafana:
+    container_name: grafana
     image: grafana/grafana:7.5.16
     restart: unless-stopped
     depends_on:
@@ -53,6 +55,7 @@ services:
   # Composer PHP Dependency Manager #
   #=================================#
   composer:
+    container_name: composer
     image: composer:latest
     command: [ "composer", "install" ]
     volumes:
@@ -63,15 +66,16 @@ services:
   #      Mosquitto MQTT Broker      #
   #=================================#
   mosquitto:
+    container_name: mqtt
     image: eclipse-mosquitto
     network_mode: host
+    restart: always
     volumes:
-      - ./mosquitto:/mosquitto/conf
-#      - ./data:/mosquitto/data
-#      - ./log:/mosquitto/log
-#    ports:
-#      - 1883:1883
-#      - 9001:9001
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    ports:
+      - 1883:1883
+      - 9001:9001
 
 
 #====================#
