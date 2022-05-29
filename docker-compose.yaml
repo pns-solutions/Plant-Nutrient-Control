@@ -68,8 +68,8 @@ services:
   #      Mosquitto MQTT Broker      #
   #=================================#
   mosquitto:
-    build: ./mosquitto
-    image: eclipse-mosquitto:1.6.15
+#    build: ./mosquitto
+    image: eclipse-mosquitto:1.6.14
 #    image: localbuild/mosquitto:april2021
     container_name: mosquitto
     restart: unless-stopped
