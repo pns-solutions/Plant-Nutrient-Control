@@ -2,10 +2,10 @@
 
 ## locations
 - Application: `192.168.xxx.xx:8080` // forbidden
-- Elasticsearch: `192.168.xxx.xx:9200`
+- Elasticsearch: `192.168.xxx.xx:9200` | Will take a few minutes to start after docker compose completes successfully.
 - Grafana: `192.168.xxx.xx:3030` | admin:admin (initial)
-- MQTT: `192.168.xxx.xx:8883`
 - NodeRed: `192.168.xxx.xx:1880`
+- MQTT: `192.168.xxx.xx:8883` | Does not display HTTPS results. Try a NodeRed flow.
 
 ## ssh
 copy ssh key to clipboard: `cat ~/.ssh/id_rsa.pub`
@@ -45,6 +45,12 @@ combined
 
 `docker-compose restart`
 
+## complete restart after change
+copy all in your console:
+
+```shell
 git pull
 docker stop $(docker ps -a -q)
 docker-compose up -d
+```
+

@@ -7,16 +7,6 @@ services:
   #=====================#
   #       WebApp        #
   #=====================#
-#  application:
-#    build: webapplication
-#    container_name: application
-#    restart: unless-stopped
-#    ports:
-#      - "8080:80"
-#    volumes:
-#      - applicationData:/var/www/html/
-#    networks:
-#      - edge
   application:
     build: ./application
     container_name: application
@@ -29,9 +19,9 @@ services:
       - edge
 
 
-    #=====================#
-    #    elasticsearch    #
-    #=====================#
+  #=====================#
+  #    elasticsearch    #
+  #=====================#
   elasticsearch:
     build: ./elasticsearch
     image: comworkio/elasticsearch:7.16.1-1.13-arm
@@ -51,7 +41,7 @@ services:
   grafana:
     build: ./grafana
     image: grafana/grafana:7.5.16
-#    image: localbuild/grafana:april2021
+    #    image: localbuild/grafana:april2021
     container_name: grafana
     restart: unless-stopped
     ports:
@@ -80,7 +70,7 @@ services:
   mosquitto:
     build: ./mosquitto
     image: eclipse-mosquitto
-#    image: localbuild/mosquitto:april2021
+    #    image: localbuild/mosquitto:april2021
     container_name: mosquitto
     restart: unless-stopped
     ports:
@@ -98,7 +88,7 @@ services:
   nodered:
     build: ./nodered
     image: nodered/node-red:latest
-#    image: localbuild/nodered:april2021
+    #    image: localbuild/nodered:april2021
     container_name: nodered
     restart: unless-stopped
     ports:
