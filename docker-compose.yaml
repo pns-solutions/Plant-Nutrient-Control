@@ -71,6 +71,7 @@ services:
 #    network_mode: host
     restart: always
     volumes:
+      - ./mosquitto/config:/mosquitto/config
       - ./mosquitto/data:/mosquitto/data
       - ./mosquitto/log:/mosquitto/log
     ports:
