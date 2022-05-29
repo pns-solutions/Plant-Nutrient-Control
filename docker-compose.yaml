@@ -18,15 +18,13 @@ services:
 #    networks:
 #      - edge
   application:
-    build:
-      context: .
-      dockerfile: application/Dockerfile
+    build: application
     container_name: application
     restart: unless-stopped
     ports:
       - "8080:80"
     volumes:
-      - ./application:/var/www/html/
+      - applicationData:/var/www/html/
     networks:
       - edge
 
