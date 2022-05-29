@@ -21,7 +21,7 @@ services:
     container_name: application
     build:
       context: .
-      dockerfile: application/Dockerfile
+      dockerfile: webapplication/Dockerfile
     ports:
       - 8080:80
     volumes:
