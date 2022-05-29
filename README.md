@@ -49,8 +49,6 @@ combined
 copy all in your console:
 
 ```shell
-sudo git pull
-docker stop $(docker ps -a -q)
-docker-compose up -d
+sudo git pull && docker stop $(docker ps -a -q) && docker-compose up -d
 ```
 
