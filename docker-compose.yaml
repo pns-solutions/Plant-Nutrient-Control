@@ -39,9 +39,9 @@ services:
   #       Grafana       #
   #=====================#
   grafana:
-    build: ./grafana
-    image: grafana/grafana:7.5.16
-    #    image: localbuild/grafana:april2021
+#    build: ./grafana
+#    image: grafana/grafana:7.5.16
+    image: grafana/grafana:latest
     container_name: grafana
     restart: unless-stopped
     ports:
@@ -55,8 +55,8 @@ services:
   # Composer PHP Dependency Manager #
   #=================================#
   composer:
-    container_name: composer
     image: composer:latest
+    container_name: composer
     command: [ "composer", "install" ]
     volumes:
       - ./application/assets/composer:/var/www/html/assets/composer
@@ -68,9 +68,7 @@ services:
   #      Mosquitto MQTT Broker      #
   #=================================#
   mosquitto:
-#    build: ./mosquitto
     image: eclipse-mosquitto:1.6.15
-#    image: localbuild/mosquitto:april2021
     container_name: mosquitto
     restart: unless-stopped
     ports:
@@ -86,7 +84,7 @@ services:
   #            Node Red             #
   #=================================#
   nodered:
-    build: ./nodered
+#    build: ./nodered
     image: nodered/node-red:latest
     #    image: localbuild/nodered:april2021
     container_name: nodered
