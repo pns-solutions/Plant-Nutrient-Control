@@ -78,11 +78,26 @@ services:
 #      - 1883:1883
 #      - 9001:9001
 
+  #=================================#
+  #            Node Red             #
+  #=================================#
+  node-red:
+    image: nodered/node-red:latest
+    environment:
+      - TZ=Europe/Amsterdam
+    ports:
+      - "1880:1880"
+    networks:
+      - node-red-net
+    volumes:
+      - node-red-data:/data
+
 
 #====================#
 #      Volumnes      #
 #====================#
 volumes:
+  node-red-data:
   grafana:
   data01:
     driver: local
@@ -91,9 +106,9 @@ volumes:
 #      Networks      #
 #====================#
 networks:
+  node-red-net:
   elasticstacknet:
     driver: bridge
-
 
 
 
@@ -143,6 +158,5 @@ networks:
 #      - mysql:db
 #    ports:
 #      - 8081:80
-
 
 
