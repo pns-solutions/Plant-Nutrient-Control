@@ -33,6 +33,9 @@ Stop all the containers
 Remove all the containers
 `docker rm $(docker ps -a -q)`
 
+combined
+`docker stop $(docker ps -a -q) && rm $(docker ps -a -q)`
+
 
 ## docker compose
 
