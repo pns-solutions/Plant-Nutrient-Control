@@ -31,8 +31,8 @@ WiFiClient wifiClient;
 MqttClient mqttClient(wifiClient);
 
 //const char broker[] = "192.168.178.22";
-IPAddress broker = {192,168,178,22};
-int        port     = 1883;
+IPAddress broker = {192,168,178,xx};
+int        port     = 8883;
 const char topic[]  = "testTopic";
 
 const long interval = 1000;

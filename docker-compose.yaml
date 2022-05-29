@@ -39,8 +39,6 @@ services:
   #       Grafana       #
   #=====================#
   grafana:
-#    build: ./grafana
-#    image: grafana/grafana:7.5.16
     image: grafana/grafana:latest
     container_name: grafana
     restart: unless-stopped
@@ -84,9 +82,8 @@ services:
   #            Node Red             #
   #=================================#
   nodered:
-#    build: ./nodered
+    build: ./nodered
     image: nodered/node-red:latest
-    #    image: localbuild/nodered:april2021
     container_name: nodered
     restart: unless-stopped
     ports:

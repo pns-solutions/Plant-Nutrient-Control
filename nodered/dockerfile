@@ -1,1 +1,2 @@
-FROM nodered/node-red:latest
+#FROM nodered/node-red:latest
+RUN npm install node-red-contrib-elasticsearch-jd
