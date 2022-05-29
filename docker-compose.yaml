@@ -69,7 +69,7 @@ services:
   #=================================#
   mosquitto:
     build: ./mosquitto
-    image: eclipse-mosquitto:2.0
+    image: eclipse-mosquitto:2.0.0
 #    image: localbuild/mosquitto:april2021
     container_name: mosquitto
     restart: unless-stopped

@@ -46,7 +46,7 @@ combined
 `docker-compose restart`
 
 ## complete restart after change
-copy all in your console:
+
 
 ```shell
 sudo git pull && docker stop $(docker ps -a -q) && docker-compose up -d
