@@ -62,6 +62,11 @@ kill process: `sudo kill 447`
 
 `docker cp 85d0da39ae31:/etc/grafana/grafana.ini .` / copy to current path
 
+#### restart docker
+TLS handshake timeout was an error. Restart docker:
+
+`sudo systemctl restart docker`
+
 
 ## docker compose
 
