@@ -46,7 +46,7 @@ services:
       - "3030:3000"
     volumes:
       - grafanaData:/var/lib/grafana
-      - ./grafana/custom.ini:/etc/grafana/grafana.ini
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
     networks:
       - edge
 

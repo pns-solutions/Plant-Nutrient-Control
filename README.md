@@ -27,17 +27,22 @@ find port blocking process: `sudo lsof -i -P -n | grep 1880`
 kill process: `sudo kill 447`
 
 ## docker
-Stop all the containers
+#### Stop all the containers
 `docker stop $(docker ps -a -q)`
 
-Remove all the containers
+#### Remove all the containers
 `docker rm $(docker ps -a -q)`
 
-combined
+#### combined
 `docker stop $(docker ps -a -q) && rm $(docker ps -a -q)`
 
-open docker container as root user
+#### open docker container as root user
 `docker exec -u root -t -i <CONTAINER_NAME/ID> /bin/bash`
+
+#### copy files from docker to host
+`docker cp <containerId>:/file/path/within/container /host/path/target`
+
+`docker cp 85d0da39ae31:/etc/grafana/grafana.ini .` / copy to current path
 
 
 ## docker compose
