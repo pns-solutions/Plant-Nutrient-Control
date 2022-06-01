@@ -36,6 +36,9 @@ Remove all the containers
 combined
 `docker stop $(docker ps -a -q) && rm $(docker ps -a -q)`
 
+open docker container as root user
+`docker exec -u root -t -i <CONTAINER_NAME/ID> /bin/bash`
+
 
 ## docker compose
 
