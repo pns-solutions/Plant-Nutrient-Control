@@ -3,10 +3,20 @@
 ### installation
 - login to your server (e.g.raspberry-pi) 
   - e.g.: `ssh USERNAME@XXX.XXX.XXX.XX`
+- (optional) install git: `sudo apt install git-all`
 - clone repo to your raspberry pi (or whatever you want to use)
   - SSH: `git clone git@github.com:pns-solutions/DockerSetup.git`
+    - (optional) generate SHH-Key
+      - `ssh-keygen -t rsa`
+      - enter
+      - password
+      - repead
+      - get ssh key: `cat ~/.ssh/id_rsa.pub`
+      - copy key to clipboard
   - HTTPS: `git clone https://github.com/pns-solutions/DockerSetup.git`
 - go to the cloned repository (on your server)
+- (optional) install docker compose
+  - `sudo apt-get update && apt-get install docker-compose`
 - run the following commands:
   - `docker-compose build`
   - `docker-compose up -d`
@@ -24,9 +34,6 @@
 - Grafana: `192.168.xxx.xx:3030` | admin:admin (initial)
 - NodeRed: `192.168.xxx.xx:1880`
 - MQTT: `192.168.xxx.xx:8883` | Does not display HTTPS results. Try a NodeRed flow.
-
-## ssh
-copy ssh key to clipboard: `cat ~/.ssh/id_rsa.pub`
 
 
 ## elasticsearch setup
