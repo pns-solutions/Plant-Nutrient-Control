@@ -1,5 +1,23 @@
 # DockerSetup
 
+### installation
+- login to your server (e.g.raspberry-pi) 
+  - e.g.: `ssh USERNAME@XXX.XXX.XXX.XX`
+- clone repo to your raspberry pi (or whatever you want to use)
+  - SSH: `git clone git@github.com:pns-solutions/DockerSetup.git`
+  - HTTPS: `git clone https://github.com/pns-solutions/DockerSetup.git`
+- go to the cloned repository (on your server)
+- run the following commands:
+  - `docker-compose build`
+  - `docker-compose up -d`
+  - `docker-compose exec application composer update`
+  - `docker-compose exec application composer install`
+  - all in one command:
+    - `docker-compose build && docker-compose up -d && docker-compose exec application composer update && docker-compose exec application composer install`
+
+
+
+
 ## locations
 - Application: `192.168.xxx.xx:8080`
 - Elasticsearch: `192.168.xxx.xx:9200` | Will take a few minutes to start after docker compose completes successfully.

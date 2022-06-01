@@ -3,6 +3,7 @@
 namespace PNS;
 
 use Elasticsearch\ClientBuilder;
+use PhpMqtt\Client\MqttClient;
 
 class PagesController extends Controller{
 
@@ -14,6 +15,7 @@ class PagesController extends Controller{
      */
     public function actionStart() {
         $this->_params['title'] = 'Test';
+
 
 //        header('Content-Type: application/json; charset=utf-8');;
 //

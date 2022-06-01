@@ -9,6 +9,8 @@ services:
   #=====================#
   application:
     build: ./application
+#      context: ./application
+#      dockerfile: Dockerfile
     container_name: application
     restart: unless-stopped
     ports:
@@ -50,18 +52,7 @@ services:
     networks:
       - edge
 
-  #=================================#
-  # Composer PHP Dependency Manager #
-  #=================================#
-  composer:
-    image: composer:latest
-    container_name: composer
-    command: [ "composer", "install" ]
-    volumes:
-      - ./application/assets/composer:/var/www/html/assets/composer
-    working_dir: /var/www/html/assets/composer
-    networks:
-      - edge
+
 
   #=================================#
   #      Mosquitto MQTT Broker      #
@@ -83,7 +74,6 @@ services:
   #            Node Red             #
   #=================================#
   nodered:
-    build: ./nodered
     image: nodered/node-red:latest
     container_name: nodered
     restart: unless-stopped
