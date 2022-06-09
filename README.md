@@ -83,6 +83,8 @@ TLS handshake timeout was an error. Restart docker:
 
 `docker-compose restart`
 
+`docker-compose up -d --force-recreate && docker-compose logs -f`
+
 ## complete restart after change
 
 
