@@ -17,6 +17,12 @@
 - go to the cloned repository (on your server)
 - (optional) install docker compose
   - `sudo apt-get update && apt-get install docker-compose`
+- (optional) adding your user to the docker group 
+  - `sudo usermod -a -G docker $USER`
+  - restart pi: `sudo reboot`
+- (optional) start docker
+  - `sudo systemctl enable docker # Auto-start on boot`
+  - `sudo systemctl start docker # Start right now`
 - run the following commands:
   - `docker-compose build`
   - `docker-compose up -d`
@@ -91,4 +97,12 @@ TLS handshake timeout was an error. Restart docker:
 ```shell
 sudo git pull && docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) && docker-compose up -d
 ```
+
+## Raspberry
+### Shutdown
+`sudo poweroff`
+
+### Restart
+`sudo reboot`
+
 
