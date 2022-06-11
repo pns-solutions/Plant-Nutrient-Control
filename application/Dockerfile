@@ -10,6 +10,8 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli
 
 RUN apt-get -y update
 RUN apt-get -y install git
+RUN apt-get -y install zip
+RUN apt-get -y install unzip
 
 
 # Install system dependencies
