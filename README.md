@@ -24,12 +24,10 @@
   - `sudo systemctl enable docker # Auto-start on boot`
   - `sudo systemctl start docker # Start right now`
 - run the following commands:
-  - `docker-compose build`
-  - `docker-compose up -d`
-  - `docker-compose exec application composer update`
+  - `docker-compose build && docker-compose up -d`
   - `docker-compose exec application composer install`
-  - all in one command:
-    - `docker-compose build && docker-compose up -d && docker-compose exec application composer update && docker-compose exec application composer install`
+  - `docker-compose exec application composer update`
+
 
 
 

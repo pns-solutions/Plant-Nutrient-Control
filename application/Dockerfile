@@ -8,9 +8,13 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli
 #ARG user
 #ARG uid
 
+RUN apt-get -y update
+RUN apt-get -y install git
+
+
 # Install system dependencies
-RUN apt-get update && apt-get install -y \
-    git \
+#RUN apt-get update && apt-get install -y \
+#    git \
 #    curl \
 #    libpng-dev \
 #    libonig-dev \
