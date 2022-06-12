@@ -81,7 +81,7 @@ services:
       - "1880:1880"
     volumes:
       - noderedData:/data
-      - ./nodered/dataFaker.json:/data/lib/flows/dataFaker3.json
+      - ./nodered/dataFaker3.json:/data/lib/flows/dataFaker3.json
     networks:
       - edge
 
