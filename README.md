@@ -28,7 +28,14 @@
   - `docker-compose exec application composer install && docker-compose exec application composer update`
 
 
-
+## DataFaker
+The DataFaker is implemented as a nodered-flow.
+### Import: 
+- menu
+- import
+- local
+- select: dataFaker.json
+- import
 
 
 ## locations
