@@ -1,7 +1,6 @@
 # exclude everything
 /data/
 /logs/
-/logs/logs.txt
 
 # exception to the rule
 !data/.gitkeep
@@ -10,3 +9,4 @@
 /.idea/
 /assets/composer/vendor/*
 .phpunit.result.cache
+/logs/logs.txt

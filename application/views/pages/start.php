@@ -1,8 +1,23 @@
  <!--Start Page-->
- <div >
-<!--     <iframe src="http://192.168.178.22:3030"></iframe>-->
-
-     <iframe src="http://192.168.178.22:3030" style="; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
-     </iframe>
-
- </div>
+ <div class="Content arduinoFlexContainer">
+     <div class="arduinoFlexItem">
+        <h4>Raspberry Pi</h4>
+         <p>Uptime: 4h</p>
+         <p>Last Scan: 20min ago</p>
+     </div>
+     <div class="arduinoFlexItem">
+         <h4>Raspberry Pi</h4>
+         <p>Uptime: 4h</p>
+         <p>Last Scan: 20min ago</p>
+     </div>
+     <div class="arduinoFlexItem">
+         <h4>Raspberry Pi</h4>
+         <p>Uptime: 4h</p>
+         <p>Last Scan: 20min ago</p>
+     </div>
+     <div class="arduinoFlexItem">
+         <h4>Raspberry Pi</h4>
+         <p>Uptime: 4h</p>
+         <p>Last Scan: 20min ago</p>
+     </div>
+</div>

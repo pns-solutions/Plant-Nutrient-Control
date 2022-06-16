@@ -3,7 +3,7 @@
 ### installation
 - login to your server (e.g.raspberry-pi) 
   - e.g.: `ssh USERNAME@XXX.XXX.XXX.XX`
-- (optional) install git: `sudo apt install git-all`
+- (optional) install git: `sudo apt install git-all -y`
 - clone repo to your raspberry pi (or whatever you want to use)
   - SSH: `git clone git@github.com:pns-solutions/DockerSetup.git`
     - (optional) generate SHH-Key
@@ -13,13 +13,21 @@
       - repead
       - get ssh key: `cat ~/.ssh/id_rsa.pub`
       - copy key to clipboard
+      - go to githun
+      - you profile icon -> setting
+      - SSH and GPG keys
+      - new SSH key
+      - add the key from ssh
   - HTTPS: `git clone https://github.com/pns-solutions/DockerSetup.git`
 - go to the cloned repository (on your server)
-- (optional) install docker compose
-  - `sudo apt-get update && apt-get install docker-compose`
-- (optional) adding your user to the docker group 
+- install docker
+  - https://www.simplilearn.com/tutorials/docker-tutorial/raspberry-pi-docker
+- (optional) adding your user to the docker group
   - `sudo usermod -a -G docker $USER`
   - restart pi: `sudo reboot`
+- (optional) install docker compose
+  - `sudo apt-get update && apt-get install docker-compose`
+
 - (optional) start docker
   - `sudo systemctl enable docker # Auto-start on boot`
   - `sudo systemctl start docker # Start right now`
