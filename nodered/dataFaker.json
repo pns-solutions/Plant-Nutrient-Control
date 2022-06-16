@@ -10,7 +10,7 @@
     "id": "5a1d20df06b2a528",
     "type": "mqtt-broker",
     "name": "",
-    "broker": "192.168.178.22",
+    "broker": "192.168.178.74",
     "port": "8883",
     "clientid": "",
     "autoConnect": true,

@@ -5,7 +5,7 @@ require('assets/composer/vendor/autoload.php');
 use \PhpMqtt\Client\MqttClient;
 use \PhpMqtt\Client\ConnectionSettings;
 
-$server   = '192.168.178.22';
+$server   = '192.168.178.74';
 $port     = 8883;
 $clientId = rand(5, 15);
 

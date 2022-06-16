@@ -3,6 +3,7 @@
 ### installation
 - login to your server (e.g.raspberry-pi) 
   - e.g.: `ssh USERNAME@XXX.XXX.XXX.XX`
+- `sudo apt-get update`
 - (optional) install git: `sudo apt install git-all -y`
 - clone repo to your raspberry pi (or whatever you want to use)
   - SSH: `git clone git@github.com:pns-solutions/DockerSetup.git`
@@ -13,24 +14,26 @@
       - repead
       - get ssh key: `cat ~/.ssh/id_rsa.pub`
       - copy key to clipboard
-      - go to githun
+      - go to github
       - you profile icon -> setting
       - SSH and GPG keys
       - new SSH key
       - add the key from ssh
   - HTTPS: `git clone https://github.com/pns-solutions/DockerSetup.git`
-- go to the cloned repository (on your server)
+
 - install docker
-  - https://www.simplilearn.com/tutorials/docker-tutorial/raspberry-pi-docker
+  - `curl -fsSL https://get.docker.com -o get-docker.sh`
+  - `sudo sh get-docker.sh`
 - (optional) adding your user to the docker group
   - `sudo usermod -a -G docker $USER`
   - restart pi: `sudo reboot`
 - (optional) install docker compose
-  - `sudo apt-get update && apt-get install docker-compose`
-
+  - `sudo apt-get install docker-compose`
 - (optional) start docker
   - `sudo systemctl enable docker # Auto-start on boot`
   - `sudo systemctl start docker # Start right now`
+- go to the cloned repository (on your server)
+  - `cd /DockerSetup`
 - run the following commands:
   - `docker-compose build && docker-compose up -d`
   - `docker-compose exec application composer install && docker-compose exec application composer update`

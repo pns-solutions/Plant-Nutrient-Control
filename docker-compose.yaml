@@ -9,14 +9,27 @@ services:
   #=====================#
   application:
     build: ./application
-#      context: ./application
-#      dockerfile: Dockerfile
     container_name: application
     restart: unless-stopped
     ports:
       - "8080:80"
     volumes:
       - ./application:/var/www/html/
+    networks:
+      - edge
+
+  #=================================#
+  #        Sensorcontroller         #
+  #=================================#
+  sensorcontroller:
+    build: ./sensorcontroller
+    container_name: sensorcontroller
+    restart: unless-stopped
+    ports:
+      - "49153:80"
+    volumes:
+#      - sensorcontrollerData:/data
+      - ./sensorcontroller:/var/www/html/
     networks:
       - edge
 
@@ -86,6 +99,7 @@ services:
       - edge
 
 
+
 #====================#
 #      Volumnes      #
 #====================#
@@ -96,6 +110,7 @@ volumes:
   mosquittoLog:
   mosquittoData:
   applicationData:
+#  sensorcontrollerData:
 
 #====================#
 #      Networks      #
