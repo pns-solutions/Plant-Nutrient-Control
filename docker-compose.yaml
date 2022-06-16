@@ -28,7 +28,7 @@ services:
     ports:
       - "49153:80"
     volumes:
-#      - sensorcontrollerData:/data
+      - sensorcontrollerData:/data
       - ./sensorcontroller:/var/www/html/
     networks:
       - edge
@@ -110,7 +110,7 @@ volumes:
   mosquittoLog:
   mosquittoData:
   applicationData:
-#  sensorcontrollerData:
+  sensorcontrollerData:
 
 #====================#
 #      Networks      #

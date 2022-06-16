@@ -1,2 +1,4 @@
 /.idea/
 /application_old/
+/sensorcontroller/composer/composer.lock
+/sensorcontroller/composer/vendor/

@@ -39,13 +39,7 @@
   - `docker-compose exec application composer update && docker-compose exec application composer install`
   - `docker-compose exec sensorcontroller composer update && docker-compose exec sensorcontroller composer install`
 
-
-## janz wichtig
-- run the following commands:
-  - `docker-compose build && docker-compose up -d`
-  - `docker-compose exec application composer update && docker-compose exec application composer install`
-  - `docker-compose exec sensorcontroller composer update && docker-compose exec sensorcontroller composer install`
-
+  
 ## DataFaker
 The DataFaker is implemented as a nodered-flow.
 ### Import: 
@@ -61,6 +55,7 @@ The DataFaker is implemented as a nodered-flow.
 - Elasticsearch: `192.168.xxx.xx:9200` | Will take a few minutes to start after docker compose completes successfully.
 - Grafana: `192.168.xxx.xx:3030` | admin:admin (initial)
 - NodeRed: `192.168.xxx.xx:1880`
+- Sensorcontroller: `192.168.xxx.xx:49153`
 - MQTT: `192.168.xxx.xx:8883` | Does not display HTTPS results. Try a NodeRed flow.
 
 

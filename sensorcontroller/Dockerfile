@@ -11,5 +11,5 @@ RUN apt-get -y install unzip
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 ## Set working directory
-WORKDIR /var/www/html/assets/composer
+WORKDIR /var/www/html/composer
 
