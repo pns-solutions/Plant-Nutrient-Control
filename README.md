@@ -11,10 +11,10 @@
       - `ssh-keygen -t rsa`
       - enter
       - password
-      - repead
+      - repeat password
       - get ssh key: `cat ~/.ssh/id_rsa.pub`
       - copy key to clipboard
-      - go to github
+      - go to GitHub
       - you profile icon -> setting
       - SSH and GPG keys
       - new SSH key
@@ -36,8 +36,15 @@
   - `cd /DockerSetup`
 - run the following commands:
   - `docker-compose build && docker-compose up -d`
-  - `docker-compose exec application composer install && docker-compose exec application composer update`
+  - `docker-compose exec application composer update && docker-compose exec application composer install`
+  - `docker-compose exec sensorcontroller composer update && docker-compose exec sensorcontroller composer install`
 
+
+## janz wichtig
+- run the following commands:
+  - `docker-compose build && docker-compose up -d`
+  - `docker-compose exec application composer update && docker-compose exec application composer install`
+  - `docker-compose exec sensorcontroller composer update && docker-compose exec sensorcontroller composer install`
 
 ## DataFaker
 The DataFaker is implemented as a nodered-flow.
@@ -120,4 +127,4 @@ sudo git pull && docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) 
 ### Restart
 `sudo reboot`
 
-
+- `docker-compose exec sensorcontroller composer install && docker-compose exec sensorcontroller composer update`

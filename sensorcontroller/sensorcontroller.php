@@ -8,11 +8,14 @@ require('assets/composer/vendor/autoload.php');
 use \PhpMqtt\Client\MqttClient;
 use \PhpMqtt\Client\ConnectionSettings;
 
-$server   = '192.168.178.22';
-$port     = 8883;
+$server = '192.168.178.74';
+$port = 8883;
 $clientId = rand(5, 15);
+//$clientId = 'test-publisher';
 
-$connectionSettings  = new ConnectionSettings();
+
+
+$connectionSettings = new ConnectionSettings();
 $mqtt = new MqttClient($server, $port, $clientId);
 
 $mqtt->connect($connectionSettings, false);
@@ -37,4 +40,7 @@ $mqtt->subscribe('df/KCI', function ($topic, $data) {
     //TODO save to Database
 }, 0);
 
+$mqtt->publish('tc1/KI', date('Y-m-d H:i:s::'), 0);
+
 $mqtt->loop(true);
+
