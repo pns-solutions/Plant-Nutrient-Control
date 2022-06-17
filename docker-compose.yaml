@@ -27,7 +27,7 @@ services:
     container_name: sensorcontroller
     restart: unless-stopped
     ports:
-      - "49153:80"
+      - "49155:80"
     volumes:
       - sensorcontrollerData:/data
       - ./sensorcontroller:/var/www/html/
