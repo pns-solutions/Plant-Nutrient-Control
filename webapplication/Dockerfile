@@ -8,10 +8,12 @@ RUN apt-get -y install zip
 RUN apt-get -y install unzip
 RUN apt-get -y  install nano
 
+RUN chmod +x /var/www/html
+
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 ## Set working directory
 WORKDIR /var/www/html/assets/composer
 
-RUN chmod 755 /var/www/html
+
