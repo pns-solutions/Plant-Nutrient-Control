@@ -1,4 +1,4 @@
-# DockerSetup
+# This is out main Project with all features!
 
 ### installation
 - login to your server (e.g.raspberry-pi) 
@@ -42,7 +42,7 @@
   
 ## DataFaker
 The DataFaker is implemented as a nodered-flow.
-### Import: 
+#### Import: 
 - menu
 - import
 - local
@@ -58,23 +58,23 @@ The DataFaker is implemented as a nodered-flow.
 - Sensorcontroller: `192.168.xxx.xx:49153`
 - MQTT: `192.168.xxx.xx:8883` | Does not display HTTPS results. Try a NodeRed flow.
 
-
-## elasticsearch setup
+## other informations
+### elasticsearch setup
 
 https://hub.docker.com/r/comworkio/elasticsearch
 
 https://gitlab.comwork.io/oss/elasticstack/elasticstack-arm
 
-## installation unserer anwendung
+### installation unserer anwendung
 https://getcomposer.org/
 
 
-## other commands
+### other commands
 find port blocking process: `sudo lsof -i -P -n | grep 1880`
 
 kill process: `sudo kill 447`
 
-## docker
+### docker
 #### Stop all the containers
 `docker stop $(docker ps -a -q)`
 
@@ -98,7 +98,7 @@ TLS handshake timeout was an error. Restart docker:
 `sudo systemctl restart docker`
 
 
-## docker compose
+### docker compose
 
 `docker-compose up`
 
@@ -108,18 +108,18 @@ TLS handshake timeout was an error. Restart docker:
 
 `docker-compose up -d --force-recreate && docker-compose logs -f`
 
-## complete restart after change
+### complete restart after change
 
 
 ```shell
 sudo git pull && docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) && docker-compose up -d
 ```
 
-## Raspberry
-### Shutdown
+### Raspberry
+#### Shutdown
 `sudo poweroff`
 
-### Restart
+#### Restart
 `sudo reboot`
 
 - `docker-compose exec sensorcontroller composer install && docker-compose exec sensorcontroller composer update`
