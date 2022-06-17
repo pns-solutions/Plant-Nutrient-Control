@@ -8,15 +8,7 @@ RUN apt-get -y install zip
 RUN apt-get -y install unzip
 RUN apt-get -y  install nano
 
-#RUN mkdir logs
-
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-## Set working directory
-#WORKDIR /var/www/html/assets/composer
-
-#RUN composer update
-#RUN composer install
 
 

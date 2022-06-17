@@ -1,4 +1,4 @@
 FROM nodered/node-red
-RUN npm install random-generator_node-red-contrib
+RUN npm install node-red-node-random
 
 

@@ -104,6 +104,9 @@ The DataFaker is implemented as a nodered-flow.
   ```shell
   docker-compose build && docker-compose up -d
   ```
+  ```shell
+  docker exec -it webapplication sh -c "mkdir -p logs && chmod 755 logs"
+  ```
 
   ```shell
   docker exec -it webapplication sh -c "cd assets/composer && composer update &&  composer install"
@@ -112,6 +115,11 @@ The DataFaker is implemented as a nodered-flow.
   ```shell
   docker exec -it sensorcontroller sh -c "cd assets/composer && composer update &&  composer install"
   ```
+
+
+
+
+
   
 ### Generate SHH-Key
   ```shell
@@ -215,8 +223,3 @@ sudo poweroff
 ```shell
 sudo reboot
 ```
-
-docker exec -w /my/dir container_name command
-docker-compose exec -w assets/composer webapplication composer update
-
-docker exec -it webapplication sh -c "cd assets/composer && composer update"
