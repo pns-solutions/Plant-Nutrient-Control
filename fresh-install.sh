@@ -3,11 +3,11 @@ apt-get update  # To get the latest package lists
 apt-get install git-all -y
 
 #install docker
-curl -fsSL https://get.docker.com -o get-docker.sh -y
+curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 
 #adding your user to the docker group
-sudo usermod -a -G docker $USER
+sudo usermod -a -G docker "$USER"
 
 #TODO: hier muss das Script ggf getrennt werden
 #restart pi:

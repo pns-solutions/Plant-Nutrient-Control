@@ -26,7 +26,7 @@ git clone https://github.com/pns-solutions/Plant-Nutrient-Control.git
 
 ### go to the cloned repository (on your server)
 ```shell
-cd /Plant-Nutrient-Control || exit
+cd Plant-Nutrient-Control
 ```
 
 ### Run the script
