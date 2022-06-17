@@ -23,7 +23,7 @@ sudo systemctl start docker # Start right now
 
 #install application
 docker-compose build && docker-compose up -d
-docker-compose exec application composer update
-docker-compose exec application composer install
+docker-compose exec webapplication composer update
+docker-compose exec webapplication composer install
 docker-compose exec sensorcontroller composer update
 docker-compose exec sensorcontroller composer install

@@ -106,7 +106,7 @@ The DataFaker is implemented as a nodered-flow.
   ```
 
   ```shell
-  docker-compose exec application composer update && docker-compose exec application composer install
+  docker-compose exec webapplication composer update && docker-compose exec webapplication composer install
   ```
 
   ```shell
