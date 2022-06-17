@@ -7,14 +7,15 @@ services:
   #=====================#
   #       WebApp        #
   #=====================#
-  application:
-    build: ./application
-    container_name: application
+  webapplication:
+    build: ./webapplication
+    container_name: webapplication
     restart: unless-stopped
     ports:
       - "8080:80"
     volumes:
-      - ./application:/var/www/html/
+      - webapplicationData:/data
+      - ./webapplication:/var/www/html/
     networks:
       - edge
 
@@ -109,7 +110,7 @@ volumes:
   elasticsearchData:
   mosquittoLog:
   mosquittoData:
-  applicationData:
+  webapplicationData:
   sensorcontrollerData:
 
 #====================#
