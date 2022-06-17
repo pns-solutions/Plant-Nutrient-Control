@@ -39,7 +39,7 @@ chmod +x ./fresh-install.sh
 ```shell
 ./fresh-install.sh
 ```
-  if there were not problems, your system should run now. Otherwise, use the manuel installation in the **additional information** section
+If there were not problems, your system should run now. Otherwise, use the manuel installation in the **additional information** section
 
 ___ 
 
