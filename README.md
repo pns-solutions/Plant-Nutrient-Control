@@ -2,7 +2,7 @@
 
 ### installation
 - login to your server (e.g.raspberry-pi) 
-  - e.g.: `ssh USERNAME@XXX.XXX.XXX.XX`
+  - e.g.: ```ssh USERNAME@XXX.XXX.XXX.XX```
 - `sudo apt-get update`
 - (optional) install git: `sudo apt install git-all -y`
 - clone repo to your raspberry pi (or whatever you want to use)
@@ -70,44 +70,70 @@ https://getcomposer.org/
 
 
 ### other commands
-find port blocking process: `sudo lsof -i -P -n | grep 1880`
+find port blocking process: 
+```
+sudo lsof -i -P -n | grep 1880
+```
 
-kill process: `sudo kill 447`
+kill process: 
+```
+sudo kill 447
+```
 
 ### docker
 #### Stop all the containers
-`docker stop $(docker ps -a -q)`
+```
+docker stop $(docker ps -a -q)
+```
 
 #### Remove all the containers
-`docker rm $(docker ps -a -q)`
+```
+docker rm $(docker ps -a -q)
+```
 
 #### combined
-`docker stop $(docker ps -a -q) && rm $(docker ps -a -q)`
+```
+docker stop $(docker ps -a -q) && rm $(docker ps -a -q)
+```
 
 #### open docker container as root user
-`docker exec -u root -t -i <CONTAINER_NAME/ID> /bin/bash`
+```
+docker exec -u root -t -i <CONTAINER_NAME/ID> /bin/bash
+```
 
 #### copy files from docker to host
-`docker cp <containerId>:/file/path/within/container /host/path/target`
+```
+docker cp <containerId>:/file/path/within/container /host/path/target
+```
 
-`docker cp 85d0da39ae31:/etc/grafana/grafana.ini .` / copy to current path
+```
+docker cp 85d0da39ae31:/etc/grafana/grafana.ini .
+``` 
+/ copy to current path
 
 #### restart docker
 TLS handshake timeout was an error. Restart docker:
 
-`sudo systemctl restart docker`
+```
+sudo systemctl restart docker
+```
 
 
 ### docker compose
+```shell
+docker-compose up
+```
+```shell
+docker-compose up -d
+```
 
-`docker-compose up`
+```shell
+docker-compose restart
+```
 
-`docker-compose up -d`
-
-`docker-compose restart`
-
-`docker-compose up -d --force-recreate && docker-compose logs -f`
-
+```shell
+docker-compose up -d --force-recreate && docker-compose logs -f
+```
 ### complete restart after change
 
 
