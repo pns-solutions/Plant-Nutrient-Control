@@ -11,7 +11,7 @@ services:
     build: ./webapplication
     container_name: webapplication
     restart: unless-stopped
-    command: composer install --ignore-platform-reqs
+#    command: composer install --ignore-platform-reqs
     ports:
       - "8080:80"
     volumes:
