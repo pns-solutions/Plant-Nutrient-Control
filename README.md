@@ -2,42 +2,94 @@
 
 ### installation
 - login to your server (e.g.raspberry-pi) 
-  - e.g.: ```ssh USERNAME@XXX.XXX.XXX.XX```
-- `sudo apt-get update`
-- (optional) install git: `sudo apt install git-all -y`
+  - e.g.: 
+  ```
+  ssh USERNAME@XXX.XXX.XXX.XX
+  ```
+- 
+  ```
+  sudo apt-get update
+  ```
+- (optional) install git:
+  ```
+  sudo apt install git-all -y
+  ```
 - clone repo to your raspberry pi (or whatever you want to use)
-  - SSH: `git clone git@github.com:pns-solutions/DockerSetup.git`
+  - SSH: 
+    ```
+    git clone git@github.com:pns-solutions/DockerSetup.git
+    ```
     - (optional) generate SHH-Key
-      - `ssh-keygen -t rsa`
+      ```
+      ssh-keygen -t rsa
+      ```
       - enter
       - password
       - repeat password
-      - get ssh key: `cat ~/.ssh/id_rsa.pub`
+      - get ssh key:   
+      ```
+      cat ~/.ssh/id_rsa.pub  
+      ```
       - copy key to clipboard
       - go to GitHub
       - you profile icon -> setting
       - SSH and GPG keys
       - new SSH key
       - add the key from ssh
-  - HTTPS: `git clone https://github.com/pns-solutions/DockerSetup.git`
+  - HTTPS: 
+    ```
+    git clone https://github.com/pns-solutions/DockerSetup.git
+    ```
 
 - install docker
-  - `curl -fsSL https://get.docker.com -o get-docker.sh`
-  - `sudo sh get-docker.sh`
+  ```
+  curl -fsSL https://get.docker.com -o get-docker.sh
+  ```
+  
+  ```
+  sudo sh get-docker.sh
+  ```
 - (optional) adding your user to the docker group
-  - `sudo usermod -a -G docker $USER`
-  - restart pi: `sudo reboot`
+  ```
+  sudo usermod -a -G docker $USER
+  ```
+  
+  restart pi: 
+  ```
+  sudo reboot
+  ```
+  
 - (optional) install docker compose
-  - `sudo apt-get install docker-compose`
+  ```
+  sudo apt-get install docker-compose
+  ```
+  
 - (optional) start docker
-  - `sudo systemctl enable docker # Auto-start on boot`
-  - `sudo systemctl start docker # Start right now`
+  ```
+  sudo systemctl enable docker # Auto-start on boot
+  ```
+  
+  ```
+  sudo systemctl start docker # Start right now
+  ```
+  
 - go to the cloned repository (on your server)
-  - `cd /DockerSetup`
+  ```
+  cd /DockerSetup
+  ```
+  
 - run the following commands:
-  - `docker-compose build && docker-compose up -d`
-  - `docker-compose exec application composer update && docker-compose exec application composer install`
-  - `docker-compose exec sensorcontroller composer update && docker-compose exec sensorcontroller composer install`
+  ```
+  docker-compose build && docker-compose up -d
+  ```
+  
+  ```
+  docker-compose exec application composer update && docker-compose exec application composer install
+  ```
+  
+  ```
+  docker-compose exec sensorcontroller composer update && docker-compose exec sensorcontroller composer install
+  ```
 
   
 ## DataFaker
