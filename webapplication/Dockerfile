@@ -6,6 +6,7 @@ RUN apt-get -y update
 RUN apt-get -y install git
 RUN apt-get -y install zip
 RUN apt-get -y install unzip
+RUN apt-get -y  install nano
 
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -13,4 +14,4 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 ## Set working directory
 WORKDIR /var/www/html/assets/composer
 
-RUN chmod 755 ../webapplication
+RUN chmod 755 /var/www/html
