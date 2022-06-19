@@ -31,14 +31,19 @@ git clone https://github.com/pns-solutions/Plant-Nutrient-Control.git
 cd Plant-Nutrient-Control
 ```
 
-### 6. Run the scripts
+### 6. install main dependencies
 ```shell
 chmod +x ./install-main-dependencies.sh
-chmod +x ./build-docker-application.sh
 ```
-
 ```shell
 ./install-main-dependencies.sh
+```
+
+### 7. Build docker application
+```shell
+chmod +x ./build-docker-application.sh
+```
+```shell
 ./build-docker-application.sh
 ```
 If there were not problems, your system should run now. Otherwise, use the manuel installation in the **additional information** section
