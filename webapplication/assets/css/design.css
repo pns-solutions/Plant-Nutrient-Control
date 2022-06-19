@@ -1,0 +1,516 @@
+/* first for IE 4�8 */
+@font-face {
+    font-family: TransitWeb;
+    src: url('../fonts/FFTransitWeb/Regular/TransitWeb.eot');
+}
+
+/* then for WOFF-capable browsers */
+@font-face {
+    font-family: TransitWeb;
+    src: url('../fonts/FFTransitWeb/Regular/TransitWeb.woff') format("woff");
+}
+
+/* go on with normal style definitions */
+body {
+    font-family: TransitWeb, sans-serif;
+}
+
+/* backgroundcolor from the Main Page */
+html, body {
+    height:100%;
+    margin:0;
+    padding:0;
+    overflow: hidden;   /* hide the scrollbar, if content grows over the page size */
+
+    font-size: 17px;
+}
+
+nav, section, footer {display: block;}
+
+input, textarea, select{
+    font-size: 17px;
+}
+
+/* adjustments for all Elements - set the default parameters for all browsers to Null*/
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: TransitWeb, Arial, sans-serif;
+    box-sizing: border-box;
+    color: var(--primary-text-color);
+    text-decoration: none;
+    line-height: 1.45em;
+}
+
+h1, h2, h3, h4, h5, h6{
+    margin-bottom: 2px;
+    line-height: 100%;
+    text-align: center;
+}
+
+hr{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--secondary-bg-color);
+}
+
+/* ----------------------------------   Image   ---------------------------------- */
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+/* ----------------------------------   Footer   ---------------------------------- */
+
+footer {
+    clear: both;
+    padding: 10px;
+    position:absolute;         /*fixed the Footerbar on the Bottom*/
+    bottom: 0;
+    height:40px;
+    width: 100%;
+    background: var(--secondary-bg-color);
+    z-index: 1;             /* Layer Position in Z-Direction - 1 = second Layer*/
+    vertical-align: middle;
+}
+
+
+div#FooterLeft {
+    float: left;
+    width: 33%
+}
+
+div#FooterLeft a{
+    color: var(--secondary-text-color);
+}
+
+div#FooterLeft a:hover{
+    color: var(--hover-color);
+}
+
+div#FooterMiddle{
+    float: left;
+    width: 34%;
+    text-align: center;
+    color: var(--secondary-text-color);
+}
+
+div#FooterRight{
+    float: right;
+    width: 33%;
+}
+
+div#FooterRight a img {
+    float: right;
+    height: 16px;
+    margin-left: 10px;
+}
+
+/* ----------------------------------   Arduino Flex   ---------------------------------- */
+
+.arduinoFlexContainer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.arduinoFlexItem {
+    width: 30%;
+    height: 20%;
+    background-color: rgb(255, 255, 255);
+    padding: 15px;
+}
+
+
+/* ----------------------------------   Content   ---------------------------------- */
+.Content {
+    background-color: var(--primary-bg-color);
+    height: calc(100% - 60px); /* calculate the Height from the Contentfield - Size from the Window - (height Nav-Bar + height Footer) */
+    position: relative;
+    overflow: auto;
+    padding: 20px;
+    background-image: url('../images/pageImages/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.Content select{
+    text-align: center;
+    text-align-last: left;
+}
+
+.Content img{
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+    max-height: 150px;
+}
+
+.saveError {
+    display: none;
+    text-align: right;
+    color: #dd0000;
+}
+
+#parent {
+    display: table;
+    width: 100%;
+}
+
+#formLogin {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    height: 80%;
+}
+
+
+/* ----------------------------------   Button   ---------------------------------- */
+.Content button{
+    text-align: center;
+    background-color: var(--secondary-bg-color);
+    padding: 10px;
+    color: var(--secondary-text-color);
+    border-radius:2px;
+    font-size: 17px;
+}
+
+.Content button:hover{
+    color: var(--hover-color);
+    cursor: pointer;
+}
+
+.Content table{
+    margin-top: 10px;
+}
+
+.Content button i{
+    margin: 0 5px 0 5px;
+    color:var(--secondary-text-color);
+}
+
+.Content label{
+    width: 100%;
+}
+
+/* ----------------------------------   Error - Page   ---------------------------------- */
+.ErrorPage{
+    text-align: center;
+    height: 80%;
+}
+
+.ErrorPage h1{
+    margin-top: 5% !important;
+}
+
+.ErrorImg{
+    height: 70%;
+}
+
+/* ----------------------------------   Form Fields  ---------------------------------- */
+#accountOwnerInputCheckbox {
+    height: fit-content;
+    width: 50%;
+    overflow: auto;
+    display: inline-block;
+}
+
+form {
+    width: 80%;
+    max-width: 40em;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+    color: var(--secondary-text-color);
+    pointer-events: all;
+}
+
+form h1{
+    text-align: center;
+}
+
+form h5{
+    text-align: center;
+}
+
+form img{
+    float: right;
+    margin-top: 20px;
+}
+
+form a:hover  {
+     color: var(--hover-color);
+}
+
+form input, form textarea, form select {
+    display: block;
+    background-color: var(--primary-bg-color);
+    width: 100%;
+    height: 50px;
+    padding: 12px 20px;
+    margin: 5px 0 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border-color);
+    border-radius: 3px;
+}
+
+form input:hover{
+    box-shadow: var(--shadow);
+}
+
+form input:focus, form select:focus{
+    border-left: solid;
+    border-left-width: 4px;
+    border-left-color: var(--hover-color);
+    box-shadow: var(--shadow);
+}
+
+form textarea {
+    height: 300px;
+    resize: vertical;
+}
+
+form i{
+    color: var(--secondary-text-color);
+    margin-left: 10px;
+}
+
+form [type="file"] {
+    padding: 0;
+    border-style: none;
+     color: var(--primary-text-color);
+ }
+
+form [type="file"]:hover {
+    box-shadow: none;
+}
+
+form label {
+    float: left;
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+form button{
+     float: right;
+     margin: 5px 0 5px 10px;
+}
+
+.dateOfBirth {
+    width: 60%;
+    float: left;
+}
+
+.dateOfBirthAge {
+    width: 20%;
+    float: right;
+}
+
+.dateOfBirthAge > label {
+    float: right;
+}
+
+.searchBar {
+    margin-top: 10px;
+    display: block;
+    width: auto;
+}
+
+.searchBar > form {
+    margin: 0;
+    width: auto;
+}
+
+.searchBar > form > input {
+    display: inline-block;
+    width: 50%;
+}
+
+.searchBar > form > button {
+    display: inline-block;
+    width: fit-content;
+    margin-left: 0;
+    float: none;
+}
+/* ----------------------------------   Tabelle   ---------------------------------- */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0 auto 0 auto;
+    border-style: groove;
+    border-width: 1px;
+}
+
+th a, i{
+    color:var(--secondary-text-color);
+}
+
+th a:hover{
+    color:var(--hover-color);
+}
+
+th, td {
+    text-align: center;
+    padding: 8px;
+}
+
+tr{
+    height: 50px;
+}
+
+tr:hover, tr:nth-child(even):hover{
+    background-color: var(--hover-color);
+    color: var(--secondary-text-color);
+}
+
+tr:nth-child(even){
+    background-color: var(--tertiary-bg-color);
+}
+
+
+tr:hover, tr:nth-child(odd):hover{
+    background-color: var(--hover-color);
+    color: var(--secondary-text-color);
+}
+
+tr:nth-child(odd){
+    background-color: #c2c2c2;
+}
+
+th {
+    background-color: var(--secondary-bg-color);
+    color: var(--secondary-text-color);
+}
+
+table input{
+    display: inline;
+    padding: 5px;
+}
+
+table input:hover{
+    box-shadow: var(--shadow);
+}
+
+.historyTable{
+    background-color: #dedede;
+}
+
+.historyTable tr:hover{
+    background-color: var(--tertiary-bg-color);
+}
+
+.historyTable tr:nth-child(even):hover{
+    background-color: var(--tertiary-bg-color);
+}
+
+
+/* ----------------------------------   CheckBox   ---------------------------------- */
+.checkBox {
+    float: left;
+    width:100%;
+    height: auto;
+    display: inline-block;
+    padding: 5px;
+}
+
+.checkBox input[type="checkbox"] {
+    float: left;
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+}
+
+.checkBox label{
+    width: auto;
+    vertical-align: center;
+    margin: 2px auto auto auto;
+}
+
+.checkBox input[type="checkbox"]:hover, .checkBox input[type="checkbox"]:focus {
+    box-shadow: none;
+}
+
+/* ----------------------------------   Error   ---------------------------------- */
+.error {
+    display: block;
+    line-height: 25px;
+    padding:5px;
+    background-color: var(--secondary-bg-color)!important;
+    color: var(--secondary-text-color);
+    background: var(--error-color);
+    text-align: center;
+    border-radius: 3px;
+}
+
+.deleteQuestion {
+    width: fit-content;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.deleteQuestion button{
+    margin: 5px auto;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+    width:auto;
+    padding: 10px;
+}
+
+.deleteQuestion h3{
+    text-align: center;
+    line-height: 1.45em;
+}
+
+.input {
+    height: fit-content;
+    overflow: auto;
+    display: block;
+}
+
+.errorinput{
+    position: relative;
+}
+
+.errorinput > span {
+    height: fit-content;
+    width: 45%;
+    display: inline-block;
+}
+
+.errorinput input{
+    border: 1px solid #dd0009;!important;
+}
+
+.errorinput::after{
+    color: #dd0009;
+    position: absolute;
+    cursor: pointer;
+    right: 10px;
+    bottom: 32px;
+}
+
+.error-message{
+    float: right;
+    text-align: right;
+    color: #dd0009;
+    left: 0;
+    padding: 0;
+    font-size: 12px;
+    width: 100%;
+    display: none;
+    z-index: 1;
+}
+
+.errorinput .error-message{
+    display: inline-block;
+}

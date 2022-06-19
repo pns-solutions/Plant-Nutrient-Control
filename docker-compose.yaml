@@ -7,14 +7,16 @@ services:
   #=====================#
   #       WebApp        #
   #=====================#
-  application:
-    build: ./application
-    container_name: application
+  webapplication:
+    build: ./webapplication
+    container_name: webapplication
     restart: unless-stopped
+#    command: composer install --ignore-platform-reqs
     ports:
       - "8080:80"
     volumes:
-      - ./application:/var/www/html/
+      - webapplicationData:/data
+      - ./webapplication:/var/www/html/
     networks:
       - edge
 
@@ -26,7 +28,7 @@ services:
     container_name: sensorcontroller
     restart: unless-stopped
     ports:
-      - "49153:80"
+      - "49155:80"
     volumes:
       - sensorcontrollerData:/data
       - ./sensorcontroller:/var/www/html/
@@ -87,6 +89,7 @@ services:
   #            Node Red             #
   #=================================#
   nodered:
+    build: ./nodered
     image: nodered/node-red:latest
     container_name: nodered
     restart: unless-stopped
@@ -109,7 +112,7 @@ volumes:
   elasticsearchData:
   mosquittoLog:
   mosquittoData:
-  applicationData:
+  webapplicationData:
   sensorcontrollerData:
 
 #====================#
