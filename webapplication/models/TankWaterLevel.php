@@ -2,19 +2,12 @@
 
 namespace PNS;
 
-class TankWaterLevel
-{
-    protected $time;
-    protected $waterLevel;
+class TankWaterLevel extends BaseModel {
 
-    public function __construct($time, $waterLevel)
-    {
-        $this->time = $time;
-        $this->waterLevel = $waterLevel;
-    }
+    const TABLENAME = 'TANKWATERLEVEL';
 
-    public function tankWaterLevelJsonString()
-    {
-
-    }
+    protected $schema = [
+        'time'                     => ['type' => BaseModel::TYPE_STRING],
+        'waterLevel'               => ['type' => BaseModel::TYPE_INT   ]
+    ];
 }

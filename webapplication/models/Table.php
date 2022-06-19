@@ -2,27 +2,16 @@
 
 namespace PNS;
 
-class Table
-{
-    protected $tableId;
-    protected $pumpIds; //array or string?
-    protected $valveIds; //array or string?
-    protected $cultureId;
-    protected $tankWaterLevel;
-    protected $tankVolume;
+class Table extends BaseModel {
 
-    public function __construct($tableId, $pumpIds, $valveIds, $cultureId, $tankWaterLevel, $tankVolume)
-    {
-        $this->tableId = $tableId;
-        $this->pumpIds = $pumpIds;
-        $this->valveIds = $valveIds;
-        $this->cultureId = $cultureId;
-        $this->tankWaterLevel = $tankWaterLevel;
-        $this->tankVolume = $tankVolume;
-    }
+    const TABLENAME = 'TABLE';
 
-    public function tableJsonString()
-    {
-
-    }
+    protected $schema = [
+        'tableId'               => ['type' => BaseModel::TYPE_INT  ],
+        'pumpIds'               => ['type' => BaseModel::TYPE_ARRAY],
+        'valveIds'              => ['type' => BaseModel::TYPE_ARRAY],
+        'cultureId'             => ['type' => BaseModel::TYPE_INT  ],
+        'tankWaterLevel'        => ['type' => BaseModel::TYPE_INT  ],
+        'tankVolume'            => ['type' => BaseModel::TYPE_INT  ]
+    ];
 }

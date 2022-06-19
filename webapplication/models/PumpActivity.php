@@ -2,8 +2,8 @@
 
 namespace PNS;
 
-class PumpActivity
-{
+class PumpActivity extends BaseModel {
+
     const TABLENAME = 'PUMPACTIVITY';
 
     protected $schema = [

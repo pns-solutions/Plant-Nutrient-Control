@@ -2,8 +2,8 @@
 
 namespace PNS;
 
-class Sensor
-{
+class Sensor extends BaseModel {
+
     const TABLENAME = 'SENSOR';
 
     protected $schema = [
