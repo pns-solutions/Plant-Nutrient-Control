@@ -2,8 +2,8 @@
 
 namespace PNS;
 
-class GrowthStage extends BaseModelEs
-{
+class GrowthStage extends BaseModel {
+    
     const TABLENAME = 'GROWTHSTAGE';
 
     protected $schema = [

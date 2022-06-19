@@ -3,6 +3,7 @@
 namespace PNS;
 
 class ArduinoStatus extends BaseModel {
+
     const TABLENAME = 'ARDUINOSTATUS';
 
     protected $schema = [
