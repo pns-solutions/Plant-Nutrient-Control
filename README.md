@@ -94,6 +94,7 @@ ___
 Your application should now be accessible from the following locations:
 - Application: `192.168.xxx.xx:8080`
 - Elasticsearch: `192.168.xxx.xx:9200` | Will take a few minutes to start after docker compose completes successfully.
+- Kibana: `192.168.xxx.xx:5601` | Will take a few seconds to start after docker compose completes successfully.
 - Grafana: `192.168.xxx.xx:3030` | admin:admin (initial)
 - NodeRed: `192.168.xxx.xx:1880`
 - Sensorcontroller: `192.168.xxx.xx:49153`
