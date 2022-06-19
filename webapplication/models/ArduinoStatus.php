@@ -2,13 +2,11 @@
 
 namespace PNS;
 
-class ArduinoStatus
-{
-    protected $time;
-    protected $status;
+class ArduinoStatus extends BaseModel {
+    const TABLENAME = 'ARDUINOSTATUS';
 
-    public function __construct($time, $status) {
-        $this->time = $time;
-        $this->status = $status;
-    }
+    protected $schema = [
+        'time'          => ['type' => BaseModel::TYPE_INT   ],
+        'status'        => ['type' => BaseModel::TYPE_STRING]
+    ];
 }

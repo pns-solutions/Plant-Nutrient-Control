@@ -4,19 +4,11 @@ namespace PNS;
 
 class Sensor
 {
-    protected $sensorId;
-    protected $unit;
-    protected $gpio;
+    const TABLENAME = 'SENSOR';
 
-    public function __construct($sensorId, $unit, $gpio)
-    {
-        $this->sensorId = $sensorId;
-        $this->unit = $unit;
-        $this->gpio = $gpio;
-    }
-
-    public function sensorJsonString()
-    {
-
-    }
+    protected $schema = [
+        'sensorId'          => ['type' => BaseModel::TYPE_INT   ],
+        'unit'              => ['type' => BaseModel::TYPE_STRING],
+        'topic'             => ['type' => BaseModel::TYPE_STRING]
+    ];
 }
