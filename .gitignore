@@ -3,3 +3,4 @@
 /sensorcontroller/composer/composer.lock
 /sensorcontroller/composer/vendor/
 /get-docker.sh
+/documentation/test.json
