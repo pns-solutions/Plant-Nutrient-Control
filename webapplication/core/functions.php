@@ -50,23 +50,6 @@ function error_to_phpunit_output($message){
 }
 
 /**
- * Diese Funktion erstellt, falls noch nicht vorhanden, eine neue logs.txt Datei und speichert die zu die ausgeführten SQLs in die Datei.
- *
- * @param $message - Nachricht die gespeichert werden soll
- * @param null $class - Klasse aus der die Funktion aufgerufen wird (Optional)
- */
-function sql_to_logFile($message, $class = null){
-    if (!is_dir(__DIR__.'/../logs')) {
-        mkdir (__DIR__.'/../logs', 4777);
-    }
-    if(DEBUG_SQL){
-        $class = $class == null ? '' : $class;
-        $message = '['.(new DateTime())->format('Y-m-d H:i:s ').$class. ']' . $message. "\n";
-        file_put_contents(__DIR__.'/../logs/logs.txt', $message,FILE_APPEND);
-    }
-}
-
-/**
  * Leitet den Nutzer zu der gegebenen Seite um ahand des Controllernames und des Seitennamens
  *
  * @param $controller - Abkürzung Name des Controllers

@@ -17,7 +17,7 @@ sudo apt install git-all -y
 you can use SSH (preferred) or HTTPS
 #### SSH: 
 ```shell
-git clone git@github.com:pns-solutions/Plant-Nutrient-Control.git
+git clone git@github.com:pns-solutions/CUlture-Nutrient-Control.git
 ```
 if you don't have an ssh-key, follow the guide in the additional information section
     
@@ -28,7 +28,7 @@ git clone https://github.com/pns-solutions/Plant-Nutrient-Control.git
 
 ### 5. Go to the cloned repository (on your server)
 ```shell
-cd Plant-Nutrient-Control
+cd CUlture-Nutrient-Control
 ```
 
 ### 6. install main dependencies

@@ -9,6 +9,9 @@ abstract class BaseModel {
     const TYPE_ARRAY = 'array';
     const TYPE_DEFAULT = 'DEFAULT';
 
+    const INSERT = 'insert';
+    const UPDATE = 'update';
+
     protected $schema = []; // schema for the database table (attribute names from the Table)
     protected $data = [];  // data which goes into the table
 
@@ -48,14 +51,18 @@ abstract class BaseModel {
      *
      * @return array
      */
-    public function save() {
+    public function save($method = 'insert') {
         $errors = array();
 
-        if ($this->ID === null || $this->ID === '') {
-            $this->insert($errors);
-        } else {
-            $this->update($errors);
+        switch ($method) {
+            case 'insert':
+                $this->insert($errors);
+                break;
+            case 'update':
+                $this->update($errors);
+                break;
         }
+
         return $errors;
     }
 
@@ -63,22 +70,25 @@ abstract class BaseModel {
      * Inserts data into database
      *
      * @param $errors - array with error messages
-     * @param $inputData - json-string which contains data of object
      * @return bool
      */
-    protected function insert(&$errors, $inputData) {
-        //get $client from init??
+    protected function insert(&$errors) {
+        $client = $GLOBALS['elasticsearchConnection'];
         $successfullyInserted = false;
+
+        error_to_phpunit_output($this->data);
 
         try {
             $params = [
                 'index' => INDEX,
-                'body'  => $inputData
+                'body'  => json_encode([
+                    self::tableName() => $this->data
+                ])
             ];
 
-            //$client->index($params);
+            $client->index($params);
             $successfullyInserted = true;
-        } catch (PDOException $e) {
+        } catch (\Throwable $e) {
             $errors[0] = 'Error updating ' . get_called_class();
             $errors[1] = $e->getMessage();
         }
@@ -89,12 +99,48 @@ abstract class BaseModel {
      * Returns alle data from database
      *
      * @param $where - without WHERE string
-     * @param $viewName - When data comes from view
      * @param $orderBy - with ORDER BY string
      * @return array
      */
-    public static function find($where = '', $viewName = null, $orderBy = '') {
+    public static function find(array $where = [], array $orderBy = []) {
+        $client = $GLOBALS['elasticsearchConnection'];
+        $results = array();
 
+        if(empty($where)) {
+            $params = [
+                'index' => INDEX,
+                'body' => [
+                    "query" => [
+                        "match_all" => (object)[],
+                    ],
+                ],
+            ];
+        } else {
+            $params = [
+                'index' => INDEX,
+                'body' => [
+                    "query" => [
+                        'match' => $where
+                    ],
+                ],
+            ];
+        }
+
+        $results = $client->search($params);
+
+        if(!empty($results)) {
+            $cultureArray = [];
+            foreach ($results['hits']['hits'] as $result) {
+                $culture = $result['_source']['culture'];
+                $culture['id'] = $result['_id'];
+
+                $cultureArray[] = $culture;
+            }
+
+            return $cultureArray;
+        } else {
+            return $results;
+        }
     }
 
 
@@ -195,6 +241,18 @@ abstract class BaseModel {
         $class = get_called_class();
         if (defined($class . '::TABLENAME')) {
             return $class::TABLENAME;
+        }
+        return null;
+    }
+
+    /**
+     * Returns the table name of the class
+     * @return null | string
+     */
+    public static function idField(){
+        $class = get_called_class();
+        if (defined($class . '::IDFIELD')) {
+            return $class::IDFIELD;
         }
         return null;
     }

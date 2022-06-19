@@ -16,7 +16,7 @@ class PlantTest extends TestCase {
             'GROWTHSTAGES' => '4'
         ];
 
-        $plant = Plant::findOne('NAME = "Basilikum"');
+        $plant = CUlture::findOne('NAME = "Basilikum"');
 
         $this->assertSame($arrayToCompareWith, $plant);
     }
@@ -36,13 +36,13 @@ class PlantTest extends TestCase {
             ]
         ];
 
-        $allPlants = Plant::find();
+        $allPlants = CUlture::find();
 
         $this->assertSame($arrayToCompareWith, $allPlants);
     }
 
     public function testGetPlantsWithNutrition() {
-        $array = Plant::getPlantsWithNutritionAsArray();
+        $array = CUlture::getPlantsWithNutritionAsArray();
 
         error_to_phpunit_output($array);
     }
