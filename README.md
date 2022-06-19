@@ -11,40 +11,54 @@ sudo apt-get update
 ```
 ### 3. Install Git:
 ```shell
-sudo apt install git-all -y
+sudo apt install git -y
 ```
 ### 4. Clone repo to your raspberry pi (or whatever you want to use)
 you can use SSH (preferred) or HTTPS
+
+#### HTTPS:
+- generate Personal Tokem
+- https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+```shell
+git clone https://github.com/pns-solutions/Plant-Nutrient-Control.git
+```
+use the token as password
+
 #### SSH: 
 ```shell
 git clone git@github.com:pns-solutions/Plant-Nutrient-Control.git
 ```
 if you don't have an ssh-key, follow the guide in the additional information section
     
-#### HTTPS: 
-```shell
-git clone https://github.com/pns-solutions/Plant-Nutrient-Control.git
-```
+
 
 ### 5. Go to the cloned repository (on your server)
 ```shell
 cd Plant-Nutrient-Control
 ```
 
-### 6. install main dependencies
+### 6. Give all scripts the right permissions
 ```shell
-chmod +x ./scripts/install-main-dependencies.sh
-```
-```shell
-./scripts/install-main-dependencies.sh
+chmod +x ./scripts/install-docker.sh && chmod +x ./scripts/start-docker.sh && chmod +x ./scripts/build-docker.sh
 ```
 
-### 7. Build docker application
+### 7. Install docker
+After this script is finished, the system will restart. Wait a minute to reconnect via SSH.
+
 ```shell
-chmod +x ./scripts/build-docker-application.sh
+./scripts/install-docker.sh
 ```
+
+### 8. Start docker
+After this script is finished, the system will restart. Wait a minute to reconnect via SSH.
+
 ```shell
-./scripts/build-docker-application.sh
+./scripts/start-docker.sh
+```
+
+### 9. Build docker
+```shell
+./scripts/build-docker.sh
 ```
 If there were not problems, your system should run now. Otherwise, use the manuel installation in the **additional information** section
 
