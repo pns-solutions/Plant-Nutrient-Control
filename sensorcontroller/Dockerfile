@@ -10,8 +10,8 @@ RUN apt-get -y install  cron
 
 
 # install CronTab
-COPY custom-crontab /etc/cron.d/custom-crontab
-RUN chmod 0644 /etc/cron.d/custom-crontab && crontab /etc/cron.d/custom-crontab
+#COPY custom-crontab /etc/cron.d/custom-crontab
+# RUN chmod 0644 /etc/cron.d/custom-crontab && crontab /etc/cron.d/custom-crontab
 
 
 # Get latest Composer
