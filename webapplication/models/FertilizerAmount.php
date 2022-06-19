@@ -2,8 +2,8 @@
 
 namespace PNS;
 
-class FertilizerAmount
-{
+class FertilizerAmount extends BaseModel {
+
     const TABLENAME = 'FERTILIZERAMOUNT';
 
     protected $schema = [

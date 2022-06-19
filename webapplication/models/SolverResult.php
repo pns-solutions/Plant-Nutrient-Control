@@ -2,8 +2,8 @@
 
 namespace PNS;
 
-class SolverResult
-{
+class SolverResult extends BaseModel {
+
     const TABLENAME = 'SOLVERRESULT';
 
     protected $schema = [

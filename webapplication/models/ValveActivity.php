@@ -2,25 +2,15 @@
 
 namespace PNS;
 
-class ValveActivity
-{
-    protected $valveId;
-    protected $activityBegin;
-    protected $activityEnd;
-    protected $targetActiveTime;
-    protected $state;
+class ValveActivity extends BaseModel {
 
-    public function __construct($valveId, $activityBegin, $activityEnd, $targetActiveTime, $state)
-    {
-        $this->valveId = $valveId;
-        $this->activityBegin = $activityBegin;
-        $this->activityEnd = $activityEnd;
-        $this->targetActiveTime = $targetActiveTime;
-        $this->state = $state;
-    }
+    const TABLENAME = 'VALVEACTIVITY';
 
-    public function valveActivityJsonString()
-    {
-
-    }
+    protected $schema = [
+        'valveId'               => ['type' => BaseModel::TYPE_INT   ],
+        'activityBegin'         => ['type' => BaseModel::TYPE_STRING],
+        'activityEnd'           => ['type' => BaseModel::TYPE_STRING],
+        'targetActiveTime'      => ['type' => BaseModel::TYPE_STRING],
+        'state'                 => ['type' => BaseModel::TYPE_STRING]
+    ];
 }

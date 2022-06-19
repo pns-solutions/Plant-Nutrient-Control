@@ -2,8 +2,8 @@
 
 namespace PNS;
 
-class Nutrient extends BaseModelEs
-{
+class Nutrient extends BaseModel {
+
     const TABLENAME = 'NUTRIENT';
 
     protected $schema = [

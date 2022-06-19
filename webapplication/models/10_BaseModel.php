@@ -63,10 +63,26 @@ abstract class BaseModel {
      * Inserts data into database
      *
      * @param $errors - array with error messages
+     * @param $inputData - json-string which contains data of object
      * @return bool
      */
-    protected function insert(&$errors) {
+    protected function insert(&$errors, $inputData) {
+        //get $client from init??
+        $successfullyInserted = false;
 
+        try {
+            $params = [
+                'index' => INDEX,
+                'body'  => $inputData
+            ];
+
+            //$client->index($params);
+            $successfullyInserted = true;
+        } catch (PDOException $e) {
+            $errors[0] = 'Error updating ' . get_called_class();
+            $errors[1] = $e->getMessage();
+        }
+        return $successfullyInserted;
     }
 
     /**

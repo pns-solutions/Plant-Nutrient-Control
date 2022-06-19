@@ -2,21 +2,13 @@
 
 namespace PNS;
 
-class Valve
-{
-    protected $valveId;
-    protected $gpio;
-    protected $valveActivities;
+class Valve extends BaseModel {
 
-    public function __construct($valveId, $gpio, $valveActivities)
-    {
-        $this->valveId = $valveId;
-        $this->gpio = $gpio;
-        $this->valveActivities = $valveActivities;
-    }
+    const TABLENAME = 'VALVE';
 
-    public function valveJsonString()
-    {
-
-    }
+    protected $schema = [
+        'valveId'               => ['type' => BaseModel::TYPE_INT   ],
+        'gpio'                  => ['type' => BaseModel::TYPE_STRING],
+        'valveActivities'       => ['type' => BaseModel::TYPE_ARRAY ]
+    ];
 }
