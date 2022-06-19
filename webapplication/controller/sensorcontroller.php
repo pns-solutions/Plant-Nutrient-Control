@@ -30,7 +30,7 @@ $mqtt->subscribe('df/EC', function ($topic, $data) use ($mqtt) {
     echo $data;
 
 //
-//    $mqtt->publish('sensorControllerTest/EC', date('Y-m-d H:i:s::'), 0);
+    $mqtt->publish('sensorControllerTest/EC', date('Y-m-d H:i:s::'), 0);
 //    //TODO save to Database
 //
 //    $parameter = array(
