@@ -55,7 +55,7 @@ make sure you have installed the following dependencies:
 - apt-get (update it before you start with the installation)
 - git
 - docker
-- 
+
 ### 1. Login to your server (e.g.raspberry-pi)
 ```shell
 ssh USERNAME@XXX.XXX.XXX.XX
