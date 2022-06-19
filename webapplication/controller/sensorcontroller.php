@@ -3,7 +3,7 @@
 
 echo 'start';
 
-require('composer/vendor/autoload.php');
+require('../assets/composer/vendor/autoload.php');
 use PNS;
 
 use \PhpMqtt\Client\MqttClient;
@@ -26,7 +26,7 @@ $mqtt->subscribe('df/EC', function ($topic, $data) use ($mqtt) {
     printf(date('Y-m-d H:i:s::'));
     printf("Received message on topic [%s]: %s\n", $topic, $data);
     echo $data;
-//    $mqtt->publish('sensorControllerTest/EC', date('Y-m-d H:i:s::'), 0);
+    $mqtt->publish('sensorControllerTest/EC', date('Y-m-d H:i:s::'), 0);
     //TODO save to Database
 /*
     $parameter[

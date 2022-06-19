@@ -19,21 +19,6 @@ services:
     networks:
       - edge
 
-  #=================================#
-  #        Sensorcontroller         #
-  #=================================#
-  sensorcontroller:
-    build: ./sensorcontroller
-    container_name: sensorcontroller
-    restart: unless-stopped
-    ports:
-      - "49155:80"
-    volumes:
-      - sensorcontrollerData:/data
-      - ./sensorcontroller:/var/www/html/
-    networks:
-      - edge
-
 
   #=====================#
   #    elasticsearch    #
@@ -51,6 +36,9 @@ services:
     networks:
       - edge
 
+  #=====================#
+  #       kibana        #
+  #=====================#
   kibana:
     build: ./kibana
     image: comworkio/kibana:7.16.1-1.13-arm
@@ -130,7 +118,6 @@ volumes:
   mosquittoLog:
   mosquittoData:
   webapplicationData:
-  sensorcontrollerData:
 
 #====================#
 #      Networks      #
