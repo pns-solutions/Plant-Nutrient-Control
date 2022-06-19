@@ -33,18 +33,18 @@ cd Plant-Nutrient-Control
 
 ### 6. install main dependencies
 ```shell
-chmod +x ./install-main-dependencies.sh
+chmod +x ./scripts/install-main-dependencies.sh
 ```
 ```shell
-./install-main-dependencies.sh
+./scripts/install-main-dependencies.sh
 ```
 
 ### 7. Build docker application
 ```shell
-chmod +x ./build-docker-application.sh
+chmod +x ./scripts/build-docker-application.sh
 ```
 ```shell
-./build-docker-application.sh
+./scripts/build-docker-application.sh
 ```
 If there were not problems, your system should run now. Otherwise, use the manuel installation in the **additional information** section
 
@@ -81,10 +81,10 @@ cd Plant-Nutrient-Control
 
 ### 4. Build docker application
 ```shell
-chmod +x ./build-docker-application.sh
+chmod +x ./scripts/build-docker-application.sh
 ```
 ```shell
-./build-docker-application.sh
+./scripts/build-docker-application.sh
 ```
 If there were not problems, your system should run now. Otherwise, use the manuel installation in the **additional information** section
 
