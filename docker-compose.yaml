@@ -19,21 +19,6 @@ services:
     networks:
       - edge
 
-  #=================================#
-  #        Sensorcontroller         #
-  #=================================#
-  sensorcontroller:
-    build: ./sensorcontroller
-    container_name: sensorcontroller
-    restart: unless-stopped
-    ports:
-      - "49155:80"
-    volumes:
-      - sensorcontrollerData:/data
-      - ./sensorcontroller:/var/www/html/
-    networks:
-      - edge
-
 
   #=====================#
   #    elasticsearch    #
@@ -50,6 +35,26 @@ services:
       - elasticsearchData:/var/lib/elasticsearch
     networks:
       - edge
+
+  #=====================#
+  #       kibana        #
+  #=====================#
+  kibana:
+    build: ./kibana
+    image: comworkio/kibana:7.16.1-1.13-arm
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ES_PROTO=http
+      - ES_HOST=elasticsearch
+      - ES_PORT=9200
+    volumes:
+      - kibanaData:/var/lib/kibana
+    networks:
+      - edge
+    depends_on:
+      - elasticsearch
 
   #=====================#
   #       Grafana       #
@@ -109,10 +114,10 @@ volumes:
   grafanaData:
   noderedData:
   elasticsearchData:
+  kibanaData:
   mosquittoLog:
   mosquittoData:
   webapplicationData:
-  sensorcontrollerData:
 
 #====================#
 #      Networks      #
