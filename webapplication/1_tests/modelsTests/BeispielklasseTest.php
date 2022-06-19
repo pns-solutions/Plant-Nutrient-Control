@@ -15,12 +15,12 @@ class BeispielklasseTest extends TestCase {
 
         $newTest = new Beispielklasse($params);
 
-        $errorArray = [];
+//        $errorArray = [];
         $isValid = $newTest->validateRegistration($errorArray);
 
-        if(!empty($errorArray)) {
-            error_to_phpunit_output($errorArray);
-        }
+//        if(!empty($errorArray)) {
+//            error_to_phpunit_output($errorArray);
+//        }
 
         $this->assertSame(true, $isValid);;
     }

@@ -12,6 +12,11 @@ function setFirstLetterToUpperCase(inputString) {
     return inputString.charAt(0).toUpperCase() + inputString.slice(1);
 }
 
+function parseDate(input) {
+    let parts = input.match(/(\d+)/g);
+    return new Date(parts[2], parts[1]-1, parts[0]);
+}
+
 function sortTable(head, tableName, isDate = false) {
     let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     let n = head.cellIndex;
