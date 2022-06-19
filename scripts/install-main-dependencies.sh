@@ -1,6 +1,5 @@
 #!/bin/sh
-apt-get update  # To get the latest package lists
-apt-get install git-all -y
+apt-get update  # To get the latest package list
 
 #install docker
 curl -fsSL https://get.docker.com -o get-docker.sh
