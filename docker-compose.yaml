@@ -35,6 +35,13 @@ services:
     networks:
       - edge
 
+#  mycron:
+#    build: .
+#    volumes:
+#      - sensorcontrollerData:/data
+#      - ./sensorcontroller:/var/www/html/
+#    entrypoint: sh /sensorcontroller/crontab.sh
+
 
   #=====================#
   #    elasticsearch    #

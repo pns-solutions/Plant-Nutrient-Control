@@ -2,93 +2,53 @@
 
 namespace PNS;
 
-class Plant extends BaseModel {
+class Plant extends BaseModelEs
+{
+    protected $plantId;
+    protected $name;
+    protected $growthStages;
+    protected $createdAt;
+    protected $updatedAt;
 
-    const TABLENAME = '`PLANTS`';
-
-    protected $schema = [
-        'ID'            => ['type' => BaseModel::TYPE_INT],
-        'NAME'          => ['type' => BaseModel::TYPE_STRING, 'min' => 2, 'max' => 64],
-        'GROWTHSTAGES'  => ['type' => BaseModel::TYPE_INT]
-    ];
-
-    /**
-     * @param Plant $newPlant
-     * @param $inputError
-     * @return bool
-     */
-    public function validatePlant($newPlant, &$inputError) {
-        $newPlant->validate($inputError);
-
-        if ($newPlant->__get('NAME') === null) {
-            $inputError[] = 'Der Name muss ausgefüllt sein!';
-        } else if (!preg_match('/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆŠŽ∂ð ,.\'-][a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆŠŽ∂ð ,.\'-]*$/', $newPlant->__get('NAME'))) {
-            $inputError[] = 'Der Name darf nur aus Buchstaben bestehen';
-        }
-
-        if ($newPlant->__get('GROWTHSTAGES') === null) {
-            $inputError[] = 'Die Wachstumsphasen müssen ausgefüllt sein!';
-        } else if (!preg_match('/^[0-9]*$/', $newPlant->__get('GROWTHSTAGES'))) {
-            $inputError[] = 'Die Phasen dürfen nur aus Zahlen bestehen';
-        }
-
-        if(empty($inputError)) {
-            return true;
-        } else {
-            return false;
-        }
+    public function __construct($plantId, $name, $growthStages, $createdAt, $updatedAt) {
+        $this->plantId = $plantId;
+        $this->name = $name;
+        $this->growthStages = $growthStages;
+        $this->createdAt = $createdAt;
+        $this->updatedAt = $updatedAt;
     }
 
-    /**
-     * Returns plants with nutrition
-     *
-     * @param string $where
-     * @return array
-     */
-    public static function getPlantsWithNutrition(string $where = ''){
-        $plants = Plant::find($where);
-        $fertilizers = Fertilizer::find();
+    public function addGrowthStageToPlant($growthStage){
+        $this->growthStages[] = $growthStage;
+    }
 
-        foreach ($plants as &$plant) {
-            // Plant ID with nutrition ID with plant ID
-           $nutritionPlantTable = BaseModel::find('PLANTID = "' . $plant['ID'] . '"', 'PLANTNUTRITION');
-            $plant['NUTRITIONINFO'] = '';
-           foreach ($nutritionPlantTable as $entry) {
-               foreach ($fertilizers as $fertilizer) {
-                    if($fertilizer['ID'] == $entry['FERTILIZERID']) {
-                        $plant['NUTRITIONINFO'] .= $fertilizer['NAME'] . "<br>";
-                    }
-               }
-           }
-        }
+    public static function getPlants(string $where = ''){
+        $plants = Plant::find('plantId');
 
         return $plants;
     }
 
-    /**
-     * Returns plants with nutrition
-     *
-     * @param string $where
-     * @return array
-     */
-    public static function getPlantsWithNutritionAsArray(string $where = ''){
-        $plant = Plant::findOne($where);
-        $fertilizers = Fertilizer::find();
+    public function plantJsonString(){
+        $json1 = '{
+            "plantId": "' . $this->plantId . '",
+            "name": "' . $this->name . '",
+            "growthStages": [';
 
-        // Plant ID with nutrition ID with plant ID
-        $nutritionPlantTable = BaseModel::find('PLANTID = "' . $plant['ID'] . '"', 'PLANTNUTRITION');
-        foreach ($nutritionPlantTable as $entry) {
-            foreach ($fertilizers as $fertilizer) {
-                if($fertilizer['ID'] == $entry['FERTILIZERID']) {
-                    $plant['NUTRITION'][] = array(
-                        'NAME'      => $fertilizer['NAME'],
-                        'AMOUNT'    => $entry['AMOUNT'],
-                        'UNIT'      => $entry['UNIT']
-                    );
-                }
+        $json2 = '';
+        for ($x = 0; $x < count($this->growthStages); $x++) {
+            if ($x == count($this->growthStages) - 1){
+                $json2 .= $this->growthStages[$x]->growthStageJsonString();
+            } else{
+                $json2 .= $this->growthStages[$x]->growthStageJsonString() . ",";
             }
         }
 
-        return $plant;
+        $json2 .= '],';
+        $json3 = '
+            "createdAt": "' . $this->createdAt . '",
+            "updatedAt": "' . $this->updatedAt . '"
+        }';
+
+        return $json1 . $json2 . $json3;
     }
 }
