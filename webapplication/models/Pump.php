@@ -4,21 +4,12 @@ namespace PNS;
 
 class Pump
 {
-    protected $pumpId;
-    protected $gpio;
-    protected $pumpActivities;
-    protected $fertilizerId;
+    const TABLENAME = 'PUMP';
 
-    public function __construct($pumpId, $gpio, $pumpActivities, $fertilizerId)
-    {
-        $this->pumpId = $pumpId;
-        $this->gpio = $gpio;
-        $this->pumpActivities = $pumpActivities;
-        $this->fertilizerId = $fertilizerId;
-    }
-
-    public function pumpJsonString()
-    {
-
-    }
+    protected $schema = [
+        'pumpId'                => ['type' => BaseModel::TYPE_INT   ],
+        'gpio'                  => ['type' => BaseModel::TYPE_STRING],
+        'pumpActivities'        => ['type' => BaseModel::TYPE_ARRAY ],
+        'fertilizerId'          => ['type' => BaseModel::TYPE_INT   ]
+    ];
 }

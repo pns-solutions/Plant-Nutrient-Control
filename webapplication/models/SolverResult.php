@@ -4,19 +4,11 @@ namespace PNS;
 
 class SolverResult
 {
-    protected $time;
-    protected $tableId;
-    protected $fertilizerAmount;
+    const TABLENAME = 'SOLVERRESULT';
 
-    public function __construct($time, $tabledId, $fertilizerAmount)
-    {
-        $this->time = $time;
-        $this->tabledId = $tabledId;
-        $this->fertilizerAmount = $fertilizerAmount;
-    }
-
-    public function solverResultJsonString()
-    {
-
-    }
+    protected $schema = [
+        'time'                  => ['type' => BaseModel::TYPE_STRING],
+        'tableId'               => ['type' => BaseModel::TYPE_INT   ],
+        'fertilizerAmount'      => ['type' => BaseModel::TYPE_ARRAY ]
+    ];
 }
