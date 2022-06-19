@@ -1,6 +1,6 @@
 # This is our main Project with all features!
 
-## Installation
+## Installation on a fresh and clean server (like Raspberry Pi)
 ### 1. Login to your server (e.g.raspberry-pi)
 ```shell
 ssh USERNAME@XXX.XXX.XXX.XX
@@ -40,6 +40,46 @@ chmod +x ./install-main-dependencies.sh
 ```
 
 ### 7. Build docker application
+```shell
+chmod +x ./build-docker-application.sh
+```
+```shell
+./build-docker-application.sh
+```
+If there were not problems, your system should run now. Otherwise, use the manuel installation in the **additional information** section
+
+___ 
+
+## Installation on an already fully set up server (like Raspberry Pi)
+make sure you have installed the following dependencies:
+- apt-get (update it before you start with the installation)
+- git
+- docker
+- 
+### 1. Login to your server (e.g.raspberry-pi)
+```shell
+ssh USERNAME@XXX.XXX.XXX.XX
+```
+
+### 2. Clone repo to your raspberry pi (or whatever you want to use)
+you can use SSH (preferred) or HTTPS
+#### SSH: 
+```shell
+git clone git@github.com:pns-solutions/Plant-Nutrient-Control.git
+```
+if you don't have an ssh-key, follow the guide in the additional information section
+    
+#### HTTPS: 
+```shell
+git clone https://github.com/pns-solutions/Plant-Nutrient-Control.git
+```
+
+### 3. Go to the cloned repository (on your server)
+```shell
+cd Plant-Nutrient-Control
+```
+
+### 4. Build docker application
 ```shell
 chmod +x ./build-docker-application.sh
 ```
