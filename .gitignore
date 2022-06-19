@@ -2,3 +2,4 @@
 /application_old/
 /sensorcontroller/composer/composer.lock
 /sensorcontroller/composer/vendor/
+/get-docker.sh
