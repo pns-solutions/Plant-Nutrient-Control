@@ -1,5 +1,7 @@
 <?php
 
-const INDEX = 'PNS';
+use Elasticsearch\ClientBuilder;
 
-$client = ClientBuilder::create()->setHosts(['51.75.64.177'])->build();
+const INDEX = 'pns';
+
+$elasticsearchConnection = ClientBuilder::create()->setHosts(['51.75.64.177'])->build();

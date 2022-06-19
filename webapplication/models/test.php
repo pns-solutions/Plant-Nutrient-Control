@@ -109,7 +109,7 @@ $result = $growth->find('growthStageId');
 
 $stages[]=$growth;
 
-$orange = new Plant('9999','erdbeere',$stages,'2050','2090');
+$orange = new CUlture('9999','erdbeere',$stages,'2050','2090');
 $thejson = $orange->plantJsonString();
 //echo "$thejson";
 

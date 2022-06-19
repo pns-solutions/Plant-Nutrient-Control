@@ -128,6 +128,46 @@ div#FooterRight a img {
     padding: 15px;
 }
 
+/* ----------------------------------   Wachsstumsstufen Tabs   ---------------------------------- */
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: var(--hover-color);
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    background: var(--primary-bg-color);
+}
+
 
 /* ----------------------------------   Content   ---------------------------------- */
 .Content {
@@ -136,7 +176,7 @@ div#FooterRight a img {
     position: relative;
     overflow: auto;
     padding: 20px;
-    background-image: url('../images/pageImages/background.png');
+    background-image: url('../images/pageImages/background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
