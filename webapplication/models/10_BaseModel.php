@@ -172,7 +172,21 @@ abstract class BaseModel {
      * @return array - empty when successfully delete
      */
     public static function deleteWhere($where) {
+        $client = $GLOBALS['elasticsearchConnection'];
 
+        if(empty($where)) {
+            return 'fail';
+        } else {
+            $params = [
+                'index' => INDEX,
+                'id'    => $where
+            ];
+        }
+
+        // Delete doc at /my_index/_doc_/my_id
+        $response = $client->delete($params);
+
+        return $response;
     }
 
     /**
