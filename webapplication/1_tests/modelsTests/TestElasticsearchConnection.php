@@ -2,6 +2,7 @@
 
 namespace PNS;
 require '../../core/functions.php';
+require '../../assets/composer/vendor/autoload.php';
 require '../../init/10_database.php';
 
 use Elasticsearch\ClientBuilder;
@@ -11,7 +12,7 @@ class TestElasticsearchConnection extends TestCase{
 
     public $client = null;
 
-    public function __construct(?string $name = null, array $data = [], $dataName = '') {
+    public function __construct(string $name = null, array $data = [], $dataName = '') {
         parent::__construct($name, $data, $dataName);
 
         $this->client = ClientBuilder::create()->setHosts(['51.75.64.177'])->build();
@@ -48,7 +49,7 @@ class TestElasticsearchConnection extends TestCase{
 
         $params = [ // start culture
             'plantId'       => null,
-            'name'          => 'Thymian',
+            'name'          => 'GHI',
             'growthStages'  => [ // start stage array
                 [ // start stage
                 'growthStageId' => 1,
@@ -100,6 +101,14 @@ class TestElasticsearchConnection extends TestCase{
         $newCulture = new Culture($params);
 
         $error = $newCulture->save();
+
+        error_to_phpunit_output($error);
+    }
+
+    public function testDeleteMethod() {
+        $where = 'LpNOgYEBF0QE60jjAqV6';
+
+        $error = Culture::deleteWhere($where);
 
         error_to_phpunit_output($error);
     }
