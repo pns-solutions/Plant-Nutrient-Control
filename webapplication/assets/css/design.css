@@ -517,6 +517,10 @@ table input:hover{
     display: block;
 }
 
+.input > label {
+    color: #ffffff;
+}
+
 .errorinput{
     position: relative;
 }
