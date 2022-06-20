@@ -48,34 +48,7 @@ class PagesController extends Controller{
         $this->_params['title'] = 'Pflanze anlegen';
         if(isset($_GET['plantId'])) {
             $this->_params['plant'] = Culture::find(['_id' => $_GET['plantId']])[0];
-//            var_dump($this->_params['plant']);
-        }
-
-        if(isset($_POST['submitAddPlant'])) {
-            $params = [
-                'ID'            => (isset($_GET['plantId'])) ? base64_decode(urldecode($_GET['plantId'])) : null,
-                'NAME'          => ($_POST['plantName']    === '') ? null : $_POST['plantName'],
-                'GROWTHSTAGES'  => ($_POST['growthStages']     === '') ? null : $_POST['growthStages']
-            ];
-
-            $newPlant = new CUlture($params);
-
-            $inputError = array();
-            if(!$newPlant->validatePlant($newPlant, $inputError)) {
-                $this->_params['inputError'] = $inputError;
-                $this->_params['oldValues'] = $params;
-                return;
-            }
-
-            $errors = $newPlant->save();
-
-            if(empty($errors)) {
-                $message = 'Pflanze erfolgreich gespeichert!';
-                sendHeaderByControllerAndAction('pages', 'addPlant&plantId=' . base64_encode(urlencode($GLOBALS['lastInsertedID'] ?? $params['ID'])) . '&success=true&msg=' . $message);
-            } else {
-                $message = 'Fehler beim Speichern der Pflanze!';
-                sendHeaderByControllerAndAction('pages', 'addPlant&success=false&msg=' . $message);
-            }
+            error_to_logFile(json_encode($_POST, 128));
         }
     }
 

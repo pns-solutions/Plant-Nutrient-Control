@@ -46,33 +46,56 @@ class TestElasticsearchConnection extends TestCase{
     public function testInsertMethod() {
         $time = new \DateTime('now');
 
-        $params = [
+        $params = [ // start culture
             'plantId'       => null,
-            'name'          => 'Test',
-            'growthStages'  => [
+            'name'          => 'Thymian',
+            'growthStages'  => [ // start stage array
+                [ // start stage
                 'growthStageId' => 1,
-                'name' => 'First One',
-                'nutrientArray' => [
-                    [
+                'name' => 'FirstOne',
+                'nutrientArray' => [ // start nutrient array
+                    [ // start nutrient
                         'nutrientId' => 1,
-                        'name' => 'Chlor',
-                        'element' => 'Cl',
-                        'amount' => 100
-                    ],
-                    [
+                        'name' => 'Phosphor',
+                        'element' => 'P',
+                        'amount' => 10
+                    ],// end nutrient
+                    [// start nutrient
                         'nutrientId' => 2,
                         'name' => 'Kalium',
                         'element' => 'Kl',
                         'amount' => 50
-                    ]
-                ],
+                    ]// end nutrient
+                ], // end nutrient array
                 'createdAt'     => $time->format('Y-m-d H:i:s'),
                 'updatedAt'     => $time->format('Y-m-d H:i:s'),
                 'defaultDuration' => 3
-            ],
+                ], //end stage
+                [ // start stage
+                    'growthStageId' => 1,
+                    'name' => 'SecondOne',
+                    'nutrientArray' => [ // start nutrient array
+                        [ // start nutrient
+                            'nutrientId' => 1,
+                            'name' => 'Kalium',
+                            'element' => 'K',
+                            'amount' => 101
+                        ],// end nutrient
+                        [// start nutrient
+                            'nutrientId' => 2,
+                            'name' => 'Kalium',
+                            'element' => 'Kl',
+                            'amount' => 50
+                        ]// end nutrient
+                    ], // end nutrient array
+                    'createdAt'     => $time->format('Y-m-d H:i:s'),
+                    'updatedAt'     => $time->format('Y-m-d H:i:s'),
+                    'defaultDuration' => 3
+                ] //end stage
+            ], // end stage array
             'createdAt'     => '17.06.2022',
             'updatedAt'     => '17.06.2022'
-        ];
+        ]; // end culture
 
         $newCulture = new Culture($params);
 

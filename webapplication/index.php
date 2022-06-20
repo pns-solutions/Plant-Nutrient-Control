@@ -1,6 +1,7 @@
 <?php
 // includes
 require_once 'assets/composer/vendor/autoload.php';
+require_once 'core/functions.php';
 require_once 'init/10_database.php';
 require_once 'init/20_imports.php';
 
