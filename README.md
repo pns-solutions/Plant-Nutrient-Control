@@ -56,7 +56,6 @@ Your application should now be accessible from the following locations:
 - Elasticsearch: `192.168.xxx.xx:9200` | Will take a few minutes to start after docker compose completes successfully.
 - Grafana: `192.168.xxx.xx:3030` | admin:admin (initial)
 - NodeRed: `192.168.xxx.xx:1880`
-- Sensorcontroller: `192.168.xxx.xx:49153`
 - MQTT: `192.168.xxx.xx:8883` | Does not display HTTPS results. Try a NodeRed flow.
 
 
