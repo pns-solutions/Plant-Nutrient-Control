@@ -11,7 +11,7 @@ sudo apt-get update
 ```
 ### 3. Install Git:
 ```shell
-sudo apt install git-all -y
+sudo apt install git -y
 ```
 ### 4. Clone repo to your raspberry pi (or whatever you want to use)
 you can use SSH (preferred) or HTTPS
