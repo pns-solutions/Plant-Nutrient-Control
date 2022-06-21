@@ -4,7 +4,8 @@ namespace PNS;
 
 class SensorMeasurement extends BaseModel {
 
-    const TABLENAME = 'SENSORMEASUREMENT';
+//    const TABLENAME = 'SENSORMEASUREMENT'; // TODO: klein oder groß?
+    const TABLENAME = 'sensormeasurement';
 
     protected $schema = [
         'sensorId'              => ['type' => BaseModel::TYPE_INT   ],
