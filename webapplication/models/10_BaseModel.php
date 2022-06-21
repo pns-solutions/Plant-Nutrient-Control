@@ -76,8 +76,6 @@ abstract class BaseModel {
         $client = $GLOBALS['elasticsearchConnection'];
         $successfullyInserted = false;
 
-        error_to_phpunit_output($this->data);
-
         try {
             $params = [
                 'index' => INDEX,
@@ -104,7 +102,6 @@ abstract class BaseModel {
      */
     public static function find(array $where = [], array $orderBy = []) {
         $client = $GLOBALS['elasticsearchConnection'];
-        $results = array();
 
         if(empty($where)) {
             $params = [
@@ -149,10 +146,10 @@ abstract class BaseModel {
      *
      * @param $where - without WHERE string
      * @param $viewName - When data comes from view
-     * @return array
      */
+    // TODO: Check if needed
     public static function findOne($where = '', $viewName = null) {
-
+        die('Not implemented');
     }
 
     /**
@@ -162,30 +159,26 @@ abstract class BaseModel {
      * @return bool
      */
     protected function update(&$errors) {
-
+        die('Use Delete & Create');
     }
 
     /**
      * Delete data from database
      *
-     * @param $where - without WHERE string
+     * @param $where - without WHERE string als array angeben => Bsp.: ['id' => 45]
      * @return array - empty when successfully delete
      */
-    public static function deleteWhere($where) {
+    public static function deleteWhere($where = []) {
         $client = $GLOBALS['elasticsearchConnection'];
-
-        if(empty($where)) {
-            return 'fail';
-        } else {
+        $response = [];
+        if(!empty($where)) {
             $params = [
                 'index' => INDEX,
-                'id'    => $where
+                $where
             ];
+            // Delete doc at /my_index/_doc_/my_id
+            $response = $client->delete($params);
         }
-
-        // Delete doc at /my_index/_doc_/my_id
-        $response = $client->delete($params);
-
         return $response;
     }
 
