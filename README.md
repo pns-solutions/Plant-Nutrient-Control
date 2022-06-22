@@ -1,4 +1,4 @@
-# This is out main Project with all features!
+# This is our main Project with all features!
 
 ## Installation
 ### 1. Login to your server (e.g.raspberry-pi)
@@ -17,7 +17,7 @@ sudo apt install git-all -y
 you can use SSH (preferred) or HTTPS
 #### SSH: 
 ```shell
-git clone git@github.com:pns-solutions/CUlture-Nutrient-Control.git
+git clone git@github.com:pns-solutions/Plant-Nutrient-Control.git
 ```
 if you don't have an ssh-key, follow the guide in the additional information section
     
@@ -28,23 +28,23 @@ git clone https://github.com/pns-solutions/Plant-Nutrient-Control.git
 
 ### 5. Go to the cloned repository (on your server)
 ```shell
-cd CUlture-Nutrient-Control
+cd Plant-Nutrient-Control
 ```
 
 ### 6. install main dependencies
 ```shell
-chmod +x ./install-main-dependencies.sh
+chmod +x ./scripts/install-docker.sh
 ```
 ```shell
-./install-main-dependencies.sh
+./scripts/install-docker.sh
 ```
 
 ### 7. Build docker application
 ```shell
-chmod +x ./build-docker-application.sh
+chmod +x ./scripts/build-docker.sh
 ```
 ```shell
-./build-docker-application.sh
+./scripts/build-docker.sh
 ```
 If there were not problems, your system should run now. Otherwise, use the manuel installation in the **additional information** section
 
