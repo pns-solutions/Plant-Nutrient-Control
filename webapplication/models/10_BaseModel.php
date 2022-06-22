@@ -105,12 +105,14 @@ abstract class BaseModel {
 
         if(empty($where)) {
             $params = [
-                'index' => INDEX,
-                'body' => [
-                    "query" => [
-                        "match_all" => (object)[],
-                    ],
-                ],
+                'index' => 'pns',
+                'body'  => [
+                    'query' => [
+                        'exists' => [
+                            'field' => self::tableName()
+                        ]
+                    ]
+                ]
             ];
         } else {
             $params = [

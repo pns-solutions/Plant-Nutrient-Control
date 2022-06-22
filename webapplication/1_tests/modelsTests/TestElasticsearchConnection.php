@@ -24,32 +24,17 @@ class TestElasticsearchConnection extends TestCase{
     }
 
     public function testSearchMethod() {
-        $where = [
-            '_id' => 'fVVXfYEBTRGddOLaKITs'
-        ];
+        $result = Culture::find(['culture.name' => 'Tomaten']);
 
-        $results = Culture::find($where);
-
-//        foreach ($results as $result) {
-//            $params = $result['_source']['culture'];
-//
-//            $params['plantId'] = $result['_id'];
-//
-//            $newCulture = new Culture($params);
-//
-//            error_to_phpunit_output($newCulture);
-//        }
-
-
-        error_to_phpunit_output($results);
-    }
+        error_to_logFile(json_encode($result, 128));
+   }
 
     public function testInsertMethod() {
         $time = new \DateTime('now');
 
         $params = [ // start culture
             'plantId'       => null,
-            'name'          => 'GHI',
+            'name'          => 'Tomaten',
             'growthStages'  => [ // start stage array
                 [ // start stage
                 'growthStageId' => 1,
@@ -98,11 +83,15 @@ class TestElasticsearchConnection extends TestCase{
             'updatedAt'     => '17.06.2022'
         ]; // end culture
 
+
+//        $params = [
+//          'zest' => 'sss',
+//          'asdjA' => 'aasdadasd'
+//        ];
+
         $newCulture = new Culture($params);
 
         $error = $newCulture->save();
-
-        error_to_phpunit_output($error);
     }
 
     public function testDeleteMethod() {
@@ -111,6 +100,14 @@ class TestElasticsearchConnection extends TestCase{
         $error = Culture::deleteWhere($where);
 
         error_to_phpunit_output($error);
+    }
+
+    public function testCreateIndex() {
+        $params = [
+            'index' => 'pns'
+        ];
+
+       $GLOBALS['elasticsearchConnection']->indices()->create($params);
     }
 
 }
