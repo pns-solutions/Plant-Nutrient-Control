@@ -1,4 +1,4 @@
-# This is out main Project with all features!
+# This is our main Project with all features!
 
 ## Installation
 ### 1. Login to your server (e.g.raspberry-pi)
