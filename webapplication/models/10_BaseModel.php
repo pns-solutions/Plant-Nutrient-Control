@@ -142,28 +142,6 @@ abstract class BaseModel {
         }
     }
 
-
-    /**
-     * Returns one object from database
-     *
-     * @param $where - without WHERE string
-     * @param $viewName - When data comes from view
-     */
-    // TODO: Check if needed
-    public static function findOne($where = '', $viewName = null) {
-        die('Not implemented');
-    }
-
-    /**
-     * Update data in database
-     *
-     * @param $errors - array with error messages
-     * @return bool
-     */
-    protected function update(&$errors) {
-        die('Use Delete & Create');
-    }
-
     /**
      * Delete data from database
      *
@@ -250,18 +228,6 @@ abstract class BaseModel {
         $class = get_called_class();
         if (defined($class . '::TABLENAME')) {
             return $class::TABLENAME;
-        }
-        return null;
-    }
-
-    /**
-     * Returns the table name of the class
-     * @return null | string
-     */
-    public static function idField(){
-        $class = get_called_class();
-        if (defined($class . '::IDFIELD')) {
-            return $class::IDFIELD;
         }
         return null;
     }

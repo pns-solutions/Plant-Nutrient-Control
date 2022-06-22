@@ -34,7 +34,7 @@ class TestElasticsearchConnection extends TestCase{
 
         $params = [ // start culture
             'plantId'       => null,
-            'name'          => 'Tomaten',
+            'name'          => 'Basilikum',
             'growthStages'  => [ // start stage array
                 [ // start stage
                 'growthStageId' => 1,
@@ -42,14 +42,14 @@ class TestElasticsearchConnection extends TestCase{
                 'nutrientArray' => [ // start nutrient array
                     [ // start nutrient
                         'nutrientId' => 1,
-                        'name' => 'Phosphor',
-                        'element' => 'P',
-                        'amount' => 10
+                        'name' => 'Silicium',
+                        'element' => 'S',
+                        'amount' => 101
                     ],// end nutrient
                     [// start nutrient
                         'nutrientId' => 2,
-                        'name' => 'Kalium',
-                        'element' => 'Kl',
+                        'name' => 'Eisen',
+                        'element' => 'Fe',
                         'amount' => 50
                     ]// end nutrient
                 ], // end nutrient array
@@ -63,14 +63,14 @@ class TestElasticsearchConnection extends TestCase{
                     'nutrientArray' => [ // start nutrient array
                         [ // start nutrient
                             'nutrientId' => 1,
-                            'name' => 'Kalium',
-                            'element' => 'K',
+                            'name' => 'Kupfer',
+                            'element' => 'Cu',
                             'amount' => 101
                         ],// end nutrient
                         [// start nutrient
                             'nutrientId' => 2,
-                            'name' => 'Kalium',
-                            'element' => 'Kl',
+                            'name' => 'Chlor',
+                            'element' => 'Cl',
                             'amount' => 50
                         ]// end nutrient
                     ], // end nutrient array
