@@ -15,3 +15,21 @@ const PAGE_IMAGE_PATH = IMAGE_PATH . 'pageImages/';
 const DOCUMENTATION_IMAGE_PATH = IMAGE_PATH . 'documentation/';
 const PICTURE_RASTER_PATH = IMAGE_PATH . 'pictureRaster/';
 const ERROR_GIF_PATH = IMAGE_PATH . 'errorGif/';
+
+const ELEMENTS = [
+    'P' => 'Phosphor',
+    'K' => 'Kalium',
+    'Ca' => 'Calcium',
+    'Mg' => 'Magnesium',
+    'Na' => 'Natrium',
+    'S' => 'Schwefel',
+    'Fe' => 'Eisen',
+    'Mn' => 'Mangan',
+    'Cu' => 'Kupfer',
+    'Zn' => 'Zink',
+    'B' => 'Bor',
+    'Mo' => 'Molybdän',
+    'Cl' => 'Chlor',
+    'Si' => 'Silicium',
+    'C' => 'Kohlenstoff'
+];

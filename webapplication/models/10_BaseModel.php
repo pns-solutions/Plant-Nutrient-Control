@@ -76,12 +76,11 @@ abstract class BaseModel {
         $client = $GLOBALS['elasticsearchConnection'];
         $successfullyInserted = false;
 
-        error_to_phpunit_output($this->data);
-
         try {
             $params = [
                 'index' => INDEX,
-                'body'  => json_encode([
+                'body' => json_encode([
+                    'timestamp' => date('c'),
                     self::tableName() => $this->data
                 ])
             ];
@@ -107,12 +106,14 @@ abstract class BaseModel {
 
         if(empty($where)) {
             $params = [
-                'index' => INDEX,
-                'body' => [
-                    "query" => [
-                        "match_all" => (object)[],
-                    ],
-                ],
+                'index' => 'pns',
+                'body'  => [
+                    'query' => [
+                        'exists' => [
+                            'field' => self::tableName()
+                        ]
+                    ]
+                ]
             ];
         } else {
             $params = [
@@ -128,63 +129,37 @@ abstract class BaseModel {
         $results = $client->search($params);
 
         if(!empty($results)) {
-            $objectArray = [];
+            $cultureArray = [];
             foreach ($results['hits']['hits'] as $result) {
-                $object = $result['_source'][self::tableName()];
-                $object['id'] = $result['_id'];
+                $culture = $result['_source']['culture'];
+                $culture['id'] = $result['_id'];
 
-                $objectArray[] = $object;
+                $cultureArray[] = $culture;
             }
 
-            return $objectArray;
+            return $cultureArray;
         } else {
             return $results;
         }
     }
 
-
-    /**
-     * Returns one object from database
-     *
-     * @param $where - without WHERE string
-     * @param $viewName - When data comes from view
-     * @return array
-     */
-    public static function findOne($where = '', $viewName = null) {
-
-    }
-
-    /**
-     * Update data in database
-     *
-     * @param $errors - array with error messages
-     * @return bool
-     */
-    protected function update(&$errors) {
-
-    }
-
     /**
      * Delete data from database
      *
-     * @param $where - without WHERE string
+     * @param $where - without WHERE string als array angeben => Bsp.: ['id' => 45]
      * @return array - empty when successfully delete
      */
-    public static function deleteWhere($where) {
+    public static function deleteWhere($where = []) {
         $client = $GLOBALS['elasticsearchConnection'];
-
-        if(empty($where)) {
-            return false;
-        } else {
+        $response = [];
+        if(!empty($where)) {
             $params = [
                 'index' => INDEX,
-                'id'    => $where
+                $where
             ];
+            // Delete doc at /my_index/_doc_/my_id
+            $response = $client->delete($params);
         }
-
-        // Delete doc at /my_index/_doc_/my_id
-        $response = $client->delete($params);
-
         return $response;
     }
 
@@ -254,18 +229,6 @@ abstract class BaseModel {
         $class = get_called_class();
         if (defined($class . '::TABLENAME')) {
             return $class::TABLENAME;
-        }
-        return null;
-    }
-
-    /**
-     * Returns the table name of the class
-     * @return null | string
-     */
-    public static function idField(){
-        $class = get_called_class();
-        if (defined($class . '::IDFIELD')) {
-            return $class::IDFIELD;
         }
         return null;
     }

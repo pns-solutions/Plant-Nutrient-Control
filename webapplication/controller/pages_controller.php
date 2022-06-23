@@ -2,8 +2,6 @@
 
 namespace PNS;
 
-use Elasticsearch\ClientBuilder;
-
 class PagesController extends Controller{
 
     /**
@@ -13,7 +11,7 @@ class PagesController extends Controller{
      * @return void
      */
     public function actionStart() {
-        $this->_params['title'] = 'Test';
+        $this->_params['title'] = 'Startseite';
     }
 
     /**
@@ -34,7 +32,6 @@ class PagesController extends Controller{
      */
     public function actionCultureManagement() {
         $this->_params['title'] = 'Pflanzenmanagement';
-
         $this->_params['plants'] = Culture::find();
     }
 
