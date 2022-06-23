@@ -9,7 +9,7 @@ class SensorMeasurement extends BaseModel {
 
     protected $schema = [
         'sensorId'              => ['type' => BaseModel::TYPE_INT   ],
-        'time'                  => ['type' => BaseModel::TYPE_STRING],
+        'timestamp'             => ['type' => BaseModel::TYPE_STRING],
         'reading'               => ['type' => BaseModel::TYPE_INT   ],
         'convertedReading'      => ['type' => BaseModel::TYPE_INT   ],
         'unit'                  => ['type' => BaseModel::TYPE_STRING],
