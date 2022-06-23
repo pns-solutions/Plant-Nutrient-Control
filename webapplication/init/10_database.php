@@ -9,7 +9,7 @@ $elasticsearchConnection = null;
 
 try {
 //    error_to_logFile('verbunden');
-    $elasticsearchConnection = ClientBuilder::create()->setHosts(['51.75.64.177'])->build();
+    $elasticsearchConnection = ClientBuilder::create()->setHosts(['192.168.0.102'])->build();
 } catch (Missing404Exception $e) {
 //    error_to_logFile('Verbindung nicht möglich!');
     die('Verbindung nicht möglich!');
