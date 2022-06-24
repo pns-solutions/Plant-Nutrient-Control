@@ -59,6 +59,7 @@ foreach ($topics as $topic => $value) {
             $parameter = array(
                 'sensorId' => $value,
                 'timestamp' => date('c'),
+                'topic' => $topic,
                 'reading' => floatval($data),
                 'convertedReading' => $data * 0.1,
                 'unit' => "ml",
