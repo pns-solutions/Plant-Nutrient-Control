@@ -6,7 +6,7 @@ use Elasticsearch\Common\Exceptions\Missing404Exception;
 const INDEX = 'pns';
 
 $elasticsearchConnection = null;
-$server = '192.168.XXX.XXX';
+$server = '192.168.178.74';
 
 try {
 //    error_to_logFile('verbunden');
