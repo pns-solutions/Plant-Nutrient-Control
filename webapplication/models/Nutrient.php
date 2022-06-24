@@ -2,34 +2,14 @@
 
 namespace PNS;
 
-class Nutrient extends BaseModelEs
-{
-    protected $nutrientId;
-    protected $name;
-    protected $element;
-    protected $amount;
+class Nutrient extends BaseModel {
 
-    public function __construct($nutriendId, $name, $element, $amount) {
-        $this->nutrientId = $nutriendId;
-        $this->name = $name;
-        $this->element = $element;
-        $this->amount = $amount;
-    }
+    const TABLENAME = 'NUTRIENT';
 
-    public function nutrientJsonString(){
-        $json = '{
-            "nutrientId": "' . $this->nutrientId . '",
-            "name": "' . $this->name . '",
-            "element": "' . $this->element . '",
-            "amount": "' . $this->amount . '"
-        }';
-
-        return $json;
-    }
-
-    //returns all Nutrients
-    public static function getNutrients(string $where = ''){
-        $results = Plant::find('nutrientId');
-        return $results;
-    }
+    protected $schema = [
+        'nutrientId'         => ['type' => BaseModel::TYPE_INT   ],
+        'name'               => ['type' => BaseModel::TYPE_STRING],
+        'element'            => ['type' => BaseModel::TYPE_STRING ],
+        'amount'             => ['type' => BaseModel::TYPE_INT   ]
+    ];
 }

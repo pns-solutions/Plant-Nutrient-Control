@@ -2,27 +2,17 @@
 
 namespace PNS;
 
-class SensorMeasurement
-{
-    protected $sensorId;
-    protected $time;
-    protected $reading;
-    protected $convertedReading;
-    protected $unit;
-    protected $tabledId;
+class SensorMeasurement extends BaseModel {
 
-    public function __construct($sensorId, $time, $reading, $convertedReading, $unit, $tabledId)
-    {
-        $this->sensorId = $sensorId;
-        $this->time = $time;
-        $this->reading = $reading;
-        $this->convertedReading = $convertedReading;
-        $this->unit = $unit;
-        $this->tabledId = $tabledId;
-    }
+//    const TABLENAME = 'SENSORMEASUREMENT'; // TODO: klein oder groß?
+    const TABLENAME = 'sensormeasurement';
 
-    public function sensorMeasurementJsonString()
-    {
-
-    }
+    protected $schema = [
+        'sensorId'              => ['type' => BaseModel::TYPE_INT   ],
+        'time'                  => ['type' => BaseModel::TYPE_STRING],
+        'reading'               => ['type' => BaseModel::TYPE_INT   ],
+        'convertedReading'      => ['type' => BaseModel::TYPE_INT   ],
+        'unit'                  => ['type' => BaseModel::TYPE_STRING],
+        'tableId'               => ['type' => BaseModel::TYPE_INT   ]
+    ];
 }

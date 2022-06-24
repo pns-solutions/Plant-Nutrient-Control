@@ -1,20 +1,17 @@
 <?php
-$dbname     = 'pnsDatabase';
-//$dns        = 'mysql:dbname='.$dbname.';host=192.168.178.21';
-$dns        = 'mysql:dbname='.$dbname.';host=51.75.64.177';
-$dbuser     = 'pnsUser';
-$dbpassword = 'asdf1234!';
 
-$options    = [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-];
+use Elasticsearch\ClientBuilder;
+use Elasticsearch\Common\Exceptions\Missing404Exception;
 
-$db = null;
-try{
-    $db = new PDO($dns, $dbuser, $dbpassword, $options);
+const INDEX = 'pns';
+
+$elasticsearchConnection = null;
+
+try {
+//    error_to_logFile('verbunden');
+    $elasticsearchConnection = ClientBuilder::create()->setHosts(['192.168.0.102'])->build();
+} catch (Missing404Exception $e) {
+//    error_to_logFile('Verbindung nicht möglich!');
+    die('Verbindung nicht möglich!');
 }
-catch(PDOException $e){
-    $message = 'Database connection failed: ' . $e->getMessage();
-    die($message);
-}
+

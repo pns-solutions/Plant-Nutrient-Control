@@ -2,25 +2,15 @@
 
 namespace PNS;
 
-class PumpActivity
-{
-    protected $pumpId;
-    protected $activityBegin;
-    protected $activityEnd;
-    protected $targetActiveTime;
-    protected $pumpVolume;
+class PumpActivity extends BaseModel {
 
-    public function __construct($pumpId, $activityBegin, $activityEnd, $targetActiveTime, $pumpVolume)
-    {
-        $this->pumpId = $pumpId;
-        $this->activityBegin = $activityBegin;
-        $this->activityEnd = $activityEnd;
-        $this->targetActiveTime = $targetActiveTime;
-        $this->pumpVolume = $pumpVolume;
-    }
+    const TABLENAME = 'PUMPACTIVITY';
 
-    public function pumpActivityJsonString()
-    {
-
-    }
+    protected $schema = [
+        'pumpId'                => ['type' => BaseModel::TYPE_INT   ],
+        'activityBegin'         => ['type' => BaseModel::TYPE_STRING],
+        'activityEnd'           => ['type' => BaseModel::TYPE_STRING],
+        'targetActiveTime'      => ['type' => BaseModel::TYPE_STRING],
+        'pumpVolume'            => ['type' => BaseModel::TYPE_STRING]
+    ];
 }

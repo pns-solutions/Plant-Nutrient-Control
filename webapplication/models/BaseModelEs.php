@@ -37,7 +37,7 @@ abstract class BaseModelEs
         try {
             $json = '{
                 "query": {
-                    "exists" : { "field" : "' . $docType . '" }
+                    "exists" : { "field" : "' . self::tablename() . '" }
                     }
                 }';
 

@@ -60,7 +60,7 @@ services:
   #       Grafana       #
   #=====================#
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:8.5.6
     container_name: grafana
     restart: unless-stopped
     ports:

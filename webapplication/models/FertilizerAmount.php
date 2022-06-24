@@ -2,19 +2,12 @@
 
 namespace PNS;
 
-class FertilizerAmount
-{
-    protected $fertilizerId;
-    protected $amount;
+class FertilizerAmount extends BaseModel {
 
-    public function __construct($fertilizerId, $amount)
-    {
-        $this->fertilizerId = $fertilizerId;
-        $this->amount = $amount;
-    }
+    const TABLENAME = 'FERTILIZERAMOUNT';
 
-    public function fertilizerAmountJsonString()
-    {
-
-    }
+    protected $schema = [
+        'fertilizerId'       => ['type' => BaseModel::TYPE_INT   ],
+        'amount'             => ['type' => BaseModel::TYPE_STRING]
+    ];
 }

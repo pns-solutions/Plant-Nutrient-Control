@@ -2,13 +2,15 @@
 
 namespace PNS;
 
-use PDOException;
-
 abstract class BaseModel {
     const TYPE_INT = 'int';
     const TYPE_FLOAT = 'float';
     const TYPE_STRING = 'string';
+    const TYPE_ARRAY = 'array';
     const TYPE_DEFAULT = 'DEFAULT';
+
+    const INSERT = 'insert';
+    const UPDATE = 'update';
 
     protected $schema = []; // schema for the database table (attribute names from the Table)
     protected $data = [];  // data which goes into the table
@@ -49,14 +51,18 @@ abstract class BaseModel {
      *
      * @return array
      */
-    public function save() {
+    public function save($method = 'insert') {
         $errors = array();
 
-        if ($this->ID === null || $this->ID === '') {
-            $this->insert($errors);
-        } else {
-            $this->update($errors);
+        switch ($method) {
+            case 'insert':
+                $this->insert($errors);
+                break;
+            case 'update':
+                $this->update($errors);
+                break;
         }
+
         return $errors;
     }
 
@@ -67,45 +73,85 @@ abstract class BaseModel {
      * @return bool
      */
     protected function insert(&$errors) {
-        $db = $GLOBALS['db'];
-
+        $client = $GLOBALS['elasticsearchConnection'];
         $successfullyInserted = false;
 
+        error_to_phpunit_output($this->data);
+
         try {
-            $sql = 'INSERT INTO ' . self::tableName() . ' (';
-            $valueString = ' VALUES (';
+            $params = [
+                'index' => INDEX,
+                'body'  => json_encode([
+                    self::tableName() => $this->data
+                ])
+            ];
 
-
-            foreach ($this->schema as $key => $schemaOptions) {
-                $sql .= '`' . $key . '`,';
-
-                if ($this->data[$key] === null) {
-                    $valueString .= 'DEFAULT,';
-                } else {
-                    $valueString .= $db->quote($this->data[$key]) . ',';
-                }
-            }
-
-            $sql = trim($sql, ',');
-            $valueString = trim($valueString, ',');
-            $sql .= ')' . $valueString . ');';
-
-            sql_to_logFile($sql);
-
-            $statement = $db->prepare($sql);
-            $db->beginTransaction();
-            $statement->execute();
-
-            $GLOBALS['lastInsertedID'] = $db->lastInsertId();
-
-            $db->commit();
+            $client->index($params);
             $successfullyInserted = true;
-        } catch (PDOException $e) {
+        } catch (\Throwable $e) {
             $errors[0] = 'Error updating ' . get_called_class();
             $errors[1] = $e->getMessage();
-            $db->rollBack();
         }
         return $successfullyInserted;
+    }
+
+    /**
+     * Returns alle data from database
+     *
+     * @param $where - without WHERE string
+     * @param $orderBy - with ORDER BY string
+     * @return array
+     */
+    public static function find(array $where = [], array $orderBy = []) {
+        $client = $GLOBALS['elasticsearchConnection'];
+
+        if(empty($where)) {
+            $params = [
+                'index' => INDEX,
+                'body' => [
+                    "query" => [
+                        "match_all" => (object)[],
+                    ],
+                ],
+            ];
+        } else {
+            $params = [
+                'index' => INDEX,
+                'body' => [
+                    "query" => [
+                        'match' => $where
+                    ],
+                ],
+            ];
+        }
+
+        $results = $client->search($params);
+
+        if(!empty($results)) {
+            $objectArray = [];
+            foreach ($results['hits']['hits'] as $result) {
+                $object = $result['_source'][self::tableName()];
+                $object['id'] = $result['_id'];
+
+                $objectArray[] = $object;
+            }
+
+            return $objectArray;
+        } else {
+            return $results;
+        }
+    }
+
+
+    /**
+     * Returns one object from database
+     *
+     * @param $where - without WHERE string
+     * @param $viewName - When data comes from view
+     * @return array
+     */
+    public static function findOne($where = '', $viewName = null) {
+
     }
 
     /**
@@ -115,39 +161,7 @@ abstract class BaseModel {
      * @return bool
      */
     protected function update(&$errors) {
-        $db = $GLOBALS['db'];
 
-        $successfullyUpdated = false;
-
-        try {
-            $sql = 'UPDATE ' . self::tableName() . ' SET ';
-
-            foreach ($this->schema as $key => $schemaOptions) {
-                if ($this->data[$key] !== null) {
-                    $sql .= $key . ' = ' . $db->quote($this->data[$key]) . ',';
-                } else if(isset($schemaOptions['allowNull']) && $schemaOptions['allowNull']) {
-                    $sql .= $key . ' = null,';
-                }
-            }
-
-            $sql = trim($sql, ',');
-            $sql .= ' WHERE id = ' . $this->data['ID'];
-
-            sql_to_logFile($sql);
-
-            $statement = $db->prepare($sql);
-            $db->beginTransaction();
-            $statement->execute();
-            $db->commit();
-
-            $successfullyUpdated = true;
-        } catch (PDOException $e) {
-            $errors[] = 'Error updating ' . get_called_class();
-            $errors[1] = $e->getMessage();
-            $db->rollBack();
-        }
-
-        return $successfullyUpdated;
     }
 
     /**
@@ -157,26 +171,21 @@ abstract class BaseModel {
      * @return array - empty when successfully delete
      */
     public static function deleteWhere($where) {
-        $db = $GLOBALS['db'];
+        $client = $GLOBALS['elasticsearchConnection'];
 
-        $errors = [];
-
-        try {
-            $sql = 'DELETE FROM ' . self::tableName() . ' WHERE ' . $where;
-
-            sql_to_logFile($sql);
-
-            $db->beginTransaction();
-            $db->exec($sql);
-            $db->commit();
-
-        } catch (PDOException $e) {
-            $errors[] = 'Error deleting ' . get_called_class();
-            $errors[1] = $e->getMessage();
-            $db->rollBack();
+        if(empty($where)) {
+            return false;
+        } else {
+            $params = [
+                'index' => INDEX,
+                'id'    => $where
+            ];
         }
 
-        return $errors;
+        // Delete doc at /my_index/_doc_/my_id
+        $response = $client->delete($params);
+
+        return $response;
     }
 
     /**
@@ -250,68 +259,14 @@ abstract class BaseModel {
     }
 
     /**
-     * Returns alle data from database
-     *
-     * @param $where - without WHERE string
-     * @param $viewName - When data comes from view
-     * @param $orderBy - with ORDER BY string
-     * @return array
+     * Returns the table name of the class
+     * @return null | string
      */
-    public static function find($where = '', $viewName = null, $orderBy = '') {
-        $db = $GLOBALS['db'];
-
-        try {
-            if(!$viewName) {
-               $viewName = self::tableName();
-            }
-
-            $sql = 'SELECT * FROM ' . $viewName;
-
-            if(!empty($where)) {
-                $sql .= ' WHERE ' . $where . ';';
-            }
-
-            $sql .= ' ' . $orderBy;
-
-            sql_to_logFile($sql);
-
-            $result = $db->query($sql)->fetchAll();
-        } catch(PDOException $e) {
-            $message = 'Select statment failed: ' . $e->getMessage();
-            die($message);
+    public static function idField(){
+        $class = get_called_class();
+        if (defined($class . '::IDFIELD')) {
+            return $class::IDFIELD;
         }
-
-        return $result;
-    }
-
-
-    /**
-     * Returns one object from database
-     *
-     * @param $where - without WHERE string
-     * @param $viewName - When data comes from view
-     * @return array
-     */
-    public static function findOne($where = '', $viewName = null) {
-        $db = $GLOBALS['db'];
-
-        try {
-
-            if (!$viewName) {
-                $viewName = self::tableName();
-            }
-
-            $sql = 'SELECT * FROM ' . $viewName;
-            if (!empty($where)) {
-                $sql .= ' WHERE ' . $where . ';';
-            }
-
-            sql_to_logFile($sql);
-
-            return $db->query($sql)->fetch();
-        } catch (PDOException $e) {
-            $message = 'Select statment failed: ' . $e->getMessage();
-            die($message);
-        }
+        return null;
     }
 }
