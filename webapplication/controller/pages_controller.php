@@ -11,7 +11,7 @@ class PagesController extends Controller{
      * @return void
      */
     public function actionStart() {
-        $this->_params['title'] = 'Test';
+        $this->_params['title'] = 'Startseite';
     }
 
     /**
