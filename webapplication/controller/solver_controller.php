@@ -6,9 +6,7 @@ require('../assets/composer/vendor/autoload.php');
 
 use \PhpMqtt\Client\MqttClient;
 use \PhpMqtt\Client\ConnectionSettings;
-use PNS\BaseModel;
-use PNS\GrowthStage;
-use PNS\SensorMeasurement;
+
 
 $server = '192.168.0.102';
 //$server = 'localhost';
@@ -16,10 +14,9 @@ $port = 8883;
 $clientId = rand(5, 15);
 //$clientId = 'test-publisher';
 
-
 $connectionSettings = new ConnectionSettings();
 $mqtt = new MqttClient($server, $port, $clientId);
-//
+
 $mqtt->connect($connectionSettings, false);
 
 $message = \PNS\SolverResult::solveNutrientSolution();

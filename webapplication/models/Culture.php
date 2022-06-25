@@ -5,7 +5,6 @@ namespace PNS;
 class Culture extends BaseModel {
 
     const TABLENAME = 'culture';
-    const IDFIELD = 'plantId';
 
     protected $schema = [
 //        'plantId'       => ['type' => BaseModel::TYPE_INT   ],
