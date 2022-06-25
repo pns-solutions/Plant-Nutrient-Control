@@ -98,3 +98,93 @@ function crateDataOfFilesFromDirectory($dir, $numberOfOutputFiles) {
 
     return $randArray;
 }
+
+function getGrowthStages($arrayWithData): array {
+    $stages = [];
+    $newGrowthStage = [];
+    $allData = $arrayWithData;
+    unset($allData['plantName']);
+    unset($allData['submitAddPlant']);
+
+    //complete new growth stage
+    if($allData['newGrowthStageName'] != '' && $allData['newNutrient'] != '' && $allData['newAmount']!= '') {
+        $newGrowthStage = [
+            'growthStageId' => 0,
+            'name' => $allData['newGrowthStageName'],
+            'nutrientArray' =>  [// start nutrient
+                [
+                    'nutrientId' => NUTRIENTS_NAME_TO_ID[$allData['newNutrient']],
+                    'name' => $allData['newNutrient'],
+                    'element' => NUTRIENTS_NAME_TO_ELEMENT[$allData['newNutrient']],
+                    'amount' => $allData['newAmount']
+                ]
+            ],
+            'defaultDuration' => 2
+        ];
+    }
+
+    unset($allData['newGrowthStageName']);
+    unset($allData['newNutrient']);
+    unset($allData['newValue']);
+
+    $noMoreStages = false;
+    $index = 1;
+
+    while(!$noMoreStages) {
+        $stageName = "stage{$index}_newName";
+
+        if(isset($allData[$stageName])) {
+            $growthStagesInfos = getAllFromGrowthStage($allData, "stage$index", $index);
+            $stages[] = $growthStagesInfos;
+        } else {
+            $noMoreStages = true;
+        }
+        $index++;
+    }
+
+    if(!empty($newGrowthStage)) {
+        $stages[] = $newGrowthStage;
+    }
+
+    error_to_logFile(json_encode($stages, 128));
+
+    return $stages;
+}
+
+function getAllFromGrowthStage(array $array, string $stageIdentifier, int $index): array {
+    $growthStageInfos = [];
+    $nutrientInfos = [];
+
+    foreach ($array as $key => $value) {
+        if(str_contains($key, $stageIdentifier)) {
+
+            if($key == "{$stageIdentifier}_newName") {
+                $growthStageInfos['growthStageId'] = $index;
+                $growthStageInfos['name'] = $value;
+            } else if($key == "{$stageIdentifier}_newNutrient") {
+                if($value != '') {
+                    $nutrientInfos[] = [
+                        'nutrientId' => NUTRIENTS_NAME_TO_ID[$value],
+                        'name' => $value,
+                        'element' => NUTRIENTS_NAME_TO_ELEMENT[$value],
+                        'amount' => $array["{$stageIdentifier}_newAmount"]
+                    ];
+                }
+            } else if($key == "{$stageIdentifier}_newAmount") {
+                continue;
+            } else {
+                $nutrientName = explode('_', $key)[1];
+                $nutrientInfos[] = [
+                    'nutrientId' => NUTRIENTS_NAME_TO_ID[$nutrientName],
+                    'name' => $nutrientName,
+                    'element' => NUTRIENTS_NAME_TO_ELEMENT[$nutrientName],
+                    'amount' => $value
+                ];
+            }
+        }
+    }
+
+    $growthStageInfos['nutrientArray'] = $nutrientInfos;
+    $growthStageInfos['defaultDuration'] = 2;
+    return $growthStageInfos;
+}

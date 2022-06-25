@@ -2,8 +2,6 @@
 
 namespace PNS;
 
-use Elasticsearch\ClientBuilder;
-
 class PagesController extends Controller{
 
     /**
@@ -34,8 +32,13 @@ class PagesController extends Controller{
      */
     public function actionCultureManagement() {
         $this->_params['title'] = 'Pflanzenmanagement';
-
         $this->_params['plants'] = Culture::find();
+
+        if(isset($_GET['plantId'])) {
+            Culture::deleteWhere($_GET['plantId']);
+            sleep(1);
+            sendHeaderByControllerAndAction('pages', 'cultureManagement');
+        }
     }
 
     /**
@@ -46,9 +49,54 @@ class PagesController extends Controller{
      */
     public function actionAddCulture() {
         $this->_params['title'] = 'Pflanze anlegen';
+        $time = new \DateTime('now');
         if(isset($_GET['plantId'])) {
-            $this->_params['plant'] = Culture::find(['_id' => $_GET['plantId']])[0];
-            error_to_logFile(json_encode($_POST, 128));
+            $cultur = Culture::find(['_id' => $_GET['plantId']])[0];
+            $this->_params['plant'] = $cultur;
+
+            if(isset($_POST['submitAddPlant'])) {
+                $growthStages = getGrowthStages($_POST);
+
+                $params = [ // start culture
+                    'plantId'       => null,
+                    'name'          => $_POST['plantName'] ?? '',
+                    'growthStages'  => $growthStages, // end stage array
+                    'createdAt'     => $cultur['createdAt'],
+                    'updatedAt'     => $time->format('Y-m-d H:i:s')
+                ]; // end culture
+
+                $newCulture = new Culture($params);
+
+                $error = $newCulture->save();
+
+                if(empty($error)) {
+                    Culture::deleteWhere($_GET['plantId']);
+                    sleep(2);
+                    sendHeaderByControllerAndAction('pages', 'addCulture&plantId=' . $GLOBALS['lastInsertedId']);
+                } else {
+                    $this->_params['inputError'] = $error;
+                }
+            }
+        }
+
+        if(isset($_POST['submitAddPlantNewCulture'], $_POST['plantName'])) {
+            $params = [ // start culture
+                'plantId'       => null,
+                'name'          => $_POST['plantName'],
+                'growthStages'  => [], // end stage array
+                'createdAt'     => $time->format('Y-m-d H:i:s'),
+                'updatedAt'     => $time->format('Y-m-d H:i:s')
+            ]; // end culture
+
+            $newCulture = new Culture($params);
+            $error = $newCulture->save();
+            sleep(1);
+
+            if(empty($error)) {
+                sendHeaderByControllerAndAction('pages', 'addCulture&plantId=' . $GLOBALS['lastInsertedId']);
+            } else {
+                $this->_params['inputError'] = $error;
+            }
         }
     }
 
