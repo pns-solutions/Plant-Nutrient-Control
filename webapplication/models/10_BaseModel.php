@@ -9,9 +9,6 @@ abstract class BaseModel {
     const TYPE_ARRAY = 'array';
     const TYPE_DEFAULT = 'DEFAULT';
 
-    const INSERT = 'insert';
-    const UPDATE = 'update';
-
     protected $schema = []; // schema for the database table (attribute names from the Table)
     protected $data = [];  // data which goes into the table
 
@@ -51,17 +48,10 @@ abstract class BaseModel {
      *
      * @return array
      */
-    public function save($method = 'insert') {
+    public function save() {
         $errors = array();
 
-        switch ($method) {
-            case 'insert':
-                $this->insert($errors);
-                break;
-            case 'update':
-                $this->update($errors);
-                break;
-        }
+        $this->insert($errors);
 
         return $errors;
     }
@@ -74,25 +64,22 @@ abstract class BaseModel {
      */
     protected function insert(&$errors) {
         $client = $GLOBALS['elasticsearchConnection'];
-        $successfullyInserted = false;
-
-        error_to_phpunit_output($this->data);
 
         try {
             $params = [
                 'index' => INDEX,
-                'body'  => json_encode([
+                'body' => json_encode([
+                    'timestamp' => date('c'),
                     self::tableName() => $this->data
                 ])
             ];
 
-            $client->index($params);
-            $successfullyInserted = true;
+            $id = $client->index($params)['_id'];
+            $GLOBALS['lastInsertedId'] = $id;
         } catch (\Throwable $e) {
             $errors[0] = 'Error updating ' . get_called_class();
             $errors[1] = $e->getMessage();
         }
-        return $successfullyInserted;
     }
 
     /**
@@ -107,12 +94,14 @@ abstract class BaseModel {
 
         if(empty($where)) {
             $params = [
-                'index' => INDEX,
-                'body' => [
-                    "query" => [
-                        "match_all" => (object)[],
-                    ],
-                ],
+                'index' => 'pns',
+                'body'  => [
+                    'query' => [
+                        'exists' => [
+                            'field' => self::tableName()
+                        ]
+                    ]
+                ]
             ];
         } else {
             $params = [
@@ -142,49 +131,23 @@ abstract class BaseModel {
         }
     }
 
-
-    /**
-     * Returns one object from database
-     *
-     * @param $where - without WHERE string
-     * @param $viewName - When data comes from view
-     * @return array
-     */
-    public static function findOne($where = '', $viewName = null) {
-
-    }
-
-    /**
-     * Update data in database
-     *
-     * @param $errors - array with error messages
-     * @return bool
-     */
-    protected function update(&$errors) {
-
-    }
-
     /**
      * Delete data from database
      *
-     * @param $where - without WHERE string
+     * @param $where - without WHERE string als array angeben => Bsp.: ['id' => 45]
      * @return array - empty when successfully delete
      */
     public static function deleteWhere($where) {
         $client = $GLOBALS['elasticsearchConnection'];
-
-        if(empty($where)) {
-            return false;
-        } else {
+        $response = [];
+        if(!empty($where)) {
             $params = [
                 'index' => INDEX,
                 'id'    => $where
             ];
+            // Delete doc at /my_index/_doc_/my_id
+            $response = $client->delete($params);
         }
-
-        // Delete doc at /my_index/_doc_/my_id
-        $response = $client->delete($params);
-
         return $response;
     }
 
@@ -254,18 +217,6 @@ abstract class BaseModel {
         $class = get_called_class();
         if (defined($class . '::TABLENAME')) {
             return $class::TABLENAME;
-        }
-        return null;
-    }
-
-    /**
-     * Returns the table name of the class
-     * @return null | string
-     */
-    public static function idField(){
-        $class = get_called_class();
-        if (defined($class . '::IDFIELD')) {
-            return $class::IDFIELD;
         }
         return null;
     }
