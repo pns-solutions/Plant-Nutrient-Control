@@ -68,7 +68,8 @@ abstract class BaseModel {
         try {
             $params = [
                 'index' => INDEX,
-                'body'  => json_encode([
+                'body' => json_encode([
+                    'timestamp' => date('c'),
                     self::tableName() => $this->data
                 ])
             ];
