@@ -1,0 +1,219 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Publish Solver",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "ad03e796b87dba5c",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "solverResult",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "a8d474f6649e11dd"
+            ]
+        ]
+    },
+    {
+        "id": "cf760d9ab9513069",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "5a1d20df06b2a528",
+        "x": 1330,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "a8d474f6649e11dd",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 290,
+        "y": 60,
+        "wires": [
+            [
+                "812af35a18df90ce"
+            ]
+        ]
+    },
+    {
+        "id": "812af35a18df90ce",
+        "type": "split",
+        "z": "f6f2187d.f17ca8",
+        "name": "split result object",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "objectName",
+        "x": 470,
+        "y": 60,
+        "wires": [
+            [
+                "9848fcff65d15a63"
+            ]
+        ]
+    },
+    {
+        "id": "9848fcff65d15a63",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "pass only fertilizer array",
+        "property": "objectName",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "fertilizerAmount",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 710,
+        "y": 60,
+        "wires": [
+            [
+                "48a4a003e2a6a4a2"
+            ]
+        ]
+    },
+    {
+        "id": "48a4a003e2a6a4a2",
+        "type": "split",
+        "z": "f6f2187d.f17ca8",
+        "name": "split array",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 920,
+        "y": 60,
+        "wires": [
+            [
+                "632ec2b452b3ba74"
+            ]
+        ]
+    },
+    {
+        "id": "632ec2b452b3ba74",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.topic = 'pump/' + msg.payload.pumpId;\nmsg.payload = msg.payload.amount;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 60,
+        "wires": [
+            [
+                "408cb7d5c5e0d1fa",
+                "cf760d9ab9513069"
+            ]
+        ]
+    },
+    {
+        "id": "408cb7d5c5e0d1fa",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1350,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "de2194b7beab4837",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Dummy solver result",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "solverResult",
+        "payload": "{\"createdAt\":\"2022-06-27 13:31:22\",\"tableId\":1,\"fertilizerAmount\":[{\"fertilizerId\":1,\"amount\":40,\"pumpId\":1},{\"fertilizerId\":2,\"amount\":20,\"pumpId\":2}]}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "a8d474f6649e11dd"
+            ]
+        ]
+    },
+    {
+        "id": "5a1d20df06b2a528",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "raspberrypi.local",
+        "port": "8883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    }
+]
