@@ -108,6 +108,73 @@ class PagesController extends Controller{
      */
     public function actionFertilizerManagement() {
         $this->_params['title'] = 'Düngermanagement';
+        $this->_params['fertilizers'] = Fertilizer::find();
+
+        if(isset($_GET['fertilizerId'])) {
+            Fertilizer::deleteWhere($_GET['fertilizerId']);
+            sleep(1);
+            sendHeaderByControllerAndAction('pages','fertilizerManagement');
+        }
     }
 
+    /**
+     * Dies ist die Abfolge, wenn die FertilizerManagement abgerufen wird.
+     * Sie befüllt die Variablen und Felder im Frontend
+     *
+     * @return void
+     */
+    public function actionAddFertilizer() {
+        $this->_params['title'] = 'Dünger anlegen';
+        $time = new \DateTime('now');
+        if(isset($_GET['fertilizerId'])) {
+            $fertilizer = Fertilizer::find(['_id' => $_GET['fertilizerId']])[0];
+            $this->_params['fertilizer'] = $fertilizer;
+
+            if(isset($_POST['submitAddFertilizer'])) {
+                $nutrientArray = getNutrientArray($_POST);
+
+                $params = [ // start fertilizer
+                    'plantId'       => null,
+                    'name'          => $_POST['fertilizerName'] ?? '',
+                    'nutrientArray' => $nutrientArray, // end stage array
+                    'tabledId'      => 1,             // normally add  tableId
+                    'createdAt'     => $fertilizer['createdAt'],
+                    'updatedAt'     => $time->format('Y-m-d H:i:s')
+                ]; // end fertilizer
+
+                $newFertilizer = new Fertilizer($params);
+
+                $error = $newFertilizer->save();
+
+                if(empty($error)) {
+                    Culture::deleteWhere($_GET['fertilizerId']);
+                    sleep(2);
+                    sendHeaderByControllerAndAction('pages', 'addFertilizer&fertilizerId=' . $GLOBALS['lastInsertedId']);
+                } else {
+                    $this->_params['inputError'] = $error;
+                }
+            }
+        }
+
+        if(isset($_POST['submitAddNewFertilizer'], $_POST['fertilizerName'])) {
+            $params = [ // start fertilizer
+                'fertilizerId'       => null,
+                'name'          => $_POST['fertilizerName'],
+                'nutrientArray' => [], // end stage array
+                'tabledId'      => 1,  // normally add tableId
+                'createdAt'     => $time->format('Y-m-d H:i:s'),
+                'updatedAt'     => $time->format('Y-m-d H:i:s')
+            ]; // end fertilizer
+
+            $newFertilizer = new Fertilizer($params);
+            $error = $newFertilizer->save();
+            sleep(1);
+
+            if(empty($error)) {
+                sendHeaderByControllerAndAction('pages', 'addFertilizer&fertilizerId=' . $GLOBALS['lastInsertedId']);
+            } else {
+                $this->_params['inputError'] = $error;
+            }
+        }
+    }
 }

@@ -4,7 +4,7 @@ namespace PNS;
 
 class Fertilizer extends BaseModel {
 
-    const TABLENAME = 'FERTILIZER';
+    const TABLENAME = 'fertilizer';
 
     protected $schema = [
         'fertilizerId'       => ['type' => BaseModel::TYPE_INT   ],

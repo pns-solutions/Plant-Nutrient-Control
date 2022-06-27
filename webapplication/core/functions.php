@@ -188,3 +188,80 @@ function getAllFromGrowthStage(array $array, string $stageIdentifier, int $index
     $growthStageInfos['defaultDuration'] = 2;
     return $growthStageInfos;
 }
+
+function getNutrientArray($arrayWithData): array {
+    $nutrientArray = [];
+    $newNutrient = [];
+    $allData = $arrayWithData;
+    unset($allData['fertilizerName']);
+    unset($allData['submitAddFertilizer']);
+
+    //complete new nutrient array
+    if($allData['nutrientArray'] != '' && $allData['newNutrient'] != '' && $allData['newAmount']!= '') {
+        $newNutrient = [
+            'nutrientId' => NUTRIENTS_NAME_TO_ID[$allData['newNutrient']],
+            'name' => $allData['newNutrient'],
+            'element' => NUTRIENTS_NAME_TO_ELEMENT[$allData['newNutrient']],
+            'amount' => $allData['newAmount']
+        ];
+    }
+
+    unset($allData['newNutrient']);
+    unset($allData['newValue']);
+
+    $noMoreStages = false;
+    $index = 1;
+
+
+    while(!$noMoreStages) {
+        $nutrientName = "nutrientArray{$index}_newName";
+
+        if(isset($allData[$nutrientName])) {
+            $nutrientInfos = getAllFromNutrientArray($allData, "nutrientArray$index", $index);
+            $nutrientArray = $nutrientInfos;
+        } else {
+            $noMoreStages = true;
+        }
+        $index++;
+    }
+
+    if(!empty($newNutrient)) {
+        $nutrientArray = $newNutrient;
+    }
+
+    error_to_logFile(json_encode($nutrientArray, 128));
+
+    return $nutrientArray;
+}
+
+function getAllFromNutrientArray(array $array, string $nutrientId, int $index): array {
+    $nutrientInfos = [];
+
+    foreach ($array as $key => $value) {
+        if(str_contains($key, $nutrientId)) {
+
+            if($key == "{$nutrientId}_newName") {
+            } else if($key == "{$nutrientId}_newNutrient") {
+                if($value != '') {
+                    $nutrientInfos[] = [
+                        'nutrientId' => NUTRIENTS_NAME_TO_ID[$value],
+                        'name' => $value,
+                        'element' => NUTRIENTS_NAME_TO_ELEMENT[$value],
+                        'amount' => $array["{$nutrientId}_newAmount"]
+                    ];
+                }
+            } else if($key == "{$nutrientId}_newAmount") {
+                continue;
+            } else {
+                $nutrientName = explode('_', $key)[1];
+                $nutrientInfos[] = [
+                    'nutrientId' => NUTRIENTS_NAME_TO_ID[$nutrientName],
+                    'name' => $nutrientName,
+                    'element' => NUTRIENTS_NAME_TO_ELEMENT[$nutrientName],
+                    'amount' => $value
+                ];
+            }
+        }
+    }
+    return $nutrientInfos;
+}
