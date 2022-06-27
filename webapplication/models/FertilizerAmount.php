@@ -8,6 +8,7 @@ class FertilizerAmount extends BaseModel {
 
     protected $schema = [
         'fertilizerId'       => ['type' => BaseModel::TYPE_INT   ],
-        'amount'             => ['type' => BaseModel::TYPE_STRING]
+        'amount'             => ['type' => BaseModel::TYPE_STRING],
+        'pumpId'             => ['type' => BaseModel::TYPE_INT   ]
     ];
 }

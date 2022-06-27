@@ -1,5 +1,8 @@
 <!--plant Page-->
 <div class="Content">
+    <a href="?c=pages&a=addCulture&newCulture">
+        <button type="button">Neue Kultur anlegen</button>
+    </a>
     <table id="plantTable">
         <tr>
             <th onclick="sortTable(this, 'plantTable')">Pflanzenname <i class="fas fa-sort"></i></th>

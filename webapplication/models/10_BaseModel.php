@@ -9,9 +9,6 @@ abstract class BaseModel {
     const TYPE_ARRAY = 'array';
     const TYPE_DEFAULT = 'DEFAULT';
 
-    const INSERT = 'insert';
-    const UPDATE = 'update';
-
     protected $schema = []; // schema for the database table (attribute names from the Table)
     protected $data = [];  // data which goes into the table
 
@@ -51,17 +48,10 @@ abstract class BaseModel {
      *
      * @return array
      */
-    public function save($method = 'insert') {
+    public function save() {
         $errors = array();
 
-        switch ($method) {
-            case 'insert':
-                $this->insert($errors);
-                break;
-            case 'update':
-                $this->update($errors);
-                break;
-        }
+        $this->insert($errors);
 
         return $errors;
     }
@@ -74,7 +64,6 @@ abstract class BaseModel {
      */
     protected function insert(&$errors) {
         $client = $GLOBALS['elasticsearchConnection'];
-        $successfullyInserted = false;
 
         try {
             $params = [
@@ -85,13 +74,12 @@ abstract class BaseModel {
                 ])
             ];
 
-            $client->index($params);
-            $successfullyInserted = true;
+            $id = $client->index($params)['_id'];
+            $GLOBALS['lastInsertedId'] = $id;
         } catch (\Throwable $e) {
             $errors[0] = 'Error updating ' . get_called_class();
             $errors[1] = $e->getMessage();
         }
-        return $successfullyInserted;
     }
 
     /**
@@ -149,13 +137,13 @@ abstract class BaseModel {
      * @param $where - without WHERE string als array angeben => Bsp.: ['id' => 45]
      * @return array - empty when successfully delete
      */
-    public static function deleteWhere($where = []) {
+    public static function deleteWhere($where) {
         $client = $GLOBALS['elasticsearchConnection'];
         $response = [];
         if(!empty($where)) {
             $params = [
                 'index' => INDEX,
-                $where
+                'id'    => $where
             ];
             // Delete doc at /my_index/_doc_/my_id
             $response = $client->delete($params);

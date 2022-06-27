@@ -1,6 +1,9 @@
 #!/bin/sh
 apt-get update  # To get the latest package list
 
+#install docker-compose
+sudo apt-get install docker-compose
+
 #install docker
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
