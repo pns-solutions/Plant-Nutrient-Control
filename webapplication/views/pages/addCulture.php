@@ -1,5 +1,5 @@
 <?php
-$plantId = (isset($_GET['plantId']) && isset($plant)) ? '&plantId=' . $plant['id'] : '';
+$plantId = (isset($_GET['plantId']) && isset($plant)) ? '&plantId=' . $plant['id'] : '&newCulture';
 ?>
 
 <!--FORM-->
@@ -31,10 +31,10 @@ $plantId = (isset($_GET['plantId']) && isset($plant)) ? '&plantId=' . $plant['id
                 <?php endforeach;?>
                 <button type="button" class="tablinks" onclick="openStage(event, 'addGrowthStage')">Hinzufügen</button>
             </div>
-            <?php $index = 0?>
+            <?php $index = 1?>
             <?php foreach ($plant['growthStages'] as $stage) : ?>
                 <div id="growthStage_<?=$stage['name']?>" class="tabcontent">
-                    <input type="text" id="<?='stage' . $index . '_NewName'?>" name="<?='stage' . $index . '_NewName'?>" value="<?=$stage['name']?>">
+                    <input type="text" id="<?='stage' . $index . '_newName'?>" name="<?='stage' . $index . '_newName'?>" value="<?=$stage['name']?>">
                     <table id="nutritionTable">
                         <tr>
                             <th colspan="2">Nährstoff</th>
@@ -44,49 +44,54 @@ $plantId = (isset($_GET['plantId']) && isset($plant)) ? '&plantId=' . $plant['id
                             <tr>
                                 <td colspan="2">
                                     <select id="<?='stage' . $index . '_' . $nutrition['name']?>">
-                                        <?php foreach (ELEMENTS as $elementShort => $elementLong) : ?>
+                                        <?php foreach (NUTRIENTS_ELEMENT_TO_NAME as $elementShort => $elementLong) : ?>
                                             <option value="<?=$elementShort?>" <?=($nutrition['element'] == $elementShort) ? 'selected' : ''?>><?=$elementLong?></option>
                                         <?php endforeach;?>
                                     </select>
                                 </td>
                                 <td colspan="2">
-                                    <input type="text" id="<?='stage' . $index . '_' . $nutrition['name'] . '_nutrientAmount'?>" name="<?='stage' . $index . '_' . $nutrition['name'] . '_nutrientAmount'?>" placeholder="Menge" value="<?=$nutrition['amount']?>">
+                                    <input type="text" id="<?='stage' . $index . '_' . $nutrition['name']?>" name="<?='stage' . $index . '_' . $nutrition['name']?>" placeholder="Menge" value="<?=$nutrition['amount']?>">
                                 </td>
                             </tr>
                         <?php endforeach;?>
-                        <table>
-                            <tr>
-                                <td><input type="text" id="<?='stage' . $index?>_newNutrient" name="<?='stage' . $index?>_newNutrient" placeholder="Nährstoffname"></td>
-                                <td><input type="text" id="<?='stage' . $index?>_newAmount" name="<?='stage' . $index?>_newAmount" placeholder="Menge"></td>
-                                <td>
-                                    <button type="submit"><i class="fa-solid fa-floppy-disk"></i></button>
-                                </td>
-                            </tr>
-                        </table>
+                        <tr>
+                            <td colspan="2">
+                                <select id="<?='stage' . $index?>_newNutrient" name="<?='stage' . $index?>_newNutrient">
+                                    <option value="" selected>Bitte auswählen</option>
+                                    <?php foreach (NUTRIENTS_ELEMENT_TO_NAME as $elementShort => $elementLong) : ?>
+                                        <option value="<?=$elementLong?>"><?=$elementLong?></option>
+                                    <?php endforeach;?>
+                                </select>
+                            </td>
+                            <td colspan="2"><input type="text" id="<?='stage' . $index?>_newAmount" name="<?='stage' . $index?>_newAmount" placeholder="Menge"></td>
+                        </tr>
                     </table>
                 </div>
                 <?php $index++?>
             <?php endforeach;?>
             <div id="addGrowthStage" class="tabcontent">
                 <div class="input">
-                    <label for="newGrowthStageName">Name der Wachstumsstufe</label>
                     <input type="text" id="newGrowthStageName" name="newGrowthStageName" placeholder="Name der Wachstumsstufe">
                     <span class="error-message" id="errorNewGrowthStageName"></span>
                 </div>
                 <table id="nutritionTable">
                     <tr>
-                        <th colspan="2" onclick="sortTable(this, 'nutritionTable')">Nährstoff <i class="fas fa-sort"></i></th>
-                        <th colspan="2" onclick="sortTable(this, 'nutritionTable')">Menge <i class="fas fa-sort"></i></th>
+                        <th colspan="2">Nährstoff</th>
+                        <th colspan="2">Menge</th>
                     </tr>
 
                 </table>
                 <table>
                     <tr>
-                        <td><input type="text" placeholder="Nährstoffname"></td>
-                        <td><input type="text" placeholder="Menge"></td>
                         <td>
-                            <button type="submit"><i class="fa-solid fa-floppy-disk"></i></button>
+                            <select id="newNutrient" name="newNutrient">
+                                <option value="" selected>Bitte auswählen</option>
+                                <?php foreach (NUTRIENTS_ELEMENT_TO_NAME as $elementShort => $elementLong) : ?>
+                                    <option value="<?=$elementLong?>"><?=$elementLong?></option>
+                                <?php endforeach;?>
+                            </select>
                         </td>
+                        <td><input id="newAmount" name="newAmount" type="text" placeholder="Menge"></td>
                     </tr>
                 </table>
             </div>
@@ -94,8 +99,7 @@ $plantId = (isset($_GET['plantId']) && isset($plant)) ? '&plantId=' . $plant['id
 
         <!-- buttons -->
         <div class="formButtonsBottom">
-            <button type="submit" name="submitAddPlant" id="submitAddPlant"> <?=isset($_GET['plantId']) ? 'Speichern' : 'Anlegen'?><i class="far fa-paper-plane" aria-hidden="true"></i></button>
-            <button type="reset">Eingaben Löschen<i class="fa fa-times" aria-hidden="true"></i></button>
+            <button type="submit" name="<?=isset($_GET['newCulture']) ? 'submitAddPlantNewCulture' : 'submitAddPlant'?>" id="<?=isset($_GET['newCulture']) ? 'submitAddPlantNewCulture' : 'submitAddPlant'?>"> <?=isset($_GET['plantId']) ? 'Speichern' : 'Anlegen'?><i class="far fa-paper-plane" aria-hidden="true"></i></button>
         </div>
     </form>
 </div>
