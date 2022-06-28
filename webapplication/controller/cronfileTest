@@ -1,1 +1,1 @@
-* * * * * /usr/bin/sh /restart.sh
+* * * * * docker exec webapplication /restart.sh
