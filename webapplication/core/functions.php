@@ -105,6 +105,7 @@ function getGrowthStages($arrayWithData): array {
     $allData = $arrayWithData;
     unset($allData['plantName']);
     unset($allData['submitAddPlant']);
+    error_to_logFile(json_encode($allData, 128));
 
     //complete new growth stage
     if($allData['newGrowthStageName'] != '' && $allData['newNutrient'] != '' && $allData['newAmount']!= '') {
@@ -196,8 +197,10 @@ function getNutrientArray($arrayWithData): array {
     unset($allData['fertilizerName']);
     unset($allData['submitAddFertilizer']);
 
+    error_to_logFile('where' . json_encode($allData, 128));
+
     //complete new nutrient array
-    if($allData['nutrientArray'] != '' && $allData['newNutrient'] != '' && $allData['newAmount']!= '') {
+    if($allData['newNutrient'] != '' && $allData['newAmount']!= '') {
         $newNutrient = [
             'nutrientId' => NUTRIENTS_NAME_TO_ID[$allData['newNutrient']],
             'name' => $allData['newNutrient'],
@@ -214,10 +217,11 @@ function getNutrientArray($arrayWithData): array {
 
 
     while(!$noMoreStages) {
-        $nutrientName = "nutrientArray{$index}_newName";
+        $nutrientName = "nutrient{$index}_newName";
 
         if(isset($allData[$nutrientName])) {
-            $nutrientInfos = getAllFromNutrientArray($allData, "nutrientArray$index", $index);
+            error_to_logFile('moin');
+            $nutrientInfos = getAllFromNutrientArray($allData, "nutrient$index", $index);
             $nutrientArray = $nutrientInfos;
         } else {
             $noMoreStages = true;
@@ -226,11 +230,12 @@ function getNutrientArray($arrayWithData): array {
     }
 
     if(!empty($newNutrient)) {
-        $nutrientArray = $newNutrient;
+        $nutrientArray[] = $newNutrient;
     }
 
-    error_to_logFile(json_encode($nutrientArray, 128));
-
+    error_to_logFile('ontop' . json_encode($newNutrient, 128));
+    //error_to_logFile('here' . json_encode($allData, 128));
+    error_to_logFile('i am here' . json_encode($nutrientArray, 128));
     return $nutrientArray;
 }
 

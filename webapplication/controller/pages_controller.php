@@ -134,7 +134,7 @@ class PagesController extends Controller{
                 $nutrientArray = getNutrientArray($_POST);
 
                 $params = [ // start fertilizer
-                    'plantId'       => null,
+                    'fertilizerId'  => null,
                     'name'          => $_POST['fertilizerName'] ?? '',
                     'nutrientArray' => $nutrientArray, // end stage array
                     'tabledId'      => 1,             // normally add  tableId
@@ -147,7 +147,7 @@ class PagesController extends Controller{
                 $error = $newFertilizer->save();
 
                 if(empty($error)) {
-                    Culture::deleteWhere($_GET['fertilizerId']);
+                    Fertilizer::deleteWhere($_GET['fertilizerId']);
                     sleep(2);
                     sendHeaderByControllerAndAction('pages', 'addFertilizer&fertilizerId=' . $GLOBALS['lastInsertedId']);
                 } else {
@@ -158,9 +158,9 @@ class PagesController extends Controller{
 
         if(isset($_POST['submitAddNewFertilizer'], $_POST['fertilizerName'])) {
             $params = [ // start fertilizer
-                'fertilizerId'       => null,
+                'fertilizerId'  => null,
                 'name'          => $_POST['fertilizerName'],
-                'nutrientArray' => [], // end stage array
+                'nutrientArray' => [], // end nutrient array
                 'tabledId'      => 1,  // normally add tableId
                 'createdAt'     => $time->format('Y-m-d H:i:s'),
                 'updatedAt'     => $time->format('Y-m-d H:i:s')
