@@ -55,7 +55,12 @@
 > ./scripts/start-docker.sh
 > ```
 >
-> ### 9. Build docker
+>  ### 9. Add CronJob
+> ```shell
+> ./scripts/addCronTab.sh
+> ```
+> 
+> ### 10. Build docker
 > ```shell
 > ./scripts/build-docker.sh
 > ```
