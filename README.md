@@ -1,6 +1,13 @@
 # This is our main Project with all features!
 
 ## Installation on a fresh and clean server (like Raspberry Pi)
+> When setting up a raspberry pi and you do not know the IP adress, the device should be available at ```raspberrypi.local```.
+> A freshly installed pi can be accessed via WiFi only if the network setup was done while flashing the SD card or via SSH over ethernet.  
+> For the latter option use
+> ```shell
+> sudo raspi-config
+> ```
+> after following step 1.
 > ### 1. Login to your server (e.g.raspberry-pi)
 > ```shell
 > ssh USERNAME@XXX.XXX.XXX.XX
