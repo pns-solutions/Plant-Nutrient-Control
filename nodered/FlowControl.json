@@ -1,0 +1,544 @@
+[
+    {
+        "id": "0060d018ed9ba93a",
+        "type": "tab",
+        "label": "Ablaufsteuerung",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d88d7ec81e6d2141",
+        "type": "inject",
+        "z": "0060d018ed9ba93a",
+        "name": "Taktgeber",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "tick",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 290,
+        "y": 280,
+        "wires": [
+            [
+                "f8af0fccb9ccdd8a"
+            ]
+        ]
+    },
+    {
+        "id": "f8af0fccb9ccdd8a",
+        "type": "function",
+        "z": "0060d018ed9ba93a",
+        "name": "Phasenzähler",
+        "func": "flow.counter = (flow.counter + 1) % 4;\nmsg.payload = flow.counter;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Der Code hier wird ausgeführt,\n// wenn der Node gestartet wird\nflow.counter = 0;",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 320,
+        "wires": [
+            [
+                "3aa7f7aa1cdafa33",
+                "49ca53866f129a7d"
+            ]
+        ]
+    },
+    {
+        "id": "8e40af0d87300a79",
+        "type": "debug",
+        "z": "0060d018ed9ba93a",
+        "name": "Ventilaktionen",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "3aa7f7aa1cdafa33",
+        "type": "switch",
+        "z": "0060d018ed9ba93a",
+        "name": "Phasentrenner",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 500,
+        "y": 320,
+        "wires": [
+            [
+                "0792edbc52fcd896"
+            ],
+            [
+                "6564b67e36b486e6"
+            ]
+        ]
+    },
+    {
+        "id": "64151cd6ec08c8a6",
+        "type": "mqtt out",
+        "z": "0060d018ed9ba93a",
+        "name": "Ventil B",
+        "topic": "valve/B",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "5a1d20df06b2a528",
+        "x": 1020,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "68311531a28ea4e4",
+        "type": "mqtt out",
+        "z": "0060d018ed9ba93a",
+        "name": "Ventil A",
+        "topic": "valve/A",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "5a1d20df06b2a528",
+        "x": 1020,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "675b95f3636f1156",
+        "type": "comment",
+        "z": "0060d018ed9ba93a",
+        "name": "Tankmessung",
+        "info": "",
+        "x": 610,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "4bf35de534156f9f",
+        "type": "comment",
+        "z": "0060d018ed9ba93a",
+        "name": "Ablaufmessung",
+        "info": "",
+        "x": 600,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "cb64a3f6eece7d34",
+        "type": "delay",
+        "z": "0060d018ed9ba93a",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1040,
+        "y": 280,
+        "wires": [
+            [
+                "64c41bff53925150"
+            ]
+        ]
+    },
+    {
+        "id": "0792edbc52fcd896",
+        "type": "change",
+        "z": "0060d018ed9ba93a",
+        "name": " Setze Dauer Ventil A",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "300",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 280,
+        "wires": [
+            [
+                "cb64a3f6eece7d34",
+                "68311531a28ea4e4"
+            ]
+        ]
+    },
+    {
+        "id": "6564b67e36b486e6",
+        "type": "change",
+        "z": "0060d018ed9ba93a",
+        "name": " Setze Dauer Ventil B",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "300",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 360,
+        "wires": [
+            [
+                "dcd0d24aa249cb1b",
+                "64151cd6ec08c8a6"
+            ]
+        ]
+    },
+    {
+        "id": "dcd0d24aa249cb1b",
+        "type": "delay",
+        "z": "0060d018ed9ba93a",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1040,
+        "y": 360,
+        "wires": [
+            [
+                "64c41bff53925150"
+            ]
+        ]
+    },
+    {
+        "id": "64c41bff53925150",
+        "type": "change",
+        "z": "0060d018ed9ba93a",
+        "name": " Setze Dauer Ventil D",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "300",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1240,
+        "y": 320,
+        "wires": [
+            [
+                "81f6dd4a2d33d36c",
+                "4b05b15c9e41e703"
+            ]
+        ]
+    },
+    {
+        "id": "349814e9fcf23e7f",
+        "type": "comment",
+        "z": "0060d018ed9ba93a",
+        "name": "Nun sollte genügend Wasser gesammelt sein, um die Messung starten zu können.",
+        "info": "",
+        "x": 1410,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "81f6dd4a2d33d36c",
+        "type": "delay",
+        "z": "0060d018ed9ba93a",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1460,
+        "y": 320,
+        "wires": [
+            [
+                "8cbdc80b348c34b8"
+            ]
+        ]
+    },
+    {
+        "id": "4b05b15c9e41e703",
+        "type": "mqtt out",
+        "z": "0060d018ed9ba93a",
+        "name": "Ventil D",
+        "topic": "valve/D",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "5a1d20df06b2a528",
+        "x": 1440,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "6d3be02009c7fc3a",
+        "type": "mqtt out",
+        "z": "0060d018ed9ba93a",
+        "name": "Ventil C",
+        "topic": "valve/C",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "5a1d20df06b2a528",
+        "x": 1840,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "8cbdc80b348c34b8",
+        "type": "change",
+        "z": "0060d018ed9ba93a",
+        "name": " Setze Dauer Ventil C",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "30",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1660,
+        "y": 320,
+        "wires": [
+            [
+                "6d3be02009c7fc3a"
+            ]
+        ]
+    },
+    {
+        "id": "0ddcf74e0680b388",
+        "type": "mqtt in",
+        "z": "0060d018ed9ba93a",
+        "name": "",
+        "topic": "valve/A",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 610,
+        "y": 500,
+        "wires": [
+            [
+                "8e40af0d87300a79"
+            ]
+        ]
+    },
+    {
+        "id": "dfc7ecbdebca71b2",
+        "type": "mqtt in",
+        "z": "0060d018ed9ba93a",
+        "name": "",
+        "topic": "valve/B",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 610,
+        "y": 540,
+        "wires": [
+            [
+                "8e40af0d87300a79"
+            ]
+        ]
+    },
+    {
+        "id": "5ac79874aa713674",
+        "type": "mqtt in",
+        "z": "0060d018ed9ba93a",
+        "name": "",
+        "topic": "valve/C",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 610,
+        "y": 580,
+        "wires": [
+            [
+                "8e40af0d87300a79"
+            ]
+        ]
+    },
+    {
+        "id": "14a48f4ab97fb6b8",
+        "type": "mqtt in",
+        "z": "0060d018ed9ba93a",
+        "name": "",
+        "topic": "valve/D",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 610,
+        "y": 620,
+        "wires": [
+            [
+                "8e40af0d87300a79"
+            ]
+        ]
+    },
+    {
+        "id": "e8f5c30b41c7a107",
+        "type": "comment",
+        "z": "0060d018ed9ba93a",
+        "name": "Ventil D bleibt so lange offen, damit auch nach der Messung und der Öffnung von Ventil C noch das Wasser ablaufen kann",
+        "info": "",
+        "x": 1570,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "49ca53866f129a7d",
+        "type": "debug",
+        "z": "0060d018ed9ba93a",
+        "name": "Taktgeber",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "f818fce3b3fa733d",
+        "type": "comment",
+        "z": "0060d018ed9ba93a",
+        "name": "- - - D i e s e - S p a n n e - m u s s - i n - S u m m e - k ü r z e r - s e i n - a l s - d a s - I n t e r v a l - d e s - T a k t g e b e r s . - - -",
+        "info": "",
+        "x": 1390,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "5a1d20df06b2a528",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "raspberrypi.local",
+        "port": "8883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    }
+]
