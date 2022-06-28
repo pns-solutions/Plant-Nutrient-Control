@@ -1,6 +1,9 @@
 #!/bin/sh
 
-sudo crontab -l > cron_bkp
-sudo echo "* * * * * docker exec webapplication /restart.sh >/dev/null 2>&1" >> cron_bkp
-sudo crontab cron_bkp
-sudo rm cron_bkp
+#write out current crontab
+crontab -l > mycron
+#echo new cron into cron file
+echo "* * * * * docker exec webapplication /restart.sh" >> mycron
+#install new cron file
+crontab mycron
+rm mycron
