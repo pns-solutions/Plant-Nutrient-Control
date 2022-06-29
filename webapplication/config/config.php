@@ -90,3 +90,21 @@ const NUTRIENTS_ELEMENT_TO_ID = [
     'Si' => 13,
     'C' => 14
 ];
+
+const NUTRIENTS = [
+    'Phosphor',
+    'Kalium',
+    'Calcium',
+    'Magnesium',
+    'Natrium',
+    'Schwefel',
+    'Eisen',
+    'Mangan',
+    'Kupfer',
+    'Zink',
+    'Bor',
+    'Molybdän',
+    'Chlor',
+    'Silicium',
+    'Kohlenstoff'
+];

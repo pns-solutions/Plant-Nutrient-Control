@@ -18,5 +18,8 @@
         <a href="https://play.grafana.org/d/000000012/grafana-play-home?orgId=1" target="_blank" class="menuLinksFlexItem">
             <h4>Grafana</h4>
         </a>
+        <a href="<?=$_SERVER['SCRIPT_NAME']?>/?c=pages&a=solver" class="menuLinksFlexItem">
+            <h4 <?=($_GET['a'] == 'solver') ? 'class="navSelected"' : ''?>>Solver</h4>
+        </a>
     </div>
 </div>

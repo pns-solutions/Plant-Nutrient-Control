@@ -197,7 +197,6 @@ function getNutrientArray($arrayWithData): array {
     unset($allData['fertilizerName']);
     unset($allData['submitAddFertilizer']);
 
-    error_to_logFile('where' . json_encode($allData, 128));
 
     //complete new nutrient array
     if($allData['newNutrient'] != '' && $allData['newAmount']!= '') {
@@ -212,20 +211,34 @@ function getNutrientArray($arrayWithData): array {
     unset($allData['newNutrient']);
     unset($allData['newValue']);
 
-    $noMoreStages = false;
+    $noMoreNutrients = false;
     $index = 1;
+    $matches = 0;
 
+    while(!$noMoreNutrients) {
+        $nutrientName = '';
+        foreach (NUTRIENTS as $nutrient){
+            $nutrientName = "nutrient" . $index . "_" . $nutrient;
 
-    while(!$noMoreStages) {
-        $nutrientName = "nutrient{$index}_newName";
-
-        if(isset($allData[$nutrientName])) {
-            error_to_logFile('moin');
-            $nutrientInfos = getAllFromNutrientArray($allData, "nutrient$index", $index);
-            $nutrientArray = $nutrientInfos;
-        } else {
-            $noMoreStages = true;
+            if(isset($allData[$nutrientName])){
+                foreach($allData as $key => $value){
+                    if($key == $nutrientName){
+                        $nutrientArray[] = [
+                            'nutrientId' => NUTRIENTS_NAME_TO_ID[$nutrient],
+                            'name' => $nutrient,
+                            'element' => NUTRIENTS_NAME_TO_ELEMENT[$nutrient],
+                            'amount' => $value
+                        ];
+                }}
+                $matches++;
+            }
         }
+
+        if($matches == 0){
+            $noMoreNutrients = true;
+        }
+
+        $matches = 0;
         $index++;
     }
 
@@ -233,40 +246,6 @@ function getNutrientArray($arrayWithData): array {
         $nutrientArray[] = $newNutrient;
     }
 
-    error_to_logFile('ontop' . json_encode($newNutrient, 128));
-    //error_to_logFile('here' . json_encode($allData, 128));
-    error_to_logFile('i am here' . json_encode($nutrientArray, 128));
+    error_to_logFile(json_encode($nutrientArray, 128));
     return $nutrientArray;
-}
-
-function getAllFromNutrientArray(array $array, string $nutrientId, int $index): array {
-    $nutrientInfos = [];
-
-    foreach ($array as $key => $value) {
-        if(str_contains($key, $nutrientId)) {
-
-            if($key == "{$nutrientId}_newName") {
-            } else if($key == "{$nutrientId}_newNutrient") {
-                if($value != '') {
-                    $nutrientInfos[] = [
-                        'nutrientId' => NUTRIENTS_NAME_TO_ID[$value],
-                        'name' => $value,
-                        'element' => NUTRIENTS_NAME_TO_ELEMENT[$value],
-                        'amount' => $array["{$nutrientId}_newAmount"]
-                    ];
-                }
-            } else if($key == "{$nutrientId}_newAmount") {
-                continue;
-            } else {
-                $nutrientName = explode('_', $key)[1];
-                $nutrientInfos[] = [
-                    'nutrientId' => NUTRIENTS_NAME_TO_ID[$nutrientName],
-                    'name' => $nutrientName,
-                    'element' => NUTRIENTS_NAME_TO_ELEMENT[$nutrientName],
-                    'amount' => $value
-                ];
-            }
-        }
-    }
-    return $nutrientInfos;
 }
