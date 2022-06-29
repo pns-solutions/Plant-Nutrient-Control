@@ -55,7 +55,7 @@
 > ./scripts/start-docker.sh
 > ```
 >
->  ### 9. Add CronJob
+>  ### 9. Add CronTab
 > ```shell
 > ./scripts/addCronTab.sh
 > ```
