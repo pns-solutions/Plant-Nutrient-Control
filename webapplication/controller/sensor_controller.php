@@ -45,7 +45,8 @@ try {
 $topics = array(
     "df/EC" => 1,
     "df/PH" => 2,
-    "df/KCI" => 3
+    "df/KCl" => 3,
+    "df/N" => 4
 );
 
 foreach ($topics as $topic => $value) {
