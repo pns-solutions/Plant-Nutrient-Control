@@ -132,15 +132,21 @@ ___
 > - NodeRed: `192.168.xxx.xx:1880`
 > - MQTT: `192.168.xxx.xx:8883` | Does not display HTTPS results. Try a NodeRed flow.
 >
->
-> ## DataFaker
-> The DataFaker is implemented as a nodered-flow.
-> #### Import:
+
+## Default Imports
+> ### NodeRed Flows
 > - menu
 > - import
 > - local
 > - select: dataFaker.json
 > - import
+> 
+> ### Grafana Dashboard
+> - go to the left menu and hover over the plus sign
+> - select import
+> - upload the dashboard json file
+>   - location: `grafana/default-dashboards/`
+> - select load
 
 ___ 
 
