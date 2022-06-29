@@ -117,15 +117,15 @@ abstract class BaseModel {
         $results = $client->search($params);
 
         if(!empty($results)) {
-            $cultureArray = [];
+            $objectArray = [];
             foreach ($results['hits']['hits'] as $result) {
-                $culture = $result['_source']['culture'];
-                $culture['id'] = $result['_id'];
+                $object = $result['_source'][self::tableName()];
+                $object['id'] = $result['_id'];
 
-                $cultureArray[] = $culture;
+                $objectArray[] = $object;
             }
 
-            return $cultureArray;
+            return $objectArray;
         } else {
             return $results;
         }
