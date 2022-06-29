@@ -39,7 +39,7 @@
 >
 > ### 6. Give all scripts the right permissions
 > ```shell
-> chmod +x ./scripts/install-docker.sh && chmod +x ./scripts/start-docker.sh && chmod +x ./scripts/build-docker.sh
+> chmod +x ./scripts/install-docker.sh && chmod +x ./scripts/start-docker.sh && chmod +x ./scripts/build-docker.sh &&  chmod +x ./scripts/addCronTab.sh
 > ```
 >
 > ### 7. Install docker
@@ -55,7 +55,12 @@
 > ./scripts/start-docker.sh
 > ```
 >
-> ### 9. Build docker
+>  ### 9. Add CronJob
+> ```shell
+> ./scripts/addCronTab.sh
+> ```
+> 
+> ### 10. Build docker
 > ```shell
 > ./scripts/build-docker.sh
 > ```

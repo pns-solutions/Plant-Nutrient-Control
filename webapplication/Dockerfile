@@ -10,5 +10,3 @@ RUN apt-get -y  install nano
 
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-
