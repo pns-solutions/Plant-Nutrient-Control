@@ -204,7 +204,7 @@
                 "t": "set",
                 "p": "delay",
                 "pt": "msg",
-                "to": "payload",
+                "to": "payload*1000",
                 "tot": "msg"
             }
         ],
@@ -283,7 +283,7 @@
                 "t": "set",
                 "p": "delay",
                 "pt": "msg",
-                "to": "payload",
+                "to": "payload*1000",
                 "tot": "msg"
             }
         ],
@@ -362,7 +362,7 @@
                 "t": "set",
                 "p": "delay",
                 "pt": "msg",
-                "to": "payload",
+                "to": "payload*1000",
                 "tot": "msg"
             }
         ],
@@ -441,7 +441,7 @@
                 "t": "set",
                 "p": "delay",
                 "pt": "msg",
-                "to": "payload",
+                "to": "payload*1000",
                 "tot": "msg"
             }
         ],
@@ -520,7 +520,7 @@
                 "t": "set",
                 "p": "delay",
                 "pt": "msg",
-                "to": "payload",
+                "to": "payload*1000",
                 "tot": "msg"
             }
         ],
@@ -599,7 +599,7 @@
                 "t": "set",
                 "p": "delay",
                 "pt": "msg",
-                "to": "payload",
+                "to": "payload*1000",
                 "tot": "msg"
             }
         ],
@@ -644,10 +644,69 @@
         ]
     },
     {
+        "id": "a3ee64c87c8c5291",
+        "type": "debug",
+        "z": "8b8473d0f937977c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1390,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "df7c9648f0c3c898",
+        "type": "mqtt in",
+        "z": "8b8473d0f937977c",
+        "name": "",
+        "topic": "pump/ActionStop",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1360,
+        "y": 80,
+        "wires": [
+            [
+                "a3ee64c87c8c5291"
+            ]
+        ]
+    },
+    {
+        "id": "dc34e04049e67793",
+        "type": "mqtt in",
+        "z": "8b8473d0f937977c",
+        "name": "",
+        "topic": "valve/ActionStop",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1360,
+        "y": 240,
+        "wires": [
+            [
+                "a3ee64c87c8c5291"
+            ]
+        ]
+    },
+    {
         "id": "5a1d20df06b2a528",
         "type": "mqtt-broker",
         "name": "",
-        "broker": "raspberrypi.local",
+        "broker": "localhost",
         "port": "8883",
         "clientid": "",
         "autoConnect": true,
