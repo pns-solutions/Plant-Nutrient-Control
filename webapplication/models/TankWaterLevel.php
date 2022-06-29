@@ -7,7 +7,7 @@ class TankWaterLevel extends BaseModel {
     const TABLENAME = 'TANKWATERLEVEL';
 
     protected $schema = [
-        'time'                     => ['type' => BaseModel::TYPE_STRING],
-        'waterLevel'               => ['type' => BaseModel::TYPE_INT   ]
+        'createdAt' => ['type' => BaseModel::TYPE_STRING],
+        'waterLevel' => ['type' => BaseModel::TYPE_INT   ]
     ];
 }
