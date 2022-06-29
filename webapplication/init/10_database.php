@@ -7,7 +7,7 @@ const INDEX = 'pns';
 
 $elasticsearchConnection = null;
 $lastInsertedId = null;
-$server = '192.168.XXX.XXX';
+$server = '192.168.178.74';
 
 try {
     $elasticsearchConnection = ClientBuilder::create()->setHosts([$server])->build();
