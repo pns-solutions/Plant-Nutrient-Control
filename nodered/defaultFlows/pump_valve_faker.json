@@ -1,0 +1,672 @@
+[
+    {
+        "id": "8b8473d0f937977c",
+        "type": "tab",
+        "label": "Pumpen / Ventil Faker",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "01d66a62ba71f3b2",
+        "type": "mqtt in",
+        "z": "8b8473d0f937977c",
+        "name": "Pumpe 1",
+        "topic": "pump/1",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 60,
+        "wires": [
+            [
+                "698d49c1b9a3e11e"
+            ]
+        ]
+    },
+    {
+        "id": "bafc14686ca73bb8",
+        "type": "mqtt out",
+        "z": "8b8473d0f937977c",
+        "name": "Pumpe Aktion erledigt",
+        "topic": "pump/ActionStop",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "5a1d20df06b2a528",
+        "x": 1140,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "b2c9b3e6c7e830fa",
+        "type": "mqtt in",
+        "z": "8b8473d0f937977c",
+        "name": "Ventil A",
+        "topic": "valve/A",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 180,
+        "wires": [
+            [
+                "31952f8e41c47510"
+            ]
+        ]
+    },
+    {
+        "id": "c4cac0755788cab8",
+        "type": "mqtt in",
+        "z": "8b8473d0f937977c",
+        "name": "Pumpe 2",
+        "topic": "pump/2",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 100,
+        "wires": [
+            [
+                "ad68098ebba606b4"
+            ]
+        ]
+    },
+    {
+        "id": "df4d2811c01e841c",
+        "type": "mqtt in",
+        "z": "8b8473d0f937977c",
+        "name": "Ventil B",
+        "topic": "valve/B",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 220,
+        "wires": [
+            [
+                "8f2c2e34354c5e6f"
+            ]
+        ]
+    },
+    {
+        "id": "0e65710963c47049",
+        "type": "mqtt in",
+        "z": "8b8473d0f937977c",
+        "name": "Ventil D",
+        "topic": "valve/D",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 300,
+        "wires": [
+            [
+                "e06ce68639f41d9c"
+            ]
+        ]
+    },
+    {
+        "id": "9f2d1ccd3490b0f7",
+        "type": "mqtt in",
+        "z": "8b8473d0f937977c",
+        "name": "Ventil C",
+        "topic": "valve/C",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 260,
+        "wires": [
+            [
+                "0f2dbe618efd842e"
+            ]
+        ]
+    },
+    {
+        "id": "139ba17a0c69b13b",
+        "type": "mqtt out",
+        "z": "8b8473d0f937977c",
+        "name": "Ventil Aktion erledigt",
+        "topic": "valve/ActionStop",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "5a1d20df06b2a528",
+        "x": 1140,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "120d50dcb5babc01",
+        "type": "delay",
+        "z": "8b8473d0f937977c",
+        "name": "Verzögerung um msg.delay",
+        "pauseType": "delayv",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 540,
+        "y": 60,
+        "wires": [
+            [
+                "8c2d84c6dd253c56"
+            ]
+        ]
+    },
+    {
+        "id": "698d49c1b9a3e11e",
+        "type": "change",
+        "z": "8b8473d0f937977c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "delay",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 60,
+        "wires": [
+            [
+                "120d50dcb5babc01"
+            ]
+        ]
+    },
+    {
+        "id": "8c2d84c6dd253c56",
+        "type": "change",
+        "z": "8b8473d0f937977c",
+        "name": "überschreibe msg.payload mit ID",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 60,
+        "wires": [
+            [
+                "bafc14686ca73bb8"
+            ]
+        ]
+    },
+    {
+        "id": "e207ceafccaac92a",
+        "type": "delay",
+        "z": "8b8473d0f937977c",
+        "name": "Verzögerung um msg.delay",
+        "pauseType": "delayv",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 540,
+        "y": 100,
+        "wires": [
+            [
+                "264778252008965f"
+            ]
+        ]
+    },
+    {
+        "id": "ad68098ebba606b4",
+        "type": "change",
+        "z": "8b8473d0f937977c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "delay",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 100,
+        "wires": [
+            [
+                "e207ceafccaac92a"
+            ]
+        ]
+    },
+    {
+        "id": "264778252008965f",
+        "type": "change",
+        "z": "8b8473d0f937977c",
+        "name": "überschreibe msg.payload mit ID",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "2",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 100,
+        "wires": [
+            [
+                "bafc14686ca73bb8"
+            ]
+        ]
+    },
+    {
+        "id": "3340402a796e1350",
+        "type": "delay",
+        "z": "8b8473d0f937977c",
+        "name": "Verzögerung um msg.delay",
+        "pauseType": "delayv",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 540,
+        "y": 180,
+        "wires": [
+            [
+                "39e391b773d520cf"
+            ]
+        ]
+    },
+    {
+        "id": "31952f8e41c47510",
+        "type": "change",
+        "z": "8b8473d0f937977c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "delay",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 180,
+        "wires": [
+            [
+                "3340402a796e1350"
+            ]
+        ]
+    },
+    {
+        "id": "39e391b773d520cf",
+        "type": "change",
+        "z": "8b8473d0f937977c",
+        "name": "überschreibe msg.payload mit ID",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "A",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 180,
+        "wires": [
+            [
+                "139ba17a0c69b13b"
+            ]
+        ]
+    },
+    {
+        "id": "2fa9948fd4e098c4",
+        "type": "delay",
+        "z": "8b8473d0f937977c",
+        "name": "Verzögerung um msg.delay",
+        "pauseType": "delayv",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 540,
+        "y": 220,
+        "wires": [
+            [
+                "94d340aa6d68315e"
+            ]
+        ]
+    },
+    {
+        "id": "8f2c2e34354c5e6f",
+        "type": "change",
+        "z": "8b8473d0f937977c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "delay",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 220,
+        "wires": [
+            [
+                "2fa9948fd4e098c4"
+            ]
+        ]
+    },
+    {
+        "id": "94d340aa6d68315e",
+        "type": "change",
+        "z": "8b8473d0f937977c",
+        "name": "überschreibe msg.payload mit ID",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "B",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 220,
+        "wires": [
+            [
+                "139ba17a0c69b13b"
+            ]
+        ]
+    },
+    {
+        "id": "953f97c0b93b3088",
+        "type": "delay",
+        "z": "8b8473d0f937977c",
+        "name": "Verzögerung um msg.delay",
+        "pauseType": "delayv",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 540,
+        "y": 260,
+        "wires": [
+            [
+                "565a17c637b959bc"
+            ]
+        ]
+    },
+    {
+        "id": "0f2dbe618efd842e",
+        "type": "change",
+        "z": "8b8473d0f937977c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "delay",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 260,
+        "wires": [
+            [
+                "953f97c0b93b3088"
+            ]
+        ]
+    },
+    {
+        "id": "565a17c637b959bc",
+        "type": "change",
+        "z": "8b8473d0f937977c",
+        "name": "überschreibe msg.payload mit ID",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "C",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 260,
+        "wires": [
+            [
+                "139ba17a0c69b13b"
+            ]
+        ]
+    },
+    {
+        "id": "ce579e8c2991573f",
+        "type": "delay",
+        "z": "8b8473d0f937977c",
+        "name": "Verzögerung um msg.delay",
+        "pauseType": "delayv",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 540,
+        "y": 300,
+        "wires": [
+            [
+                "1253fa1a4c63bdfe"
+            ]
+        ]
+    },
+    {
+        "id": "e06ce68639f41d9c",
+        "type": "change",
+        "z": "8b8473d0f937977c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "delay",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 300,
+        "wires": [
+            [
+                "ce579e8c2991573f"
+            ]
+        ]
+    },
+    {
+        "id": "1253fa1a4c63bdfe",
+        "type": "change",
+        "z": "8b8473d0f937977c",
+        "name": "überschreibe msg.payload mit ID",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "D",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 300,
+        "wires": [
+            [
+                "139ba17a0c69b13b"
+            ]
+        ]
+    },
+    {
+        "id": "5a1d20df06b2a528",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "raspberrypi.local",
+        "port": "8883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    }
+]
