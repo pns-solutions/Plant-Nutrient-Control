@@ -186,7 +186,8 @@ class PagesController extends Controller{
      */
     public function actionSolver() {
         $this->_params['title'] = 'Solver';
-        $this->_params['solverResult'] = SolverResult::solveNutrientSolution();
-
+        if(isset($_GET['newResult'])) {
+            $this->_params['solverResult'] = SolverResult::solveNutrientSolution();
+        }
     }
 }

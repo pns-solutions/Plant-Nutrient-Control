@@ -4,7 +4,7 @@ namespace PNS;
 
 class SolverResult extends BaseModel {
 
-    const TABLENAME = 'SOLVERRESULT';
+    const TABLENAME = 'solverResult';
 
     protected $schema = [
         'createdAt' => ['type' => BaseModel::TYPE_STRING],
@@ -21,7 +21,7 @@ class SolverResult extends BaseModel {
      * Das Ergebnis wird in die DB gespeichert und die Ausgabe kann als JSON für MQTT weiterverwendet werden -> siehe solver_controller
      * Hinweis: Solver sollte zugunsten der Performanz erst wieder neu rechnen, wenn auch neue Daten da sind: Letztes Solver Ergebnis muss älter als neuester Tank-Messwert sein
      *
-     * @return string - json
+     * @return string
      */
     public static function solveNutrientSolution(): string {
 
@@ -52,17 +52,21 @@ class SolverResult extends BaseModel {
         // Create new Object
         $newSolverResult = new \PNS\SolverResult($solverResult);
 
-        $newSolverResult->validate();
-//        Saves object in Database
+        $validationError = [];
+        $newSolverResult->validate($validationError);
+
+        if(!empty($validationError)) {
+            return json_encode($validationError, 128);
+        }
+        //        Saves object in Database
         $errors = $newSolverResult->save();
 
-        $result = '';
         if(empty($errors)) {
             // Success
             // JSON object with solver result for mqtt topic
-            $result = json_encode($solverResult, 128);
+            return json_encode($solverResult, 128);
         }
 
-        return $result;
+        return json_encode($errors, 128);
     }
 }

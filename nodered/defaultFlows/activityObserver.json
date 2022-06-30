@@ -1,0 +1,373 @@
+[
+    {
+        "id": "4f42c89da6f85198",
+        "type": "tab",
+        "label": "Pump / Valve Activity Observer",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7cfd64e33fdab390",
+        "type": "debug",
+        "z": "4f42c89da6f85198",
+        "name": "Actions",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "a5e1065761e518c2",
+        "type": "mqtt in",
+        "z": "4f42c89da6f85198",
+        "name": "pump/ActionStop",
+        "topic": "pump/ActionStop",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 60,
+        "wires": [
+            [
+                "5f137bfa48d053e3"
+            ]
+        ]
+    },
+    {
+        "id": "93cd38f425255145",
+        "type": "mqtt in",
+        "z": "4f42c89da6f85198",
+        "name": "valve/ActionStop",
+        "topic": "valve/ActionStop",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 100,
+        "wires": [
+            [
+                "a177b692a357a664"
+            ]
+        ]
+    },
+    {
+        "id": "ae7f76d12d453b46",
+        "type": "mqtt in",
+        "z": "4f42c89da6f85198",
+        "name": "pump/1",
+        "topic": "pump/1",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 430,
+        "y": 180,
+        "wires": [
+            [
+                "faafe50f7f35ad83"
+            ]
+        ]
+    },
+    {
+        "id": "836974bd1aed13b2",
+        "type": "mqtt in",
+        "z": "4f42c89da6f85198",
+        "name": "pump/2",
+        "topic": "pump/2",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 430,
+        "y": 220,
+        "wires": [
+            [
+                "faafe50f7f35ad83"
+            ]
+        ]
+    },
+    {
+        "id": "050842d8eafdbf44",
+        "type": "mqtt in",
+        "z": "4f42c89da6f85198",
+        "name": "pump/3",
+        "topic": "pump/3",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 430,
+        "y": 260,
+        "wires": [
+            [
+                "faafe50f7f35ad83"
+            ]
+        ]
+    },
+    {
+        "id": "5fa66a86c887b13a",
+        "type": "mqtt in",
+        "z": "4f42c89da6f85198",
+        "name": "pump/4",
+        "topic": "pump/4",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 430,
+        "y": 300,
+        "wires": [
+            [
+                "faafe50f7f35ad83"
+            ]
+        ]
+    },
+    {
+        "id": "1656661839516ce0",
+        "type": "mqtt in",
+        "z": "4f42c89da6f85198",
+        "name": "valve/A",
+        "topic": "valve/A",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 70,
+        "y": 180,
+        "wires": [
+            [
+                "8967a3aaa1c07f84"
+            ]
+        ]
+    },
+    {
+        "id": "15ea6eb5f8bffc5a",
+        "type": "mqtt in",
+        "z": "4f42c89da6f85198",
+        "name": "valve/B",
+        "topic": "valve/B",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 70,
+        "y": 220,
+        "wires": [
+            [
+                "8967a3aaa1c07f84"
+            ]
+        ]
+    },
+    {
+        "id": "3256d61efc3520f7",
+        "type": "mqtt in",
+        "z": "4f42c89da6f85198",
+        "name": "valve/C",
+        "topic": "valve/C",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 70,
+        "y": 260,
+        "wires": [
+            [
+                "8967a3aaa1c07f84"
+            ]
+        ]
+    },
+    {
+        "id": "6564057130f2033c",
+        "type": "mqtt in",
+        "z": "4f42c89da6f85198",
+        "name": "valve/D",
+        "topic": "valve/D",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 70,
+        "y": 300,
+        "wires": [
+            [
+                "8967a3aaa1c07f84"
+            ]
+        ]
+    },
+    {
+        "id": "faafe50f7f35ad83",
+        "type": "function",
+        "z": "4f42c89da6f85198",
+        "name": "Process Pump Start",
+        "func": "let id = msg.topic.split(\"/\")[1];\nvar params = {};\nparams[\"activityBegin\"] = new Date().toISOString();\nparams[\"pumpId\"] = id;\nparams[\"targetActiveTime\"] = \"\";\nparams[\"pumpVolume\"] = msg.payload;\n\nflow.set(id, params);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5f137bfa48d053e3",
+        "type": "function",
+        "z": "4f42c89da6f85198",
+        "name": "Process Pump Stop",
+        "func": "var params = flow.get(msg.payload);\nparams[\"activityEnd\"] = new Date().toISOString();\nmsg.payload = JSON.stringify(params);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 60,
+        "wires": [
+            [
+                "7cfd64e33fdab390",
+                "783d65b4b764cdb5"
+            ]
+        ]
+    },
+    {
+        "id": "a177b692a357a664",
+        "type": "function",
+        "z": "4f42c89da6f85198",
+        "name": "Process Valve Stop",
+        "func": "var params = flow.get(msg.payload);\nparams[\"activityEnd\"] = new Date().toISOString();\nmsg.payload = JSON.stringify(params);\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 100,
+        "wires": [
+            [
+                "7cfd64e33fdab390",
+                "4c785206d8d3af15"
+            ]
+        ]
+    },
+    {
+        "id": "8967a3aaa1c07f84",
+        "type": "function",
+        "z": "4f42c89da6f85198",
+        "name": "Process Valve Start",
+        "func": "let id = msg.topic.split(\"/\")[1];\nvar params = {};\nparams[\"activityBegin\"] = new Date().toISOString();\nparams[\"valveId\"] = id;\nparams[\"targetActiveTime\"] = msg.payload;\nparams[\"state\"] = true;\n\nflow.set(id, params);",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "783d65b4b764cdb5",
+        "type": "mqtt out",
+        "z": "4f42c89da6f85198",
+        "name": "Pump Stop",
+        "topic": "pumpActionStop",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "5a1d20df06b2a528",
+        "x": 550,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "4c785206d8d3af15",
+        "type": "mqtt out",
+        "z": "4f42c89da6f85198",
+        "name": "Valve Stop",
+        "topic": "valveActionStop",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "5a1d20df06b2a528",
+        "x": 550,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "5a1d20df06b2a528",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "192.168.188.54",
+        "port": "8883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    }
+]
