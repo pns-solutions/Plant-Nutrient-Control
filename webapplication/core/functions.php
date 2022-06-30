@@ -105,7 +105,6 @@ function getGrowthStages($arrayWithData): array {
     $allData = $arrayWithData;
     unset($allData['plantName']);
     unset($allData['submitAddPlant']);
-    error_to_logFile(json_encode($allData, 128));
 
     //complete new growth stage
     if($allData['newGrowthStageName'] != '' && $allData['newNutrient'] != '' && $allData['newAmount']!= '') {
@@ -147,8 +146,6 @@ function getGrowthStages($arrayWithData): array {
         $stages[] = $newGrowthStage;
     }
 
-    error_to_logFile(json_encode($stages, 128));
-
     return $stages;
 }
 
@@ -158,7 +155,6 @@ function getAllFromGrowthStage(array $array, string $stageIdentifier, int $index
 
     foreach ($array as $key => $value) {
         if(str_contains($key, $stageIdentifier)) {
-
             if($key == "{$stageIdentifier}_newName") {
                 $growthStageInfos['growthStageId'] = $index;
                 $growthStageInfos['name'] = $value;

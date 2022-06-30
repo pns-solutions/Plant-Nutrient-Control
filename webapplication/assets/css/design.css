@@ -559,6 +559,8 @@ table input:hover{
     display: inline-block;
 }
 
-.test {
+.solverResult {
+    margin-top: 20px;
+    width: fit-content;
     background-color: #3A6B35FF;
 }
