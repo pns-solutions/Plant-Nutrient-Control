@@ -26,7 +26,7 @@
                     </td>
                 </tr>
             <?php endforeach; ?>
-        <?php else : ?>
+        <?php elseif(isset($ppant) && empty($plant)) : ?>
             <tr>
                 <td colspan="4"><b>Keine Daten vorhanden!</b></td>
             </tr>
