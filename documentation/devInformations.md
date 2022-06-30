@@ -1,5 +1,28 @@
 # This are some commands that could help you while developing the application
 
+## Clean application
+**Caution: This will delete all volumes and containers. All setting for grafana, and nodered will be removed**
+
+```shell
+> ```shell
+> docker-compose down
+> ```
+> 
+> ```shell
+> docker rm $(docker ps -a -q)
+> ```
+> 
+> ```shell
+> docker volume rm $(docker volume ls -q)
+> ```
+> 
+> ```shell
+> ./scripts/build-docker.sh
+> ```
+
+
+
+
 find port blocking process: 
 ```shell
 sudo lsof -i -P -n | grep 1880
