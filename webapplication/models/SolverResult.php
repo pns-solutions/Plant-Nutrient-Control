@@ -13,10 +13,12 @@ class SolverResult extends BaseModel {
     ];
 
     /**
-     *
-     * TODO: Funktion in core/functions.php auslagern oder ins Model
-     *
-     * Funktionsbeschreibung
+     * Funktionsbeschreibung:
+     * Berechnet Differenz des Pflanzen- PH- sowie Nährstoffbedarfs zu aktuellen Messwerten der Nährläsung (Soll vs Ist)
+     * und sucht eine mögliche Kombination von Düngemitteln und deren benötigte Menge, um diese Diskrezpanz zu überbrücken.
+     * Dabei ist eine Standardungenauigkeit von 15% in Ordnung.
+     * Es soll priorisiert der PH-Wert korrigiert werden.
+     * Das Ergebnis wird in die DB gespeichert und die Ausgabe kann als JSON für MQTT weiterverwendet werden -> siehe solver_controller
      * Hinweis: Solver sollte zugunsten der Performanz erst wieder neu rechnen, wenn auch neue Daten da sind: Letztes Solver Ergebnis muss älter als neuester Tank-Messwert sein
      *
      * @return string - json
@@ -36,12 +38,12 @@ class SolverResult extends BaseModel {
             'fertilizerAmount' => [
                 [
                     'fertilizerId' =>  1, // TODO: Durch Variable ersetzen
-                    'amount' => '40',    // result in ml -> TODO: must be calculated from percentage of nutrient according to current water volume in system // TODO: Durch Variable ersetzen
+                    'amount' => 40,    // result in ml -> TODO: must be calculated from percentage of nutrient according to current water volume in system // TODO: Durch Variable ersetzen
                     'pumpId' => 1       // TODO: must be pumpId where fertilizerId.pumpId == pumpId.fertilizerId
                 ],
                 [
                     'fertilizerId' =>  2, // TODO: Durch Variable ersetzen
-                    'amount' => '20',    // result in ml -> TODO: must be calculated from percentage of nutrient according to current water volume in system // TODO: Durch Variable ersetzen
+                    'amount' => 20,    // result in ml -> TODO: must be calculated from percentage of nutrient according to current water volume in system // TODO: Durch Variable ersetzen
                     'pumpId' => 2       // TODO: must be pumpId where fertilizerId.pumpId == pumpId.fertilizerId
                 ]
             ]
@@ -50,14 +52,14 @@ class SolverResult extends BaseModel {
         // Create new Object
         $newSolverResult = new \PNS\SolverResult($solverResult);
 
-//        $newSolverResult->validate();
+        $newSolverResult->validate();
 //        Saves object in Database
-//        $errors = $newSolverResult->save();
+        $errors = $newSolverResult->save();
 
         $result = '';
         if(empty($errors)) {
             // Success
-            //JSON object with solver result for mqtt topic
+            // JSON object with solver result for mqtt topic
             $result = json_encode($solverResult, 128);
         }
 
