@@ -60,18 +60,24 @@ $activeValves = array();
 
 foreach ($topics as $topic => $value) {
     try {
+        $topicSpecificArray = array();
+
         $mqtt->subscribe($topic, function ($topic, $data) use ($mqtt, $value) {
             printf("%s\n", date('c'));
             printf("Received message on topic [%s]: %s\n", $topic, $data);
 
+
+
             if($topic == "pump/ActionStop") {                           // Pump Action Stop
                 $activePumps[$data]['activityEnd'] = date('c');
+                $topicSpecificArray["activityEnd"] = date('c');
                 $newActivity = new \PNS\PumpActivity($activePumps[$data]);
                 $newActivity->save();
 
             } else if($topic == "valve/ActionStop") {                   // Valve Action Stop
 
                 $activeValves[$data]['activityEnd'] = date('c');
+                $topicSpecificArray["activityEnd"] = date('c');
                 $newActivity = new \PNS\ValveActivity($activeValves[$data]);
                 $newActivity->save();
 
@@ -85,6 +91,7 @@ foreach ($topics as $topic => $value) {
                                 'state' => true);
 
                 $activeValves[$id] = $params;
+                $topicSpecificArray = $params;
 
             } else {                                                   // Topic is pump
                 $id = explode("/", $topic)[1];
@@ -94,9 +101,11 @@ foreach ($topics as $topic => $value) {
                                  'targetActiveTime' => $data,
                                  'state' => true);
                 $activePumps[$id] = $params;
+                $topicSpecificArray = $params;
             }
-            $mqtt->publish('debug', json_encode($activePumps));
-            $mqtt->publish('debug', json_encode($activeValves));
+            $mqtt->publish('debug', 'P' . json_encode($activePumps));
+            $mqtt->publish('debug', 'V' . json_encode($activeValves));
+            $mqtt->publish('debug', 'S' . json_encode($topicSpecificArray));
         }, 0);
     } catch (DataTransferException $e) {
         printf("DataTransferException: There was an Error while subscribing to [%s]\n Exceptions was: %s\n", $topic, $e);
