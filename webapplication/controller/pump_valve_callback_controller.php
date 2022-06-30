@@ -38,6 +38,8 @@ try {
 
 }
 
+$mqtt->publish('debug', "I am alive.");
+
 // TODO replace with database call
 // should use all pumps and valves which are in the database
 $topics = array(
