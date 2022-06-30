@@ -11,4 +11,4 @@
 .phpunit.result.cache
 /logs/logs.txt
 /assets/composer/vendor/
-*/lock
+/assets/composer/composer.lock
