@@ -38,21 +38,11 @@ try {
 
 }
 
-$mqtt->publish('debug', "I am alive.");
-
 // TODO replace with database call
 // should use all pumps and valves which are in the database
 $topics = array(
-    "pump/ActionStop" => 1,
-    "valve/ActionStop" => 2,
-
-    "pump/1" => 3,
-    "pump/2" => 4,
-
-    "valve/A" => 5,
-    "valve/B" => 6,
-    "valve/C" => 7,
-    "valve/D" => 8,
+    "pumpActionStop" => 1,
+    "valveActionStop" => 2,
 );
 
 $activePumps = array();
@@ -66,46 +56,13 @@ foreach ($topics as $topic => $value) {
             printf("%s\n", date('c'));
             printf("Received message on topic [%s]: %s\n", $topic, $data);
 
-
-
-            if($topic == "pump/ActionStop") {                           // Pump Action Stop
-                $activePumps[$data]['activityEnd'] = date('c');
-                $topicSpecificArray["activityEnd"] = date('c');
-                $newActivity = new \PNS\PumpActivity($activePumps[$data]);
-                $newActivity->save();
-
-            } else if($topic == "valve/ActionStop") {                   // Valve Action Stop
-
-                $activeValves[$data]['activityEnd'] = date('c');
-                $topicSpecificArray["activityEnd"] = date('c');
-                $newActivity = new \PNS\ValveActivity($activeValves[$data]);
-                $newActivity->save();
-
-
-            } else if(stripos($topic, "pump/") === false) {      // Topic is valve
-                $id = explode("/", $topic)[1];
-                $params = array('valveId' => $id,
-                                'activityBegin' => date('c'),
-                                'activityEnd' => "",
-                                'targetActiveTime' => $data,
-                                'state' => true);
-
-                $activeValves[$id] = $params;
-                $topicSpecificArray = $params;
-
-            } else {                                                   // Topic is pump
-                $id = explode("/", $topic)[1];
-                $params = array( 'pumpId' => $id,
-                                 'activityBegin' => date('c'),
-                                 'activityEnd' => "",
-                                 'targetActiveTime' => $data,
-                                 'state' => true);
-                $activePumps[$id] = $params;
-                $topicSpecificArray = $params;
+            $action = json_decode($data);
+            if($topic == "pumpActionStop") {                            // Pump Action Stop
+                $newActivity = new \PNS\PumpActivity($action);
+            } else {                                                    // Valve Action Stop
+                $newActivity = new \PNS\ValveActivity($action);
             }
-            $mqtt->publish('debug', 'P' . json_encode($activePumps));
-            $mqtt->publish('debug', 'V' . json_encode($activeValves));
-            $mqtt->publish('debug', 'S' . json_encode($topicSpecificArray));
+            $newActivity->save();
         }, 0);
     } catch (DataTransferException $e) {
         printf("DataTransferException: There was an Error while subscribing to [%s]\n Exceptions was: %s\n", $topic, $e);
