@@ -91,6 +91,8 @@ foreach ($topics as $topic => $value) {
                 $newActivity = new \PNS\PumpActivity($params);
                 $activePumps[$id] = $newActivity;
             }
+            $mqtt->publish('debug', json_encode($activePumps));
+            $mqtt->publish('debug', json_encode($activeValves));
         }, 0);
     } catch (DataTransferException $e) {
         printf("DataTransferException: There was an Error while subscribing to [%s]\n Exceptions was: %s\n", $topic, $e);
