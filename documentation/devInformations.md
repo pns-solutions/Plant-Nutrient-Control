@@ -3,7 +3,7 @@
 ## Clean application
 **Caution: This will delete all volumes and containers. All setting for grafana, and nodered will be removed**
 
-```shell
+
 > ```shell
 > docker-compose down
 > ```
