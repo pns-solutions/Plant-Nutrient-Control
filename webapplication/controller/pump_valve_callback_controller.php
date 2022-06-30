@@ -66,11 +66,14 @@ foreach ($topics as $topic => $value) {
 
             if($topic == "pump/ActionStop") {                           // Pump Action Stop
                 $activePumps[$data]['activityEnd'] = date('c');
-                $activePumps[$data]->save();
+                $newActivity = new \PNS\PumpActivity($activePumps[$data]);
+                $newActivity->save();
 
             } else if($topic == "valve/ActionStop") {                   // Valve Action Stop
+
                 $activeValves[$data]['activityEnd'] = date('c');
-                $activeValves[$data]->save();
+                $newActivity = new \PNS\ValveActivity($activeValves[$data]);
+                $newActivity->save();
 
 
             } else if(stripos($topic, "pump/") === false) {      // Topic is valve
@@ -80,8 +83,8 @@ foreach ($topics as $topic => $value) {
                                 'activityEnd' => "",
                                 'targetActiveTime' => $data,
                                 'state' => true);
-                $newActivity = new \PNS\ValveActivity($params);
-                $activeValves[$id] = $newActivity;
+
+                $activeValves[$id] = $params;
 
             } else {                                                   // Topic is pump
                 $id = explode("/", $topic)[1];
@@ -90,8 +93,7 @@ foreach ($topics as $topic => $value) {
                                  'activityEnd' => "",
                                  'targetActiveTime' => $data,
                                  'state' => true);
-                $newActivity = new \PNS\PumpActivity($params);
-                $activePumps[$id] = $newActivity;
+                $activePumps[$id] = $params;
             }
             $mqtt->publish('debug', json_encode($activePumps));
             $mqtt->publish('debug', json_encode($activeValves));
