@@ -1,8 +1,8 @@
 <?php
 
 require('../assets/composer/vendor/autoload.php');
-//require('../core/functions.php');
-//require('../init/10_database.php');
+require('../core/functions.php');
+require('../init/10_database.php');
 
 use \PhpMqtt\Client\MqttClient;
 use \PhpMqtt\Client\ConnectionSettings;

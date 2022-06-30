@@ -24,7 +24,7 @@
         "y": 60,
         "wires": [
             [
-                "698d49c1b9a3e11e"
+                "1dc99b3895b4e784"
             ]
         ]
     },
@@ -42,7 +42,7 @@
         "correl": "",
         "expiry": "",
         "broker": "5a1d20df06b2a528",
-        "x": 1140,
+        "x": 1100,
         "y": 80,
         "wires": []
     },
@@ -63,7 +63,7 @@
         "y": 180,
         "wires": [
             [
-                "31952f8e41c47510"
+                "524d2f6eec21925f"
             ]
         ]
     },
@@ -84,7 +84,7 @@
         "y": 100,
         "wires": [
             [
-                "ad68098ebba606b4"
+                "87f4de408e826911"
             ]
         ]
     },
@@ -105,7 +105,7 @@
         "y": 220,
         "wires": [
             [
-                "8f2c2e34354c5e6f"
+                "efa64fc4831acd5f"
             ]
         ]
     },
@@ -126,7 +126,7 @@
         "y": 300,
         "wires": [
             [
-                "e06ce68639f41d9c"
+                "82699ceb6d8c65d6"
             ]
         ]
     },
@@ -147,7 +147,7 @@
         "y": 260,
         "wires": [
             [
-                "0f2dbe618efd842e"
+                "f06d3003cc76c9fc"
             ]
         ]
     },
@@ -165,7 +165,7 @@
         "correl": "",
         "expiry": "",
         "broker": "5a1d20df06b2a528",
-        "x": 1140,
+        "x": 1100,
         "y": 240,
         "wires": []
     },
@@ -186,38 +186,11 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 540,
+        "x": 500,
         "y": 60,
         "wires": [
             [
                 "8c2d84c6dd253c56"
-            ]
-        ]
-    },
-    {
-        "id": "698d49c1b9a3e11e",
-        "type": "change",
-        "z": "8b8473d0f937977c",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "delay",
-                "pt": "msg",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 300,
-        "y": 60,
-        "wires": [
-            [
-                "120d50dcb5babc01"
             ]
         ]
     },
@@ -240,7 +213,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 840,
+        "x": 800,
         "y": 60,
         "wires": [
             [
@@ -265,38 +238,11 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 540,
+        "x": 500,
         "y": 100,
         "wires": [
             [
                 "264778252008965f"
-            ]
-        ]
-    },
-    {
-        "id": "ad68098ebba606b4",
-        "type": "change",
-        "z": "8b8473d0f937977c",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "delay",
-                "pt": "msg",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 300,
-        "y": 100,
-        "wires": [
-            [
-                "e207ceafccaac92a"
             ]
         ]
     },
@@ -319,7 +265,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 840,
+        "x": 800,
         "y": 100,
         "wires": [
             [
@@ -344,38 +290,11 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 540,
+        "x": 500,
         "y": 180,
         "wires": [
             [
                 "39e391b773d520cf"
-            ]
-        ]
-    },
-    {
-        "id": "31952f8e41c47510",
-        "type": "change",
-        "z": "8b8473d0f937977c",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "delay",
-                "pt": "msg",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 300,
-        "y": 180,
-        "wires": [
-            [
-                "3340402a796e1350"
             ]
         ]
     },
@@ -398,7 +317,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 840,
+        "x": 800,
         "y": 180,
         "wires": [
             [
@@ -423,38 +342,11 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 540,
+        "x": 500,
         "y": 220,
         "wires": [
             [
                 "94d340aa6d68315e"
-            ]
-        ]
-    },
-    {
-        "id": "8f2c2e34354c5e6f",
-        "type": "change",
-        "z": "8b8473d0f937977c",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "delay",
-                "pt": "msg",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 300,
-        "y": 220,
-        "wires": [
-            [
-                "2fa9948fd4e098c4"
             ]
         ]
     },
@@ -477,7 +369,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 840,
+        "x": 800,
         "y": 220,
         "wires": [
             [
@@ -502,38 +394,11 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 540,
+        "x": 500,
         "y": 260,
         "wires": [
             [
                 "565a17c637b959bc"
-            ]
-        ]
-    },
-    {
-        "id": "0f2dbe618efd842e",
-        "type": "change",
-        "z": "8b8473d0f937977c",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "delay",
-                "pt": "msg",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 300,
-        "y": 260,
-        "wires": [
-            [
-                "953f97c0b93b3088"
             ]
         ]
     },
@@ -556,7 +421,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 840,
+        "x": 800,
         "y": 260,
         "wires": [
             [
@@ -581,38 +446,11 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 540,
+        "x": 500,
         "y": 300,
         "wires": [
             [
                 "1253fa1a4c63bdfe"
-            ]
-        ]
-    },
-    {
-        "id": "e06ce68639f41d9c",
-        "type": "change",
-        "z": "8b8473d0f937977c",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "delay",
-                "pt": "msg",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 300,
-        "y": 300,
-        "wires": [
-            [
-                "ce579e8c2991573f"
             ]
         ]
     },
@@ -635,7 +473,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 840,
+        "x": 800,
         "y": 300,
         "wires": [
             [
@@ -644,10 +482,183 @@
         ]
     },
     {
+        "id": "a3ee64c87c8c5291",
+        "type": "debug",
+        "z": "8b8473d0f937977c",
+        "name": "ActionStop",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1350,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "df7c9648f0c3c898",
+        "type": "mqtt in",
+        "z": "8b8473d0f937977c",
+        "name": "",
+        "topic": "pump/ActionStop",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1320,
+        "y": 80,
+        "wires": [
+            [
+                "a3ee64c87c8c5291"
+            ]
+        ]
+    },
+    {
+        "id": "dc34e04049e67793",
+        "type": "mqtt in",
+        "z": "8b8473d0f937977c",
+        "name": "",
+        "topic": "valve/ActionStop",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a1d20df06b2a528",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1320,
+        "y": 240,
+        "wires": [
+            [
+                "a3ee64c87c8c5291"
+            ]
+        ]
+    },
+    {
+        "id": "1dc99b3895b4e784",
+        "type": "function",
+        "z": "8b8473d0f937977c",
+        "name": "set delay",
+        "func": "msg.delay = msg.payload * 1000;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 60,
+        "wires": [
+            [
+                "120d50dcb5babc01"
+            ]
+        ]
+    },
+    {
+        "id": "87f4de408e826911",
+        "type": "function",
+        "z": "8b8473d0f937977c",
+        "name": "set delay",
+        "func": "msg.delay = msg.payload * 1000;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 100,
+        "wires": [
+            [
+                "e207ceafccaac92a"
+            ]
+        ]
+    },
+    {
+        "id": "524d2f6eec21925f",
+        "type": "function",
+        "z": "8b8473d0f937977c",
+        "name": "set delay",
+        "func": "msg.delay = msg.payload * 1000;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 180,
+        "wires": [
+            [
+                "3340402a796e1350"
+            ]
+        ]
+    },
+    {
+        "id": "efa64fc4831acd5f",
+        "type": "function",
+        "z": "8b8473d0f937977c",
+        "name": "set delay",
+        "func": "msg.delay = msg.payload * 1000;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 220,
+        "wires": [
+            [
+                "2fa9948fd4e098c4"
+            ]
+        ]
+    },
+    {
+        "id": "f06d3003cc76c9fc",
+        "type": "function",
+        "z": "8b8473d0f937977c",
+        "name": "set delay",
+        "func": "msg.delay = msg.payload * 1000;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 260,
+        "wires": [
+            [
+                "953f97c0b93b3088"
+            ]
+        ]
+    },
+    {
+        "id": "82699ceb6d8c65d6",
+        "type": "function",
+        "z": "8b8473d0f937977c",
+        "name": "set delay",
+        "func": "msg.delay = msg.payload * 1000;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 300,
+        "wires": [
+            [
+                "ce579e8c2991573f"
+            ]
+        ]
+    },
+    {
         "id": "5a1d20df06b2a528",
         "type": "mqtt-broker",
         "name": "",
-        "broker": "raspberrypi.local",
+        "broker": "192.168.188.54",
         "port": "8883",
         "clientid": "",
         "autoConnect": true,
