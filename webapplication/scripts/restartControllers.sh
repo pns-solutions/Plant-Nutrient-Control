@@ -5,3 +5,4 @@ pkill -9 php
 
 #start application
 php ../controller/sensor_controller.php
+php ../controller/pump_valve_callback_controller.php

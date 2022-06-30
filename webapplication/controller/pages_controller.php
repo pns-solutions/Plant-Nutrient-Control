@@ -177,4 +177,16 @@ class PagesController extends Controller{
             }
         }
     }
+
+    /**
+     * Dies ist die Abfolge, wenn der Solver abgerufen wird.
+     *
+     *
+     * @return void
+     */
+    public function actionSolver() {
+        $this->_params['title'] = 'Solver';
+        $this->_params['solverResult'] = SolverResult::solveNutrientSolution();
+
+    }
 }

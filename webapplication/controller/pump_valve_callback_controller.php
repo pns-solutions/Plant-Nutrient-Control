@@ -38,38 +38,31 @@ try {
 
 }
 
-//replace with database call
-// should use all sensors which are in the database and are active
-//$newSensorValue = new Sensor();
-//$newSensorValue->find()
+// TODO replace with database call
+// should use all pumps and valves which are in the database
 $topics = array(
-    "df/EC" => 1,
-    "df/PH" => 2,
-    "df/KCl" => 3,
-    "df/N" => 4
+    "pumpActionStop" => 1,
+    "valveActionStop" => 2,
 );
+
+$activePumps = array();
+$activeValves = array();
 
 foreach ($topics as $topic => $value) {
     try {
+        $topicSpecificArray = array();
+
         $mqtt->subscribe($topic, function ($topic, $data) use ($mqtt, $value) {
             printf("%s\n", date('c'));
             printf("Received message on topic [%s]: %s\n", $topic, $data);
 
-            $mqtt->publish('sensorControllerTest/EC', $topic, 0);
-
-            $parameter = array(
-                'sensorId' => $value,
-                'timestamp' => date('c'),
-                'topic' => $topic,
-                'reading' => floatval($data),
-                'convertedReading' => $data * 0.1,
-                'unit' => "ml",
-                'tableId' => 1
-            );
-            $newSensorValue = new SensorMeasurement($parameter);
-            $newSensorValue->save();
-
-
+            $action = json_decode($data);
+            if($topic == "pumpActionStop") {                            // Pump Action Stop
+                $newActivity = new \PNS\PumpActivity($action);
+            } else {                                                    // Valve Action Stop
+                $newActivity = new \PNS\ValveActivity($action);
+            }
+            $newActivity->save();
         }, 0);
     } catch (DataTransferException $e) {
         printf("DataTransferException: There was an Error while subscribing to [%s]\n Exceptions was: %s\n", $topic, $e);
