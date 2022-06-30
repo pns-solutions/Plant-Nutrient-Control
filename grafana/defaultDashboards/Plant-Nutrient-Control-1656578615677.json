@@ -44,7 +44,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "P-y_MHqnz"
+        "uid": "nyYOFjq7z"
       },
       "fieldConfig": {
         "defaults": {
@@ -122,7 +122,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "P-y_MHqnz"
+            "uid": "nyYOFjq7z"
           },
           "metrics": [
             {
@@ -164,7 +164,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "P-y_MHqnz"
+            "uid": "nyYOFjq7z"
           },
           "hide": false,
           "metrics": [
@@ -207,7 +207,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "P-y_MHqnz"
+            "uid": "nyYOFjq7z"
           },
           "hide": false,
           "metrics": [
@@ -250,7 +250,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "P-y_MHqnz"
+            "uid": "nyYOFjq7z"
           },
           "hide": false,
           "metrics": [
@@ -271,7 +271,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "P-y_MHqnz"
+        "uid": "nyYOFjq7z"
       },
       "fieldConfig": {
         "defaults": {
@@ -354,7 +354,7 @@
                 "filters": [
                   {
                     "label": "",
-                    "query": "sensormeasurement.sensorId:1"
+                    "query": "sensormeasurement.topic:\"df/EC\""
                   }
                 ]
               },
@@ -391,7 +391,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "P-y_MHqnz"
+        "uid": "nyYOFjq7z"
       },
       "fieldConfig": {
         "defaults": {
@@ -490,7 +490,7 @@
                 "filters": [
                   {
                     "label": "",
-                    "query": "sensormeasurement.sensorId:2"
+                    "query": "sensormeasurement.topic:\"df/PH\""
                   }
                 ]
               },
@@ -527,7 +527,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "P-y_MHqnz"
+        "uid": "nyYOFjq7z"
       },
       "fieldConfig": {
         "defaults": {
@@ -765,7 +765,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "P-y_MHqnz"
+        "uid": "nyYOFjq7z"
       },
       "gridPos": {
         "h": 8,
@@ -793,6 +793,7 @@
             "type": "elasticsearch",
             "uid": "P-y_MHqnz"
           },
+          "hide": false,
           "metrics": [
             {
               "id": "1",
@@ -819,7 +820,7 @@
     "list": []
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -828,6 +829,6 @@
   "timezone": "",
   "title": "Plant-Nutrient-Control",
   "uid": "rihEZHqnk",
-  "version": 41,
+  "version": 5,
   "weekStart": "monday"
 }
