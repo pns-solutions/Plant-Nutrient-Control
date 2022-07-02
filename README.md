@@ -55,6 +55,7 @@
 > ./scripts/install-docker.sh
 > ```
 > You will probably be asked to allow the installation of additional packages. Accept by entering 'Y'.
+>
 > After this script is finished, the system will restart. Wait a minute to reconnect via SSH. Then go again into the cloned repository (`cd Plant-Nutrient-Control`).
 >
 >
