@@ -39,7 +39,6 @@ abstract class BaseModel {
             return;
         }
         $message = 'You can not access to property "' . $key . '"" for the class "' . get_called_class();
-        error_to_logFile($message);
         throw new \Exception($message);
     }
 

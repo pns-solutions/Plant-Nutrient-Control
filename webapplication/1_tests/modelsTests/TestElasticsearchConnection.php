@@ -92,7 +92,6 @@ class TestElasticsearchConnection extends TestCase{
 
         $error = Culture::deleteWhere($where);
 
-        error_to_phpunit_output($error);
     }
 
     public function testCreateIndex() {

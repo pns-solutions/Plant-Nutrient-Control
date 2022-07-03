@@ -72,7 +72,7 @@ class PagesController extends Controller{
 
                 if(empty($error)) {
                     Culture::deleteWhere($_GET['plantId']);
-                    sleep(2);
+                    sleep(1);
                     sendHeaderByControllerAndAction('pages', 'addCulture&plantId=' . $GLOBALS['lastInsertedId']);
                 } else {
                     $this->_params['inputError'] = $error;
@@ -149,7 +149,7 @@ class PagesController extends Controller{
 
                 if(empty($error)) {
                     Fertilizer::deleteWhere($_GET['fertilizerId']);
-                    sleep(2);
+                    sleep(1);
                     sendHeaderByControllerAndAction('pages', 'addFertilizer&fertilizerId=' . $GLOBALS['lastInsertedId']);
                 } else {
                     $this->_params['inputError'] = $error;

@@ -10,8 +10,8 @@ const DEBUG_SQL = 1;
  * @param null $class - Klasse aus der die Funktion aufgerufen wird (Optional)
  */
 function debug_to_logFile($message, $class = null){
-    if (!is_dir(__DIR__.'/../logs')) {
-        mkdir (__DIR__.'/../logs', 4777);
+    if (!is_dir(__DIR__ . '/../logs')) {
+        mkdir (__DIR__ . '/../logs', 4777);
     }
     if(DEBUG){
         $class = $class == null ? '' : $class;
@@ -154,7 +154,8 @@ function getAllFromGrowthStage(array $array, string $stageIdentifier, int $index
     $nutrientInfos = [];
 
     foreach ($array as $key => $value) {
-        if(str_contains($key, $stageIdentifier)) {
+//        if(str_contains($key, $stageIdentifier)) {
+        if(strpos($key, $stageIdentifier) !== false) {
             if($key == "{$stageIdentifier}_newName") {
                 $growthStageInfos['growthStageId'] = $index;
                 $growthStageInfos['name'] = $value;
@@ -242,6 +243,5 @@ function getNutrientArray($arrayWithData): array {
         $nutrientArray[] = $newNutrient;
     }
 
-    error_to_logFile(json_encode($nutrientArray, 128));
     return $nutrientArray;
 }
