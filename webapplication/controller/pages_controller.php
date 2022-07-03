@@ -12,6 +12,7 @@ class PagesController extends Controller{
      */
     public function actionStart() {
         $this->_params['title'] = 'Startseite';
+        $this->_params['grafanaIp'] ="http://{$GLOBALS['server']}:3030";
     }
 
     /**
@@ -71,7 +72,7 @@ class PagesController extends Controller{
 
                 if(empty($error)) {
                     Culture::deleteWhere($_GET['plantId']);
-                    sleep(2);
+                    sleep(1);
                     sendHeaderByControllerAndAction('pages', 'addCulture&plantId=' . $GLOBALS['lastInsertedId']);
                 } else {
                     $this->_params['inputError'] = $error;
@@ -148,7 +149,7 @@ class PagesController extends Controller{
 
                 if(empty($error)) {
                     Fertilizer::deleteWhere($_GET['fertilizerId']);
-                    sleep(2);
+                    sleep(1);
                     sendHeaderByControllerAndAction('pages', 'addFertilizer&fertilizerId=' . $GLOBALS['lastInsertedId']);
                 } else {
                     $this->_params['inputError'] = $error;
@@ -181,13 +182,13 @@ class PagesController extends Controller{
     /**
      * Dies ist die Abfolge, wenn der Solver abgerufen wird.
      *
-     *
      * @return void
      */
     public function actionSolver() {
         $this->_params['title'] = 'Solver';
         if(isset($_GET['newResult'])) {
-            $this->_params['solverResult'] = SolverResult::solveNutrientSolution();
+//            $this->_params['solverResult'] = SolverResult::solveNutrientSolution();
+            $this->_params['solverResult'] = SolverResult::runSolver();
         }
     }
 }

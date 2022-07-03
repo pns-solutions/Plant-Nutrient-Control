@@ -2,6 +2,12 @@
 
 namespace PNS;
 
+use PhpMqtt\Client\Exceptions\ConfigurationInvalidException;
+use PhpMqtt\Client\Exceptions\ConnectingToBrokerFailedException;
+use PhpMqtt\Client\Exceptions\ProtocolNotSupportedException;
+use \PhpMqtt\Client\MqttClient;
+use \PhpMqtt\Client\ConnectionSettings;
+
 class SolverResult extends BaseModel {
 
     const TABLENAME = 'solverResult';
@@ -68,5 +74,33 @@ class SolverResult extends BaseModel {
         }
 
         return json_encode($errors, 128);
+    }
+
+    public static function runSolver() {
+        $port = 8883;
+        $clientId = rand(5, 15);
+
+        $connectionSettings = new ConnectionSettings();
+        $server = $GLOBALS['server'];
+
+        try {
+            $mqtt = new MqttClient($server, $port, $clientId);
+        } catch (ProtocolNotSupportedException $e) {
+            printf("MqttClientException: There was an Error while setting up the MqttClient\n Exceptions was: %s\n", $e);
+        }
+
+        try {
+            $mqtt->connect($connectionSettings, false);
+        } catch (ConfigurationInvalidException $e) {
+            printf("MqttClientException: There was an Error while connect to the MqttClient\n Exceptions was: %s\n", $e);
+        } catch (ConnectingToBrokerFailedException $e) {
+            printf("MqttClientException: There was an Error while connect to the MqttClient\n Exceptions was: %s\n", $e);
+        }
+
+        $message = \PNS\SolverResult::solveNutrientSolution();
+
+        $mqtt->publish('solverResult', $message);
+
+        return $message;
     }
 }

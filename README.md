@@ -125,10 +125,7 @@ ___
 > ```
 > ### 2. Restart docker application
 > ```shell
-> chmod +x ./scripts/restart-docker.sh
-> ```
-> ```shell
-> ./scripts/restart-docker.sh
+> docker-compose up -d --force-recreate
 > ```
 
 ___ 
