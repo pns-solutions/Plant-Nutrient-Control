@@ -12,6 +12,7 @@ class PagesController extends Controller{
      */
     public function actionStart() {
         $this->_params['title'] = 'Startseite';
+        $this->_params['grafanaIp'] ="http://{$GLOBALS['server']}:3030";
     }
 
     /**
