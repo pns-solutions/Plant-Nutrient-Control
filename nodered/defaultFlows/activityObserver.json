@@ -21,7 +21,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 540,
-        "y": 180,
+        "y": 80,
         "wires": []
     },
     {
@@ -38,7 +38,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 100,
-        "y": 160,
+        "y": 60,
         "wires": [
             [
                 "5f137bfa48d053e3"
@@ -59,7 +59,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 100,
-        "y": 200,
+        "y": 100,
         "wires": [
             [
                 "a177b692a357a664"
@@ -80,7 +80,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 430,
-        "y": 280,
+        "y": 180,
         "wires": [
             [
                 "faafe50f7f35ad83"
@@ -101,7 +101,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 430,
-        "y": 320,
+        "y": 220,
         "wires": [
             [
                 "faafe50f7f35ad83"
@@ -122,7 +122,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 430,
-        "y": 360,
+        "y": 260,
         "wires": [
             [
                 "faafe50f7f35ad83"
@@ -143,7 +143,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 430,
-        "y": 400,
+        "y": 300,
         "wires": [
             [
                 "faafe50f7f35ad83"
@@ -164,7 +164,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 70,
-        "y": 280,
+        "y": 180,
         "wires": [
             [
                 "8967a3aaa1c07f84"
@@ -185,7 +185,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 70,
-        "y": 320,
+        "y": 220,
         "wires": [
             [
                 "8967a3aaa1c07f84"
@@ -206,7 +206,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 70,
-        "y": 360,
+        "y": 260,
         "wires": [
             [
                 "8967a3aaa1c07f84"
@@ -227,7 +227,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 70,
-        "y": 400,
+        "y": 300,
         "wires": [
             [
                 "8967a3aaa1c07f84"
@@ -239,14 +239,14 @@
         "type": "function",
         "z": "4f42c89da6f85198",
         "name": "Process Pump Start",
-        "func": "let id = msg.topic.split(\"/\")[1];\nvar params = {};\nparams[\"activityBegin\"] = new Date().toISOString();\nparams[\"pumpId\"] = id;\nparams[\"targetActiveTime\"] = msg.payload;\nparams[\"state\"] = true;\n\nflow.set(id, params);\n",
+        "func": "let id = msg.topic.split(\"/\")[1];\nvar params = {};\nparams[\"activityBegin\"] = new Date().toISOString();\nparams[\"pumpId\"] = id;\nparams[\"targetActiveTime\"] = \"\";\nparams[\"pumpVolume\"] = msg.payload;\n\nflow.set(id, params);\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 620,
-        "y": 340,
+        "y": 240,
         "wires": [
             []
         ]
@@ -263,7 +263,7 @@
         "finalize": "",
         "libs": [],
         "x": 320,
-        "y": 160,
+        "y": 60,
         "wires": [
             [
                 "7cfd64e33fdab390",
@@ -283,7 +283,7 @@
         "finalize": "",
         "libs": [],
         "x": 310,
-        "y": 200,
+        "y": 100,
         "wires": [
             [
                 "7cfd64e33fdab390",
@@ -303,7 +303,7 @@
         "finalize": "",
         "libs": [],
         "x": 250,
-        "y": 340,
+        "y": 240,
         "wires": [
             []
         ]
@@ -323,7 +323,7 @@
         "expiry": "",
         "broker": "5a1d20df06b2a528",
         "x": 550,
-        "y": 140,
+        "y": 40,
         "wires": []
     },
     {
@@ -341,25 +341,8 @@
         "expiry": "",
         "broker": "5a1d20df06b2a528",
         "x": 550,
-        "y": 220,
+        "y": 120,
         "wires": []
-    },
-    {
-        "id": "ba1b90a5207e281e",
-        "type": "function",
-        "z": "4f42c89da6f85198",
-        "name": "Init Flow Variables",
-        "func": "",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 110,
-        "y": 40,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "5a1d20df06b2a528",

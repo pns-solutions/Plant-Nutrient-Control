@@ -50,13 +50,12 @@ $activeValves = array();
 
 foreach ($topics as $topic => $value) {
     try {
-        $topicSpecificArray = array();
-
         $mqtt->subscribe($topic, function ($topic, $data) use ($mqtt, $value) {
             printf("%s\n", date('c'));
             printf("Received message on topic [%s]: %s\n", $topic, $data);
 
-            $action = json_decode($data);
+            $action = json_decode($data, true);
+
             if($topic == "pumpActionStop") {                            // Pump Action Stop
                 $newActivity = new \PNS\PumpActivity($action);
             } else {                                                    // Valve Action Stop

@@ -44,7 +44,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "P-y_MHqnz"
+        "uid": "vDQZujq7z"
       },
       "fieldConfig": {
         "defaults": {
@@ -122,8 +122,9 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "P-y_MHqnz"
+            "uid": "nyYOFjq7z"
           },
+          "hide": false,
           "metrics": [
             {
               "field": "sensormeasurement.reading",
@@ -164,7 +165,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "P-y_MHqnz"
+            "uid": "nyYOFjq7z"
           },
           "hide": false,
           "metrics": [
@@ -207,7 +208,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "P-y_MHqnz"
+            "uid": "nyYOFjq7z"
           },
           "hide": false,
           "metrics": [
@@ -250,7 +251,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "P-y_MHqnz"
+            "uid": "nyYOFjq7z"
           },
           "hide": false,
           "metrics": [
@@ -271,7 +272,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "P-y_MHqnz"
+        "uid": "vDQZujq7z"
       },
       "fieldConfig": {
         "defaults": {
@@ -283,8 +284,8 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 18,
-            "gradientMode": "none",
+            "fillOpacity": 15,
+            "gradientMode": "opacity",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -300,127 +301,7 @@
               "type": "linear"
             },
             "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 0,
-        "y": 6
-      },
-      "id": 4,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "id": "3",
-              "settings": {
-                "filters": [
-                  {
-                    "label": "",
-                    "query": "sensormeasurement.sensorId:1"
-                  }
-                ]
-              },
-              "type": "filters"
-            },
-            {
-              "field": "sensormeasurement.timestamp",
-              "id": "2",
-              "settings": {
-                "interval": "auto"
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "P-y_MHqnz"
-          },
-          "metrics": [
-            {
-              "field": "sensormeasurement.reading",
-              "id": "1",
-              "type": "avg"
-            }
-          ],
-          "query": "",
-          "refId": "A",
-          "timeField": "timestamp"
-        }
-      ],
-      "title": "EC",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "elasticsearch",
-        "uid": "P-y_MHqnz"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 18,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "smooth",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
+            "spanNulls": 60000,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -459,13 +340,28 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "sensormeasurement.topic:\"df/PH\""
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
           }
         ]
       },
       "gridPos": {
         "h": 10,
         "w": 12,
-        "x": 12,
+        "x": 0,
         "y": 6
       },
       "id": 6,
@@ -490,7 +386,7 @@
                 "filters": [
                   {
                     "label": "",
-                    "query": "sensormeasurement.sensorId:2"
+                    "query": "sensormeasurement.topic:\"df/PH\""
                   }
                 ]
               },
@@ -509,6 +405,7 @@
             "type": "elasticsearch",
             "uid": "P-y_MHqnz"
           },
+          "hide": false,
           "metrics": [
             {
               "field": "sensormeasurement.reading",
@@ -527,7 +424,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "P-y_MHqnz"
+        "uid": "vDQZujq7z"
       },
       "fieldConfig": {
         "defaults": {
@@ -539,8 +436,8 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 18,
-            "gradientMode": "none",
+            "fillOpacity": 15,
+            "gradientMode": "opacity",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -556,7 +453,144 @@
               "type": "linear"
             },
             "showPoints": "never",
-            "spanNulls": false,
+            "spanNulls": 60000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "sensormeasurement.topic:\"df/EC\""
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 6
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "id": "3",
+              "settings": {
+                "filters": [
+                  {
+                    "label": "",
+                    "query": "sensormeasurement.topic:\"df/EC\""
+                  }
+                ]
+              },
+              "type": "filters"
+            },
+            {
+              "field": "sensormeasurement.timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto"
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "vDQZujq7z"
+          },
+          "hide": false,
+          "metrics": [
+            {
+              "field": "sensormeasurement.reading",
+              "id": "1",
+              "type": "avg"
+            }
+          ],
+          "query": "",
+          "refId": "A",
+          "timeField": "timestamp"
+        }
+      ],
+      "title": "EC",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "vDQZujq7z"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 15,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": 60000,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -620,7 +654,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "blue",
+                  "fixedColor": "orange",
                   "mode": "fixed"
                 }
               }
@@ -635,7 +669,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "red",
+                  "fixedColor": "blue",
                   "mode": "fixed"
                 }
               }
@@ -765,7 +799,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "P-y_MHqnz"
+        "uid": "vDQZujq7z"
       },
       "gridPos": {
         "h": 8,
@@ -793,6 +827,7 @@
             "type": "elasticsearch",
             "uid": "P-y_MHqnz"
           },
+          "hide": false,
           "metrics": [
             {
               "id": "1",
@@ -819,7 +854,7 @@
     "list": []
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {
@@ -828,6 +863,6 @@
   "timezone": "",
   "title": "Plant-Nutrient-Control",
   "uid": "rihEZHqnk",
-  "version": 41,
+  "version": 5,
   "weekStart": "monday"
 }
