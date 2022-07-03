@@ -7,10 +7,10 @@ const INDEX = 'pns';
 
 $elasticsearchConnection = null;
 $lastInsertedId = null;
-$server = '192.168.XXX.XXX';
+$server = '192.168.2.188';
 
 try {
-    $elasticsearchConnection = ClientBuilder::create()->setHosts([$server])->build();
+    $elasticsearchConnection = ClientBuilder::create()->setHosts(['51.75.64.177'])->build();
     $indexExists = $elasticsearchConnection->indices()->exists(['index' => 'pns']);
 
     if(!$indexExists) {
