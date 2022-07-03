@@ -100,7 +100,6 @@ class SolverResult extends BaseModel {
         $message = \PNS\SolverResult::solveNutrientSolution();
 
         $mqtt->publish('solverResult', $message);
-        error_to_logFile("WAS HERE");
 
         return $message;
     }
