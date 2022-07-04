@@ -653,31 +653,5 @@
                 "ce579e8c2991573f"
             ]
         ]
-    },
-    {
-        "id": "5a1d20df06b2a528",
-        "type": "mqtt-broker",
-        "name": "",
-        "broker": "192.168.188.54",
-        "port": "8883",
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": false,
-        "protocolVersion": "4",
-        "keepalive": "60",
-        "cleansession": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
-        "willMsg": {},
-        "sessionExpiry": ""
     }
 ]
