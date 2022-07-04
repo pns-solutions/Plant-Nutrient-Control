@@ -38,10 +38,12 @@ try {
 
 }
 
-//replace with database call
+// replace with database call
 // should use all sensors which are in the database and are active
-//$newSensorValue = new Sensor();
-//$newSensorValue->find()
+// because the database call is asynchronous, and we should avoid such high traffic, we should use a cache.
+// This cache should be updated every time a sensor is added or removed. If the cache is empty, we should use the database call.
+// $newSensorValue = new Sensor();
+// $newSensorValue->find()
 $topics = array(
     "df/EC" => 1,
     "df/PH" => 2,
