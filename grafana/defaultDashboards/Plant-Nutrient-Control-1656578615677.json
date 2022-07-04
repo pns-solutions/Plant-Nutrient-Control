@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 3,
   "links": [],
   "liveNow": true,
   "panels": [
@@ -854,7 +854,7 @@
     "list": []
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {
@@ -862,7 +862,7 @@
   },
   "timezone": "",
   "title": "Plant-Nutrient-Control",
-  "uid": "rihEZHqnk",
-  "version": 5,
+  "uid": "PNS",
+  "version": 3,
   "weekStart": "monday"
 }
