@@ -38,6 +38,8 @@ try {
 
 }
 
+
+
 // replace with database call
 // should use all sensors which are in the database and are active
 // because the database call is asynchronous, and we should avoid such high traffic, we should use a cache.
@@ -82,6 +84,9 @@ $mqtt->subscribe("sensorList/response", function ($topic, $data) use ($mqtt) {
     }
 
 }, 0);
+
+// on each start of the sensor_controller.php, we trigger the sensorList
+$mqtt->publish('sensorList/request', "", 0);
 
 try {
     $mqtt->loop(true);
