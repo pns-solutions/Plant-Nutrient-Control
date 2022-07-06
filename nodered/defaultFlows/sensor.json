@@ -1,8 +1,37 @@
 [
   {
-    "id": "41cdc2badd16176e",
+    "id": "4dadbe68de377ff3",
+    "type": "tab",
+    "label": "Sensoren",
+    "disabled": false,
+    "info": "",
+    "env": []
+  },
+  {
+    "id": "d35545fad67d301b",
+    "type": "mqtt in",
+    "z": "4dadbe68de377ff3",
+    "name": "",
+    "topic": "sensorList/request",
+    "qos": "2",
+    "datatype": "auto",
+    "broker": "5a1d20df06b2a528",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 250,
+    "y": 100,
+    "wires": [
+      [
+        "a2025d84d4810683"
+      ]
+    ]
+  },
+  {
+    "id": "e221a5184068b5a6",
     "type": "inject",
-    "z": "e4a8df2d83d89df3",
+    "z": "4dadbe68de377ff3",
     "name": "neu angelegten Sensor einfügen",
     "props": [
       {
@@ -24,8 +53,139 @@
     "y": 180,
     "wires": [
       [
-        "7d7e8085c3e5b88f"
+        "a2025d84d4810683"
       ]
     ]
+  },
+  {
+    "id": "0cf7a478411c2282",
+    "type": "mqtt out",
+    "z": "4dadbe68de377ff3",
+    "name": "",
+    "topic": "sensorList/response",
+    "qos": "",
+    "retain": "",
+    "respTopic": "",
+    "contentType": "",
+    "userProps": "",
+    "correl": "",
+    "expiry": "",
+    "broker": "5a1d20df06b2a528",
+    "x": 780,
+    "y": 140,
+    "wires": []
+  },
+  {
+    "id": "a2025d84d4810683",
+    "type": "function",
+    "z": "4dadbe68de377ff3",
+    "name": "Sensorliste",
+    "func": "msg.payload = {\n    \"df/EC\" : \"1\",\n    \"df/PH\" : \"2\",\n    \"df/KCl\" :\"3\",\n    \"df/N\": \"4\",\n    \"df/X\": \"5\",\n    \"df/ZZ\": \"6\"\n}\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 470,
+    "y": 140,
+    "wires": [
+      [
+        "0cf7a478411c2282"
+      ]
+    ]
+  },
+  {
+    "id": "324461a8f0c3c17d",
+    "type": "mqtt in",
+    "z": "4dadbe68de377ff3",
+    "name": "",
+    "topic": "sensorList/response",
+    "qos": "2",
+    "datatype": "auto",
+    "broker": "5a1d20df06b2a528",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 1010,
+    "y": 140,
+    "wires": [
+      [
+        "72552a8df44d796e"
+      ]
+    ]
+  },
+  {
+    "id": "72552a8df44d796e",
+    "type": "debug",
+    "z": "4dadbe68de377ff3",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1210,
+    "y": 140,
+    "wires": []
+  },
+  {
+    "id": "9cdebc43e0ed9039",
+    "type": "comment",
+    "z": "4dadbe68de377ff3",
+    "name": "Hinweis zur Benutzung",
+    "info": "Der Button hat einen intervall von 30 Minuten in dem die Liste mit Sensoren dem Sensorcontroller erneut zur verfügung gestellt werden.\n\nDies kann auch manuell durch das betätigen des Buttons geschehen.\n\nSolange dieser prozess noch nicht angestoen wurde, werden neue Sensoren nicht in der Datenbank gespeichert und alte Sensoren werden weiterhin bearbeitet.\n\n!! Wichtig: vor dem betätigen des Buttons muss der Übernahme(deploy) knopf betätigt werden.!!",
+    "x": 140,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "7e65265d07c2f4f8",
+    "type": "comment",
+    "z": "4dadbe68de377ff3",
+    "name": "Hier die Sensorenliste eingeben",
+    "info": "",
+    "x": 530,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "f99b502d88c3d139",
+    "type": "comment",
+    "z": "4dadbe68de377ff3",
+    "name": "Mit dem Button die aktualisierte Liste bestätigen!",
+    "info": "",
+    "x": 220,
+    "y": 220,
+    "wires": []
+  },
+  {
+    "id": "5a1d20df06b2a528",
+    "type": "mqtt-broker",
+    "name": "",
+    "broker": "192.168.178.74",
+    "port": "8883",
+    "clientid": "",
+    "autoConnect": true,
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "birthMsg": {},
+    "closeTopic": "",
+    "closeQos": "0",
+    "closePayload": "",
+    "closeMsg": {},
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": "",
+    "willMsg": {},
+    "sessionExpiry": ""
   }
 ]
