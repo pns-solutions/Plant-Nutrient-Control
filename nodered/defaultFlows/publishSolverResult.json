@@ -189,31 +189,5 @@
                 "a8d474f6649e11dd"
             ]
         ]
-    },
-    {
-        "id": "5a1d20df06b2a528",
-        "type": "mqtt-broker",
-        "name": "",
-        "broker": "raspberrypi.local",
-        "port": "8883",
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": false,
-        "protocolVersion": "4",
-        "keepalive": "60",
-        "cleansession": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
-        "willMsg": {},
-        "sessionExpiry": ""
     }
 ]
