@@ -44,41 +44,44 @@ try {
 // This cache should be updated every time a sensor is added or removed. If the cache is empty, we should use the database call.
 // $newSensorValue = new Sensor();
 // $newSensorValue->find()
-$topics = array(
-    "df/EC" => 1,
-    "df/PH" => 2,
-    "df/KCl" => 3,
-    "df/N" => 4
-);
 
-foreach ($topics as $topic => $value) {
-    try {
-        $mqtt->subscribe($topic, function ($topic, $data) use ($mqtt, $value) {
-            printf("%s\n", date('c'));
-            printf("Received message on topic [%s]: %s\n", $topic, $data);
+$mqtt->subscribe("sensorList/response", function ($topic, $data) use ($mqtt) {
+    $sensorList = json_decode($data, true);
+    foreach ($sensorList as $sensor => $value) {
+        try {
+            $mqtt->unsubscribe($sensor);
 
-            $mqtt->publish('sensorControllerTest/EC', $topic, 0);
+            $mqtt->subscribe($sensor, function ($sensor, $data) use ($mqtt, $value) {
+                printf("%s\n", date('c'));
+                printf("Received message on topic [%s]: %s\n", $sensor, $data);
 
-            $parameter = array(
-                'sensorId' => $value,
-                'timestamp' => date('c'),
-                'topic' => $topic,
-                'reading' => floatval($data),
-                'convertedReading' => $data * 0.1,
-                'unit' => "ml",
-                'tableId' => 1
-            );
-            $newSensorValue = new SensorMeasurement($parameter);
-            $newSensorValue->save();
+                $mqtt->publish('sensorControllerTest/EC', $sensor, 0);
+
+                $parameter = array(
+                    'sensorId' => $value,
+                    'timestamp' => date('c'),
+                    'topic' => $sensor,
+                    'reading' => floatval($data),
+                    'convertedReading' => $data * 0.1,
+                    'unit' => "ml",
+                    'tableId' => 1
+                );
+                $newSensorValue = new SensorMeasurement($parameter);
+                $newSensorValue->save();
 
 
-        }, 0);
-    } catch (DataTransferException $e) {
-        printf("DataTransferException: There was an Error while subscribing to [%s]\n Exceptions was: %s\n", $topic, $e);
-    } catch (RepositoryException $e) {
-        printf("RepositoryException: There was an Error while subscribing to [%s]\n Exceptions was: %s\n", $topic, $e);
+            }, 0);
+        } catch (DataTransferException $e) {
+            printf("DataTransferException: There was an Error while subscribing to [%s]\n Exceptions was: %s\n", $sensor, $e);
+        } catch (RepositoryException $e) {
+            printf("RepositoryException: There was an Error while subscribing to [%s]\n Exceptions was: %s\n", $sensor, $e);
+        }
+
+        printf($sensor);
+        printf("\n");
     }
-}
+
+}, 0);
 
 try {
     $mqtt->loop(true);
