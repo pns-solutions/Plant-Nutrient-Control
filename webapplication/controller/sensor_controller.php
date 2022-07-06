@@ -49,18 +49,18 @@ try {
 
 $mqtt->subscribe("sensorList/response", function ($topic, $data) use ($mqtt) {
     $sensorList = json_decode($data, true);
-    foreach ($sensorList as $sensor => $value) {
+    foreach ($sensorList as $sensor) {
         try {
             $mqtt->unsubscribe($sensor);
 
-            $mqtt->subscribe($sensor, function ($sensor, $data) use ($mqtt, $value) {
+            $mqtt->subscribe($sensor, function ($sensor, $data) use ($mqtt) {
                 printf("%s\n", date('c'));
                 printf("Received message on topic [%s]: %s\n", $sensor, $data);
 
                 $mqtt->publish('sensorControllerTest/EC', $sensor, 0);
 
                 $parameter = array(
-                    'sensorId' => $value,
+                    'sensorId' => 1,
                     'timestamp' => date('c'),
                     'topic' => $sensor,
                     'reading' => floatval($data),
