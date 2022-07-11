@@ -53,8 +53,6 @@ try {
                         printf("%s\n", date('c'));
                         printf("Received message on topic [%s]: %s\n", $sensor, $data);
 
-                        $mqtt->publish('sensorControllerTest/EC', $sensor);
-
                         $parameter = array(
                             'sensorId' => 1,
                             'timestamp' => date('c'),
@@ -65,8 +63,10 @@ try {
                             'tableId' => 1
                         );
                         $newSensorValue = new SensorMeasurement($parameter);
-                        $newSensorValue->save();
-
+                        $error = $newSensorValue->save();
+                        foreach ($error as $errorMessage) {
+                            printf("Error: %s\n", $errorMessage);
+                        }
 
                     }, 0);
                 } catch (DataTransferException $e) {
