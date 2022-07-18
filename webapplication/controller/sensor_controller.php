@@ -25,18 +25,15 @@ $server = $GLOBALS['server'];
 echo $server;
 try {
     $mqtt = new MqttClient($server, $port, $clientId);
-} catch (ProtocolNotSupportedException $e) {
-    printf("MqttClientException: There was an Error while setting up the MqttClient\n Exceptions was: %s\n", $e);
 
-}
-try {
-    $mqtt->connect($connectionSettings, false);
-} catch (ConfigurationInvalidException $e) {
-    printf("MqttClientException: There was an Error while connect to the MqttClient\n Exceptions was: %s\n", $e);
-} catch (ConnectingToBrokerFailedException $e) {
-    printf("MqttClientException: There was an Error while connect to the MqttClient\n Exceptions was: %s\n", $e);
+    try {
+        $mqtt->connect($connectionSettings, false);
+    } catch (ConfigurationInvalidException $e) {
+        printf("MqttClientException: There was an Error while connect to the MqttClient\n Exceptions was: %s\n", $e);
+    } catch (ConnectingToBrokerFailedException $e) {
+        printf("MqttClientException: There was an Error while connect to the MqttClient\n Exceptions was: %s\n", $e);
+    }
 
-}
 
 // replace with database call
 // should use all sensors which are in the database and are active
@@ -44,55 +41,74 @@ try {
 // This cache should be updated every time a sensor is added or removed. If the cache is empty, we should use the database call.
 // $newSensorValue = new Sensor();
 // $newSensorValue->find()
-$topics = array(
-    "df/EC" => 1,
-    "df/PH" => 2,
-    "df/KCl" => 3,
-    "df/N" => 4
-);
 
-foreach ($topics as $topic => $value) {
     try {
-        $mqtt->subscribe($topic, function ($topic, $data) use ($mqtt, $value) {
-            printf("%s\n", date('c'));
-            printf("Received message on topic [%s]: %s\n", $topic, $data);
+        $mqtt->subscribe("sensorList/response", function ($topic, $data) use ($mqtt) {
+            $sensorList = json_decode($data, true);
+            foreach ($sensorList as $sensor) {
+                try {
+                    $mqtt->unsubscribe($sensor);
 
-            $mqtt->publish('sensorControllerTest/EC', $topic, 0);
+                    $mqtt->subscribe($sensor, function ($sensor, $data) use ($mqtt) {
+                        printf("%s\n", date('c'));
+                        printf("Received message on topic [%s]: %s\n", $sensor, $data);
 
-            $parameter = array(
-                'sensorId' => $value,
-                'timestamp' => date('c'),
-                'topic' => $topic,
-                'reading' => floatval($data),
-                'convertedReading' => $data * 0.1,
-                'unit' => "ml",
-                'tableId' => 1
-            );
-            $newSensorValue = new SensorMeasurement($parameter);
-            $newSensorValue->save();
+                        $parameter = array(
+                            'sensorId' => 1,
+                            'timestamp' => date('c'),
+                            'topic' => $sensor,
+                            'reading' => floatval($data),
+                            'convertedReading' => $data * 0.1,
+                            'unit' => "ml",
+                            'tableId' => 1
+                        );
+                        $newSensorValue = new SensorMeasurement($parameter);
+                        $error = $newSensorValue->save();
+                        foreach ($error as $errorMessage) {
+                            printf("Error: %s\n", $errorMessage);
+                        }
 
-
+                    }, 0);
+                } catch (DataTransferException $e) {
+                    printf("DataTransferException: There was an Error while subscribing to [%s]\n Exceptions was: %s\n", $sensor, $e);
+                } catch (RepositoryException $e) {
+                    printf("RepositoryException: There was an Error while subscribing to [%s]\n Exceptions was: %s\n", $sensor, $e);
+                }
+            }
         }, 0);
+
     } catch (DataTransferException $e) {
-        printf("DataTransferException: There was an Error while subscribing to [%s]\n Exceptions was: %s\n", $topic, $e);
+        printf("DataTransferException: There was an Error while subscribing to sensorList/response\n Exceptions was: %s\n", $e);
     } catch (RepositoryException $e) {
-        printf("RepositoryException: There was an Error while subscribing to [%s]\n Exceptions was: %s\n", $topic, $e);
+        printf("DataTransferException: There was an Error while subscribing to sensorList/response\n Exceptions was: %s\n", $e);
     }
+
+// on each start of the sensor_controller.php, we trigger the sensorList
+    try {
+        $mqtt->publish('sensorList/request', "");
+    } catch (DataTransferException $e) {
+        printf("DataTransferException: There was an Error while publishing to sensorList/request\n Exceptions was: %s\n", $e);
+    } catch (RepositoryException $e) {
+        printf("DataTransferException: There was an Error while publishing to sensorList/request\n Exceptions was: %s\n", $e);
+    }
+
+    try {
+        $mqtt->loop(true);
+    } catch (DataTransferException $e) {
+        printf("DataTransferException: There was an Error while looping the MQTT\n Exceptions was: %s\n", $e);
+    } catch (InvalidMessageException $e) {
+        printf("InvalidMessageException: There was an Error while looping the MQTT\n Exceptions was: %s\n", $e);
+    } catch (ProtocolViolationException $e) {
+        printf("ProtocolViolationException: There was an Error while looping the MQTT\n Exceptions was: %s\n", $e);
+    } catch (MqttClientException $e) {
+        printf("MqttClientException: There was an Error while looping the MQTT\n Exceptions was: %s\n", $e);
+    }
+
+
+} catch (ProtocolNotSupportedException $e) {
+    printf("MqttClientException: There was an Error while setting up the MqttClient\n Exceptions was: %s\n", $e);
 }
 
-try {
-    $mqtt->loop(true);
-} catch (DataTransferException $e) {
-    printf("DataTransferException: There was an Error while looping the MQTT\n Exceptions was: %s\n", $e);
 
-} catch (InvalidMessageException $e) {
-    printf("InvalidMessageException: There was an Error while looping the MQTT\n Exceptions was: %s\n", $e);
 
-} catch (ProtocolViolationException $e) {
-    printf("ProtocolViolationException: There was an Error while looping the MQTT\n Exceptions was: %s\n", $e);
-
-} catch (MqttClientException $e) {
-    printf("MqttClientException: There was an Error while looping the MQTT\n Exceptions was: %s\n", $e);
-
-}
 

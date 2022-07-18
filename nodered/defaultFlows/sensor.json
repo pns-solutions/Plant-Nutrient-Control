@@ -1,0 +1,441 @@
+[
+  {
+    "id": "9317b3b9e27e16f6",
+    "type": "tab",
+    "label": "Sensoren",
+    "disabled": false,
+    "info": "",
+    "env": []
+  },
+  {
+    "id": "21ff323825af14cc",
+    "type": "mqtt in",
+    "z": "9317b3b9e27e16f6",
+    "name": "",
+    "topic": "sensorList/request",
+    "qos": "2",
+    "datatype": "auto",
+    "broker": "5a1d20df06b2a528",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 230,
+    "y": 160,
+    "wires": [
+      [
+        "1d1e077b445f4cee"
+      ]
+    ]
+  },
+  {
+    "id": "78dfc3ab55ccc745",
+    "type": "inject",
+    "z": "9317b3b9e27e16f6",
+    "name": "neu angelegten Sensor einfügen",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "1800",
+    "crontab": "",
+    "once": true,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 180,
+    "y": 240,
+    "wires": [
+      [
+        "1d1e077b445f4cee"
+      ]
+    ]
+  },
+  {
+    "id": "7cd8e8618ee0aaa1",
+    "type": "mqtt out",
+    "z": "9317b3b9e27e16f6",
+    "name": "",
+    "topic": "sensorList/response",
+    "qos": "",
+    "retain": "",
+    "respTopic": "",
+    "contentType": "",
+    "userProps": "",
+    "correl": "",
+    "expiry": "",
+    "broker": "5a1d20df06b2a528",
+    "x": 1000,
+    "y": 220,
+    "wires": []
+  },
+  {
+    "id": "c5f8f9d947d90586",
+    "type": "mqtt in",
+    "z": "9317b3b9e27e16f6",
+    "name": "",
+    "topic": "sensorList/response",
+    "qos": "2",
+    "datatype": "auto",
+    "broker": "5a1d20df06b2a528",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 110,
+    "y": 460,
+    "wires": [
+      [
+        "83cf8f56c2ec256f"
+      ]
+    ]
+  },
+  {
+    "id": "83cf8f56c2ec256f",
+    "type": "debug",
+    "z": "9317b3b9e27e16f6",
+    "name": "",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 310,
+    "y": 460,
+    "wires": []
+  },
+  {
+    "id": "654e3d98a4816753",
+    "type": "comment",
+    "z": "9317b3b9e27e16f6",
+    "name": "Hinweis zur Benutzung",
+    "info": "Der Button hat einen intervall von 30 Minuten in dem die Liste mit Sensoren dem Sensorcontroller erneut zur verfügung gestellt werden.\n\nDies kann auch manuell durch das betätigen des Buttons geschehen.\n\nSolange dieser prozess noch nicht angestoen wurde, werden neue Sensoren nicht in der Datenbank gespeichert und alte Sensoren werden weiterhin bearbeitet.\n\n!! Wichtig: vor dem betätigen des Buttons muss der Übernahme(deploy) knopf betätigt werden.!!",
+    "x": 140,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "fe8861961f95a942",
+    "type": "comment",
+    "z": "9317b3b9e27e16f6",
+    "name": "Einfach neuen Sensor hinzufügen (copy/paste)",
+    "info": "",
+    "x": 670,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "8803fcc809b3ba8c",
+    "type": "comment",
+    "z": "9317b3b9e27e16f6",
+    "name": "Mit dem Button die aktualisierte Liste manuell bestätigen!",
+    "info": "",
+    "x": 230,
+    "y": 280,
+    "wires": []
+  },
+  {
+    "id": "6f58f717c91326ab",
+    "type": "join",
+    "z": "9317b3b9e27e16f6",
+    "name": "",
+    "mode": "custom",
+    "build": "array",
+    "property": "payload",
+    "propertyType": "msg",
+    "key": "topic",
+    "joiner": "\\n",
+    "joinerType": "str",
+    "accumulate": false,
+    "timeout": "0.5",
+    "count": "",
+    "reduceRight": false,
+    "reduceExp": "",
+    "reduceInit": "",
+    "reduceInitType": "",
+    "reduceFixup": "",
+    "x": 810,
+    "y": 200,
+    "wires": [
+      [
+        "735f9d66eb6b43d9",
+        "7cd8e8618ee0aaa1"
+      ]
+    ]
+  },
+  {
+    "id": "735f9d66eb6b43d9",
+    "type": "debug",
+    "z": "9317b3b9e27e16f6",
+    "name": "",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 970,
+    "y": 180,
+    "wires": []
+  },
+  {
+    "id": "f7782b09cf765f9a",
+    "type": "change",
+    "z": "9317b3b9e27e16f6",
+    "name": "EC",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "df/EC",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 610,
+    "y": 100,
+    "wires": [
+      [
+        "6f58f717c91326ab"
+      ]
+    ]
+  },
+  {
+    "id": "6ab42e4bda83426f",
+    "type": "change",
+    "z": "9317b3b9e27e16f6",
+    "name": "PH",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "df/PH",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 610,
+    "y": 140,
+    "wires": [
+      [
+        "6f58f717c91326ab"
+      ]
+    ]
+  },
+  {
+    "id": "c697708b4a9ab193",
+    "type": "change",
+    "z": "9317b3b9e27e16f6",
+    "name": "KCl",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "df/KCl",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 610,
+    "y": 180,
+    "wires": [
+      [
+        "6f58f717c91326ab"
+      ]
+    ]
+  },
+  {
+    "id": "d20f904253847723",
+    "type": "change",
+    "z": "9317b3b9e27e16f6",
+    "name": "N",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "df/N",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 610,
+    "y": 220,
+    "wires": [
+      [
+        "6f58f717c91326ab"
+      ]
+    ]
+  },
+  {
+    "id": "a089d14d69b4e367",
+    "type": "change",
+    "z": "9317b3b9e27e16f6",
+    "name": "X",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "df/X",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 610,
+    "y": 260,
+    "wires": [
+      [
+        "6f58f717c91326ab"
+      ]
+    ]
+  },
+  {
+    "id": "3c7da8e27208f2ec",
+    "type": "change",
+    "z": "9317b3b9e27e16f6",
+    "name": "N",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "df/ZZ",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 610,
+    "y": 300,
+    "wires": [
+      [
+        "6f58f717c91326ab"
+      ]
+    ]
+  },
+  {
+    "id": "1d1e077b445f4cee",
+    "type": "function",
+    "z": "9317b3b9e27e16f6",
+    "name": "",
+    "func": "\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 420,
+    "y": 200,
+    "wires": [
+      [
+        "3c7da8e27208f2ec",
+        "a089d14d69b4e367",
+        "f7782b09cf765f9a",
+        "6ab42e4bda83426f",
+        "c697708b4a9ab193",
+        "d20f904253847723",
+        "91bfc51c16a03793"
+      ]
+    ]
+  },
+  {
+    "id": "6a9710450a1ccbb3",
+    "type": "comment",
+    "z": "9317b3b9e27e16f6",
+    "name": "Nur zum Deguggen",
+    "info": "",
+    "x": 110,
+    "y": 420,
+    "wires": []
+  },
+  {
+    "id": "91bfc51c16a03793",
+    "type": "change",
+    "z": "9317b3b9e27e16f6",
+    "name": "hanswurst",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "hanswurst",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 630,
+    "y": 340,
+    "wires": [
+      [
+        "6f58f717c91326ab"
+      ]
+    ]
+  },
+  {
+    "id": "5a1d20df06b2a528",
+    "type": "mqtt-broker",
+    "name": "",
+    "broker": "192.168.178.74",
+    "port": "8883",
+    "clientid": "",
+    "autoConnect": true,
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "birthMsg": {},
+    "closeTopic": "",
+    "closeQos": "0",
+    "closePayload": "",
+    "closeMsg": {},
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": "",
+    "willMsg": {},
+    "sessionExpiry": ""
+  }
+]
