@@ -34,7 +34,8 @@ const NUTRIENTS_ELEMENT_TO_NAME = [
     'Mo' => 'Molybdän',
     'Cl' => 'Chlor',
     'Si' => 'Silicium',
-    'C' => 'Kohlenstoff'
+    'C' => 'Kohlenstoff',
+    'N' => 'Stickstoff'
 ];
 
 const NUTRIENTS_NAME_TO_ELEMENT = [
@@ -52,7 +53,8 @@ const NUTRIENTS_NAME_TO_ELEMENT = [
     'Molybdän' => 'Mo',
     'Chlor' => 'Cl',
     'Silicium' => 'Si',
-    'Kohlenstoff' => 'C'
+    'Kohlenstoff' => 'C',
+    'Stickstoff' => 'N'
 ];
 
 const NUTRIENTS_NAME_TO_ID = [
@@ -70,7 +72,8 @@ const NUTRIENTS_NAME_TO_ID = [
     'Molybdän' => 11,
     'Chlor' => 12,
     'Silicium' => 13,
-    'Kohlenstoff' => 14
+    'Kohlenstoff' => 14,
+    'Stickstoff' => 15
 ];
 
 const NUTRIENTS_ELEMENT_TO_ID = [
@@ -88,7 +91,8 @@ const NUTRIENTS_ELEMENT_TO_ID = [
     'Mo' => 11,
     'Cl' => 12,
     'Si' => 13,
-    'C' => 14
+    'C' => 14,
+    'N' => 15
 ];
 
 const NUTRIENTS = [
@@ -106,5 +110,6 @@ const NUTRIENTS = [
     'Molybdän',
     'Chlor',
     'Silicium',
-    'Kohlenstoff'
+    'Kohlenstoff',
+    'Stickstoff'
 ];
