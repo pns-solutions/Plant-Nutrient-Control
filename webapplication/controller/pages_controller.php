@@ -68,7 +68,11 @@ class PagesController extends Controller{
 
                 $newCulture = new Culture($params);
 
-                $error = $newCulture->save();
+                $error = $newCulture->validateCulture();
+
+                if(empty($error)) {
+                    $error = $newCulture->save();
+                }
 
                 if(empty($error)) {
                     Culture::deleteWhere($_GET['plantId']);
@@ -90,8 +94,13 @@ class PagesController extends Controller{
             ]; // end culture
 
             $newCulture = new Culture($params);
-            $error = $newCulture->save();
-            sleep(1);
+
+            $error = $newCulture->validateCulture();
+
+            if(empty($error)) {
+                $error = $newCulture->save();
+                sleep(1);
+            }
 
             if(empty($error)) {
                 sendHeaderByControllerAndAction('pages', 'addCulture&plantId=' . $GLOBALS['lastInsertedId']);
