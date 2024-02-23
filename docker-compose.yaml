@@ -16,6 +16,8 @@ services:
     volumes:
       - grafanaData:/var/lib/grafana
       - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+    networks:
+      - hydrofluxnetwork
 
   #=====================#
   #       Influx       #
@@ -28,6 +30,8 @@ services:
     volumes:
       - influxData:/var/lib/influxdb2
       - ./influx/config.yml:/etc/influxdb2/config.yml
+    networks:
+      - hydrofluxnetwork
 
   #=====================#
   #       Telegraf       #
@@ -43,6 +47,8 @@ services:
       - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf
     depends_on:
       - influxdb
+    networks:
+      - hydrofluxnetwork
 
   #=================================#
   #      Mosquitto MQTT Broker      #
@@ -56,6 +62,8 @@ services:
       - mosquittoLog:/mosquitto/log
       - mosquittoData:/mosquitto/data
       - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    networks:
+      - hydrofluxnetwork
 
   #=================================#
   #            Node Red             #
@@ -69,6 +77,8 @@ services:
     volumes:
       - noderedData:/data
       - ./nodered/defaultFlows:/data/lib/flows
+    networks:
+      - hydrofluxnetwork
 
 
 #====================#
@@ -81,3 +91,9 @@ volumes:
   mosquittoData:
   influxData:
 
+
+#====================#
+#      Networks      #
+#====================#
+networks:
+  hydrofluxnetwork:
