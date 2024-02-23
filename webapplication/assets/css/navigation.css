@@ -1,0 +1,221 @@
+nav {
+    overflow: hidden;
+    background-color: var(--secondary-bg-color);
+    padding-right: 20px;    /* margin to the right side, to get space for the submenue */
+    width:100%;
+    float:right;
+    display: block;
+}
+
+.navfloat{
+    float:right;
+}
+
+nav a {
+    float: left;
+    display: block;
+    color: var(--secondary-text-color);
+    text-align: center;
+    text-decoration: none;
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    border: none;
+    color: var(--secondary-text-color);
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    height: 60px;
+    width: 70px;
+}
+
+nav a, .dropbtn {
+    padding: 18px 20px;          /* space around the boxes */
+    height: 60px;
+}
+
+.dropdown-content {
+    display: none;
+    width:250px;
+    position: absolute;
+    min-width: 160px;
+    z-index: 1;
+    margin-left: -140px;
+    height: 55px;
+}
+
+.dropdown-content a {
+    float: none;
+    background-color: var(--dropdown-content-color);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    height: 80%;
+}
+
+.dropdown form{
+    width: 100%;
+}
+
+.dropdown i{
+    color: var(--secondary-text-color);
+}
+
+.dropdown form input:focus, .dropdown form select:focus{
+    border: 0;
+    box-shadow: none;
+}
+
+nav a:hover .switch, .dropdown:hover, .dropdown-content a:hover, .dropdown-content input:hover, .dropdown:hover #menuIcon, .dropdown-content a:hover > #icon{
+    background-color: var(--hover-color);
+    color: var(--secondary-bg-color);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+input#responsive-nav,
+label.responsive-nav-label {
+    display: none;
+}
+
+
+/* ----------------------------------   Navigationbar #Content   ---------------------------------- */
+/* Topic inside the Navigationbar */
+.NavContent {
+    background: var(--secondary-bg-color);
+    display: block;
+    height: 110px;
+    font-size: 2em;
+    white-space: nowrap;
+    width:100%;
+}
+
+.logoNav {
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    height: 60px;
+    margin-bottom: 5px;
+}
+
+.menuLinksFlexContainer {
+    height: fit-content;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap; /* Standardwert = nowrap */
+}
+
+.menuLinksFlexItem {
+    justify-items: center;
+    width: auto;
+    height: 100%;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+}
+
+.menuLinksFlexItem h2 {
+    margin: auto;
+}
+
+.navSelected {
+    color: var(--hover-color);
+}
+
+.NavContent h2, h4{
+    vertical-align: 9px;
+    display: inline;
+    /*margin-left: 10px;*/
+    color: var(--secondary-text-color);
+}
+
+.NavContent img {
+    display: inline;
+    height: 100%;
+}
+
+.NavContent a {
+    display: inline;
+    text-decoration: none;  /* delete underline from the links */
+}
+
+/* color selected navigation section */
+.NavContent :hover {
+    color: var(--hover-color);            /* set the font color from the links */
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: auto;
+    float: right;
+    background-color: var(--dropdown-content-color)!important;
+
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 85%;
+    width: 24px!important;
+    left: 4px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
