@@ -81,9 +81,3 @@ volumes:
   mosquittoData:
   influxData:
 
-
-#====================#
-#      Networks      #
-#====================#
-networks:
-  hydrofluxnetwork:
