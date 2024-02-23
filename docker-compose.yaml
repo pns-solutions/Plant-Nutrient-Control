@@ -4,76 +4,107 @@ version: "3.3"
 #      Services      #
 #====================#
 services:
+  #=====================#
+  #       WebApp        #
+  #=====================#
+  webapplication:
+    build: ./webapplication
+    container_name: webapplication
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - webapplicationData:/data
+      - ./webapplication:/var/www/html/
+    networks:
+      - edge
+
+
+  #=====================#
+  #    elasticsearch    #
+  #=====================#
+  elasticsearch:
+    build: ./elasticsearch
+    image: comworkio/elasticsearch:7.16.1-1.13-arm
+    container_name: elasticsearch
+    restart: unless-stopped
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - elasticsearchData:/var/lib/elasticsearch
+    networks:
+      - edge
+
+#  #=====================#
+#  #       kibana        #
+#  #=====================#
+#  kibana:
+#    build: ./kibana
+#    image: comworkio/kibana:7.16.1-1.13-arm
+#    container_name: kibana
+#    ports:
+#      - "5601:5601"
+#    environment:
+#      - ES_PROTO=http
+#      - ES_HOST=elasticsearch
+#      - ES_PORT=9200
+#    volumes:
+#      - kibanaData:/var/lib/kibana
+#    networks:
+#      - edge
+#    depends_on:
+#      - elasticsearch
 
   #=====================#
   #       Grafana       #
   #=====================#
   grafana:
+    image: grafana/grafana:8.5.6
     container_name: grafana
-    image: grafana/grafana:10.3.3
     restart: unless-stopped
     ports:
       - "3030:3000"
     volumes:
       - grafanaData:/var/lib/grafana
       - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+    networks:
+      - edge
 
-  #=====================#
-  #       Influx       #
-  #=====================#
-  influxdb:
-    container_name: influxdb
-    image: influxdb:latest
-    restart: unless-stopped
-    ports:
-      - "8086:8086"
-    volumes:
-      - influxData:/var/lib/influxdb2
-      - ./influx/config.yml:/etc/influxdb2/config.yml
 
-  #=====================#
-  #       Telegraf       #
-  #=====================#
-  telegraf:
-    container_name: telegraf
-    image: telegraf:1.29.5
-    restart: unless-stopped
-    ports:
-      - "8092:8092"
-      - "8094:8094"
-      - "8125:8125"
-    volumes:
-      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf
-    depends_on:
-      - influxdb
 
   #=================================#
   #      Mosquitto MQTT Broker      #
   #=================================#
   mosquitto:
+    image: eclipse-mosquitto:1.6.15
     container_name: mosquitto
-    image: eclipse-mosquitto:2.0.18
     restart: unless-stopped
     ports:
       - "8883:1883"
+      - "9001:9001"
     volumes:
       - mosquittoLog:/mosquitto/log
       - mosquittoData:/mosquitto/data
-      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    networks:
+      - edge
 
   #=================================#
   #            Node Red             #
   #=================================#
   nodered:
-    container_name: nodered
     build: ./nodered
-    image: nodered/node-red:3.1
+    image: nodered/node-red:latest
+    container_name: nodered
     restart: unless-stopped
     ports:
       - "1880:1880"
     volumes:
       - noderedData:/data
       - ./nodered/defaultFlows:/data/lib/flows
+    networks:
+      - edge
+
 
 
 #====================#
@@ -82,7 +113,14 @@ services:
 volumes:
   grafanaData:
   noderedData:
+  elasticsearchData:
+  kibanaData:
   mosquittoLog:
   mosquittoData:
-  influxData:
+  webapplicationData:
 
+#====================#
+#      Networks      #
+#====================#
+networks:
+  edge:
