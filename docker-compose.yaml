@@ -55,6 +55,7 @@ services:
     volumes:
       - mosquittoLog:/mosquitto/log
       - mosquittoData:/mosquitto/data
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
 
   #=================================#
   #            Node Red             #
